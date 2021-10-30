@@ -1,0 +1,26 @@
+name: CI
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        script: |
+            app_name=svtv_cards
+            mkdir -p "/apps/${app_name}/"
+            cd "/apps/${app_name}/"
+            git pull
+            source "/apps/${app_name}/.venv/bin/activate"
+            pip install -U -r requirements.txt
+            cp "/apps/${app_name}/config/${app_name}_gunicorn.service" /etc/systemd/system/
+            systemctl daemon-reload
+            systemctl restart "${app_name}_gunicorn"

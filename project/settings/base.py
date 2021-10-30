@@ -53,7 +53,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
-    'default': env.db(default='sqlite://db.sqlite3')
+    'default': env.db(default='sqlite:///db.sqlite3')
 }
 
 
@@ -94,3 +94,5 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+WEBHOOK_KEY = env('WEBHOOK_KEY')
