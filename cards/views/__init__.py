@@ -1,5 +1,5 @@
-from .ghost_webhook_view import ghost_webhook_view
+from .post_updated_webhook import post_updated_webhook
 
 __all__ = [
-    ghost_webhook_view,
+    post_updated_webhook,
 ]

@@ -4,11 +4,13 @@ import environ
 env = environ.Env()
 env.read_env()
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+IMAGES_DIR = BASE_DIR / 'assets'
 
 SECRET_KEY = env('SECRET_KEY', default='django-insecure-sdlz*06c_701ly--j8^#l!au&&4t1j)_e_@jkg#e^a&*w+tv39')
 
-DEBUG = False
+DEBUG = env.bool('DEBUG', default=False)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
@@ -56,7 +58,6 @@ DATABASES = {
     'default': env.db(default='sqlite:///db.sqlite3')
 }
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -96,3 +97,15 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 WEBHOOK_KEY = env('WEBHOOK_KEY')
+GHOST_URL = env('GHOST_URL')
+
+# Celery
+if USE_TZ:
+    CELERY_TIMEZONE = TIME_ZONE
+CELERY_BROKER_URL = env('REDIS_URL')
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_TIME_LIMIT = 5 * 60
+CELERY_TASK_SOFT_TIME_LIMIT = 60

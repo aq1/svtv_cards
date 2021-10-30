@@ -1,0 +1,19 @@
+[Unit]
+Description=celery
+After=network.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/apps/svtv_cards/
+Environment="DJANGO_SETTINGS_MODULE=project.settings.production"
+ExecStart=celery -A project.celery worker
+
+
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+Restart=on-abort
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

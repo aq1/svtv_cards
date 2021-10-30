@@ -2,9 +2,9 @@ from django.urls import (
     path,
 )
 
-from .views import ghost_webhook_view
+from .views import post_updated_webhook
 
 
 urlpatterns = [
-    path('webhook/', ghost_webhook_view, name='ghost_webhook_view'),
+    path('webhook/post_updated/', post_updated_webhook, name='ghost_webhook_view'),
 ]
