@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
-from ..utils import generate_twitter_card
+from ..utils import update_twitter_card
 
 
 def key_required(view):
@@ -35,6 +35,6 @@ def post_updated_webhook(request: HttpRequest) -> HttpResponse:
     if not any([r in previous for r in required_fields]):
         return HttpResponse(status=202)
 
-    generate_twitter_card(post)
+    update_twitter_card.delay(post)
 
     return HttpResponse()

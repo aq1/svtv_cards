@@ -1,17 +1,13 @@
-import io
 import textwrap
-from typing import Optional
 
-import requests
-
-from PIL.Image import Image
 from PIL import (
+    Image,
     ImageFont,
     ImageDraw,
 )
+from PIL.Image import Image as ImageType
 from PIL.ImageFont import FreeTypeFont
 from django.conf import settings
-
 
 FONT_SIZE = 58
 FONT_SPACING = 14
@@ -29,26 +25,20 @@ LOGO_COORDINATES = (60, 84)
 IMAGE_RATIO = 0.65
 
 
-def open_image(name: str) -> Image:
-    return Image.open(settings.IMAGES_DIR / 'images' / name)
+def open_image(name: str) -> ImageType:
+    return Image.open(
+        str(settings.IMAGES_DIR / 'images' / name)
+    )
 
 
 def open_font() -> FreeTypeFont:
     return ImageFont.truetype(
-        settings.IMAGES_DIR / 'fonts' / 'Roboto/Roboto-Medium.ttf',
+        str(settings.IMAGES_DIR / 'fonts' / 'Roboto-Medium.ttf'),
         size=FONT_SIZE,
     )
 
 
-def download_image(image_url: str) -> Optional[Image]:
-    response = requests.get(image_url)
-    if response.status_code != 200:
-        return
-
-    return Image.open(io.BytesIO(response.content))
-
-
-def add_image_to_card(background: Image, image: Image):
+def add_image_to_card(background: ImageType, image: ImageType):
     gradient = open_image('gradient.png')
     ratio = (IMAGE_RATIO * background.width) / image.width
     image = image.resize((int(image.width * ratio), int(image.height * ratio)))
@@ -57,17 +47,7 @@ def add_image_to_card(background: Image, image: Image):
     background.alpha_composite(image, coords)
 
 
-def generate_twitter_card(post: dict) -> None:
-    text: str = post.get('title')
-    image_url: str = post.get('feature_image')
-    image: Optional[Image] = None
-
-    if not text:
-        return
-
-    if image_url:
-        image = download_image(image_url)
-
+def generate_twitter_card(text: str, image: ImageType) -> ImageType:
     background = open_image('news/background.png')
     text_background = open_image('news/text-background.png')
     logo = open_image('logo.png')
@@ -97,5 +77,4 @@ def generate_twitter_card(post: dict) -> None:
     background.alpha_composite(text_background, TEXT_BACKGROUND_COORDINATES)
     background.alpha_composite(logo, LOGO_COORDINATES)
 
-    background.convert('RGB')
-    background.show()
+    return background.convert('RGB')

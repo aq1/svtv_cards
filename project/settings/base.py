@@ -98,6 +98,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 WEBHOOK_KEY = env('WEBHOOK_KEY')
 GHOST_URL = env('GHOST_URL')
+GHOST_ADMIN_KEY = env('GHOST_ADMIN_KEY')
 
 # Celery
 if USE_TZ:

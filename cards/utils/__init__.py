@@ -1,5 +1,5 @@
-from .generate_twitter_card import generate_twitter_card
+from .update_twitter_card import update_twitter_card
 
 __all__ = [
-    generate_twitter_card,
+    update_twitter_card,
 ]
