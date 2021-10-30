@@ -8,7 +8,7 @@ from PIL import (
 from PIL.Image import Image as ImageType
 
 from project.celery import app
-from .generate_twitter_card import generate_twitter_card
+from .generate_twitter_news_card import generate_twitter_news_card
 from .ghost_request import (
     update_post,
     upload_image,
@@ -23,19 +23,28 @@ def download_image(image_url: str) -> Optional[ImageType]:
     return Image.open(io.BytesIO(response.content))
 
 
+generators = {
+    'news': generate_twitter_news_card,
+}
+
+
 @app.task
 def update_twitter_card(post: dict) -> dict:
     text: str = post.get('title')
     image_url: str = post.get('feature_image')
+    primary_tag: str = post.get('primary_tag', {}).get('slug')
     image: Optional[ImageType] = None
 
     if not text:
         return {}
 
+    if primary_tag not in generators:
+        return {}
+
     if image_url:
         image = download_image(image_url)
 
-    image = generate_twitter_card(
+    image = generators[primary_tag](
         text=text,
         image=image,
     )

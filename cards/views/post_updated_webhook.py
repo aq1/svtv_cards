@@ -27,12 +27,13 @@ def post_updated_webhook(request: HttpRequest) -> HttpResponse:
     post = body['post']['current']
     previous = body['post'].get('previous', {})
 
-    required_fields = [
+    fields_to_watch = [
         'title',
         'feature_image',
+        'status',
     ]
 
-    if not any([r in previous for r in required_fields]):
+    if not any([r in previous for r in fields_to_watch]):
         return HttpResponse(status=202)
 
     update_twitter_card.delay(post)
