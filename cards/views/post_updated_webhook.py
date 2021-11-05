@@ -33,7 +33,7 @@ def post_updated_webhook(request: HttpRequest) -> HttpResponse:
         'status',
     ]
 
-    if post['feature_image']:
+    if post['twitter_image']:
         if not any([r in previous for r in fields_to_watch]):
             return HttpResponse(status=202)
 
