@@ -41,7 +41,7 @@ def open_font() -> FreeTypeFont:
 def add_image_to_card(background: ImageType, image: ImageType):
     gradient = open_image('gradient.png')
     ratio = (IMAGE_RATIO * background.width) / image.width
-    image = image.resize((int(image.width * ratio), int(image.height * ratio)))
+    image = image.convert('RGBA').resize((int(image.width * ratio), int(image.height * ratio)))
     image.alpha_composite(gradient, (0, 0))
     coords = (background.width - image.width, 0)
     background.alpha_composite(image, coords)
