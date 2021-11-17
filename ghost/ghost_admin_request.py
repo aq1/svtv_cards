@@ -1,5 +1,4 @@
 import io
-import tempfile
 from datetime import datetime
 from typing import Any, Optional
 

@@ -9,7 +9,7 @@ from PIL.Image import Image as ImageType
 
 from project.celery import app
 from .generate_twitter_news_card import generate_twitter_news_card
-from .ghost_request import (
+from ghost.ghost_admin_request import (
     update_post,
     upload_image,
 )
