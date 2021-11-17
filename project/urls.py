@@ -4,5 +4,5 @@ from django.urls import (
 )
 
 urlpatterns = [
-    path('', include('cards.urls')),
+    path('', include('webhooks.urls')),
 ]

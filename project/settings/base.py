@@ -22,7 +22,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'webhooks',
     'cards',
+    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -99,6 +101,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 WEBHOOK_KEY = env('WEBHOOK_KEY')
 GHOST_URL = env('GHOST_URL')
 GHOST_ADMIN_KEY = env('GHOST_ADMIN_KEY')
+TELEGRAM_TOKEN = env('TELEGRAM_TOKEN')
+TELEGRAM_CHAT_ID = env('TELEGRAM_CHAT_ID')
+TELEGRAM_USER = env('TELEGRAM_USER')
 
 # Celery
 if USE_TZ:
