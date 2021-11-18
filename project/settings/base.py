@@ -1,5 +1,7 @@
 from pathlib import Path
 import environ
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 env = environ.Env()
 env.read_env()
@@ -116,3 +118,11 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_TIME_LIMIT = 5 * 60
 CELERY_TASK_SOFT_TIME_LIMIT = 60
+
+SENTRY_URL = env('SENTRY_URL')
+
+sentry_sdk.init(
+    dsn=SENTRY_URL,
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=1.0,
+)
