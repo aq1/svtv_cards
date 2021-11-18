@@ -6,4 +6,4 @@ def notify_post_unpublished(post, _):
     url = post.get('url')
 
     message = f'Пост снят с публикации\n{title}\n{url}'
-    notify(message=message)
+    notify.delay(message=message)

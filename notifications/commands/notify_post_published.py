@@ -7,4 +7,4 @@ def notify_post_published(post, _):
     tag = post.get('primary_tag', {}).get('name')
 
     message = f'Опубликован пост с тэгом "{tag}"\n{title}\n{url}'
-    notify(message=message)
+    notify.delay(message=message)
