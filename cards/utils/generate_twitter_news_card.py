@@ -13,16 +13,15 @@ FONT_SIZE = 58
 FONT_SPACING = 14
 
 TEXT_WIDTH = 35
-TEXT_MAX_LINES = 5
+TEXT_MAX_LINES = 4
 TEXT_PLACEHOLDER = '...'
 
-TEXT_COORDINATES = (60, 48)
+RIGHT_PADDING = 60
 TEXT_FILL = (255, 255, 255, 255)
 
-TEXT_BACKGROUND_COORDINATES = (0, 220)
-LOGO_COORDINATES = (60, 84)
+LOGO_Y_COORDINATE = 84
 
-IMAGE_RATIO = 0.65
+COVER_OPACITY = 0.35
 
 
 def open_image(name: str) -> ImageType:
@@ -39,42 +38,46 @@ def open_font() -> FreeTypeFont:
 
 
 def add_image_to_card(background: ImageType, image: ImageType):
-    gradient = open_image('gradient.png')
-    ratio = (IMAGE_RATIO * background.width) / image.width
-    image = image.convert('RGBA').resize((int(image.width * ratio), int(image.height * ratio)))
-    image.alpha_composite(gradient, (0, 0))
-    coords = (background.width - image.width, 0)
-    background.alpha_composite(image, coords)
+    coef = max(background.width / image.width, background.height / image.height)
+    new_size = int(image.width * coef), int(image.height * coef)
+    image = image.resize(new_size)
+    image.putalpha(int(COVER_OPACITY * 255))
+    background.alpha_composite(image)
 
 
 def generate_twitter_news_card(text: str, image: ImageType) -> ImageType:
     background = open_image('news/background.png')
-    text_background = open_image('news/text-background.png')
     logo = open_image('logo.png')
     font = open_font()
 
-    text = '\n'.join(
-        textwrap.wrap(
-            text,
-            width=TEXT_WIDTH,
-            max_lines=TEXT_MAX_LINES,
-            placeholder=TEXT_PLACEHOLDER,
-        )
+    text = textwrap.wrap(
+        text,
+        width=TEXT_WIDTH,
+        max_lines=TEXT_MAX_LINES,
+        placeholder=TEXT_PLACEHOLDER,
     )
 
-    draw = ImageDraw.Draw(text_background)
+    text_height = FONT_SIZE * len(text) + FONT_SPACING * len(text) - 1
+
+    # посередине между лого и низом
+    text_y_coord = int(
+        (LOGO_Y_COORDINATE + logo.height + background.height - text_height) / 2
+    )
+
+    text = '\n'.join(text)
+
+    if image:
+        add_image_to_card(background, image)
+
+    draw = ImageDraw.Draw(background)
     draw.multiline_text(
-        TEXT_COORDINATES,
+        (RIGHT_PADDING, text_y_coord),
         text,
         font=font,
         fill=TEXT_FILL,
         spacing=FONT_SPACING,
     )
 
-    if image:
-        add_image_to_card(background, image)
-
-    background.alpha_composite(text_background, TEXT_BACKGROUND_COORDINATES)
-    background.alpha_composite(logo, LOGO_COORDINATES)
+    background.alpha_composite(logo, (RIGHT_PADDING, LOGO_Y_COORDINATE))
 
     return background.convert('RGB')
