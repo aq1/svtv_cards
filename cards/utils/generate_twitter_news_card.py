@@ -12,7 +12,7 @@ from django.conf import settings
 FONT_SIZE = 58
 FONT_SPACING = 14
 
-TEXT_WIDTH = 35
+TEXT_WIDTH = 33
 TEXT_MAX_LINES = 4
 TEXT_PLACEHOLDER = '...'
 
