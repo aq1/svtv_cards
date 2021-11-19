@@ -32,7 +32,12 @@ generators = {
 def update_twitter_card(post: dict) -> dict:
     text: str = post.get('title')
     image_url: str = post.get('feature_image')
-    primary_tag: str = post.get('primary_tag', {}).get('slug')
+
+    try:
+        primary_tag: str = post['primary_tag']['slug']
+    except (TypeError, KeyError):
+        return {}
+
     image: Optional[ImageType] = None
 
     if not text:
@@ -65,6 +70,7 @@ def update_twitter_card(post: dict) -> dict:
         post_id=post.get('id'),
         post_updated_at=post.get('updated_at'),
         data={
+            'og_image': image_url,
             'twitter_image': image_url,
         }
     ).json()
