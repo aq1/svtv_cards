@@ -8,7 +8,7 @@ def notify_post_published(post, _):
     try:
         tag = f'#{post["primary_tag"]["name"]}'
     except (TypeError, KeyError):
-        tag = ''
+        return
 
     message = f'Новая публикация {tag}\n{title}\n{url}'
     notify.delay(message=message)
