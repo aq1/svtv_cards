@@ -1,8 +1,10 @@
+import os
+
 import telegram
 from telegram import (
     Update,
     InlineKeyboardMarkup,
-    InlineKeyboardButton,
+    InlineKeyboardButton, Message,
 )
 from telegram.ext import (
     CallbackContext,
@@ -10,26 +12,30 @@ from telegram.ext import (
 )
 
 
-with open('t.txt') as f:
-    BOT_TOKEN = f.read().strip()
+BOT_TOKEN = os.environ.get('BOT_TOKEN')
+
+if not BOT_TOKEN:
+    with open('t.txt') as f:
+        BOT_TOKEN = f.read().strip()
 
 PATREON_URL = 'https://www.patreon.com/svtvnews'
 COMMENTS_URL = 'https://t.me/c/1639121259/{m}?thread={m}'
 
 
-def callback(update: Update, context: CallbackContext):
-    if update.channel_post.reply_markup:
+def callback(update: Update, _: CallbackContext):
+    message: Message = update.channel_post or update.edited_channel_post
+    if message.reply_markup:
         return
 
     markup = InlineKeyboardMarkup([[
         InlineKeyboardButton('Patreon', url=PATREON_URL),
-        InlineKeyboardButton('Comments', url=COMMENTS_URL.format(m=update.channel_post.message_id))
+        InlineKeyboardButton('Comments', url=COMMENTS_URL.format(m=message.message_id))
     ]])
-    update.channel_post.edit_reply_markup(markup)
+    message.edit_reply_markup(markup)
 
 
 channel_handler = telegram.ext.MessageHandler(
-    filters=Filters.update.channel_post & Filters.update.edited_channel_post,
+    filters=Filters.update.channel_post | Filters.update.edited_channel_post,
     callback=callback,
 )
 
