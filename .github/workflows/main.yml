@@ -23,6 +23,8 @@ jobs:
             pip install -U -r requirements.txt
             cp "/apps/${app_name}/config/${app_name}_gunicorn.service" /etc/systemd/system/
             cp "/apps/${app_name}/config/${app_name}_celery.service" /etc/systemd/system/
+            cp "/apps/${app_name}/config/${app_name}_bot.service" /etc/systemd/system/
             systemctl daemon-reload
             systemctl restart "${app_name}_gunicorn"
             systemctl restart "${app_name}_celery"
+            systemctl restart "${app_name}_bot"
