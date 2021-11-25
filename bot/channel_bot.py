@@ -33,10 +33,14 @@ def callback(update: Update, context: CallbackContext):
     if update.message.reply_markup:
         return
 
-    markup = InlineKeyboardMarkup([[
-        InlineKeyboardButton('Patreon', url=PATREON_URL),
-        InlineKeyboardButton('Comments', url=f'{update.message.link}?thread={update.message.message_id}')
-    ]])
+    markup = InlineKeyboardMarkup([
+        [
+            InlineKeyboardButton('💵', url=PATREON_URL),
+            InlineKeyboardButton('💬', url=f'{update.message.link}?thread={update.message.message_id}'),
+        ], [
+            InlineKeyboardButton('Предложить материал', url=f'https://t.me/svtv_suggest_bot'),
+        ],
+    ])
 
     context.bot.edit_message_reply_markup(
         chat_id=CHANNEL_ID,
