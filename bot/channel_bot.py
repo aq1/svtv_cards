@@ -13,7 +13,7 @@ from telegram.ext import (
 
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
 
-CHANNEL_ID = -1001435973188
+CHANNEL_ID = -1001513669961
 PATREON_URL = 'https://www.patreon.com/svtvnews'
 
 if not BOT_TOKEN:
