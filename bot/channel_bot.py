@@ -38,7 +38,7 @@ def callback(update: Update, context: CallbackContext):
             InlineKeyboardButton('💵', url=PATREON_URL),
             InlineKeyboardButton('💬', url=f'{update.message.link}?thread={update.message.message_id}')
         ], [
-            InlineKeyboardButton('Предложить материал', url=f'https://t.me/svtv_suggest_bot'),
+            InlineKeyboardButton('Предложить новость', url=f'https://t.me/svtv_suggest_bot'),
         ]
     ])
 
