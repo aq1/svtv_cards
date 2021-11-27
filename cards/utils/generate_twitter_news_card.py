@@ -10,6 +10,7 @@ from PIL.ImageFont import FreeTypeFont
 from django.conf import settings
 
 FONT_SIZE = 58
+TAG_FONT_SIZE = 32
 FONT_SPACING = 14
 
 TEXT_WIDTH = 33
@@ -19,9 +20,11 @@ TEXT_PLACEHOLDER = '...'
 RIGHT_PADDING = 60
 TEXT_FILL = (255, 255, 255, 255)
 
-LOGO_Y_COORDINATE = 84
+LOGO_COORDINATES = (795, 71)
 
-COVER_OPACITY = 0.35
+TAG_FILL = (254, 210, 122)
+
+COVER_OPACITY = 0.15
 
 
 def open_image(name: str) -> ImageType:
@@ -30,10 +33,10 @@ def open_image(name: str) -> ImageType:
     )
 
 
-def open_font() -> FreeTypeFont:
+def open_font(font_name, size) -> FreeTypeFont:
     return ImageFont.truetype(
-        str(settings.IMAGES_DIR / 'fonts' / 'Roboto-Medium.ttf'),
-        size=FONT_SIZE,
+        str(settings.IMAGES_DIR / 'fonts' / font_name),
+        size=size,
     )
 
 
@@ -48,7 +51,9 @@ def add_image_to_card(background: ImageType, image: ImageType):
 def generate_twitter_news_card(text: str, image: ImageType) -> ImageType:
     background = open_image('news/background.png')
     logo = open_image('logo.png')
-    font = open_font()
+    tail = open_image('news/tail.png')
+    text_font = open_font('Roboto-Medium.ttf', FONT_SIZE)
+    tag_font = open_font('Roboto-Bold.ttf', TAG_FONT_SIZE)
 
     text = textwrap.wrap(
         text,
@@ -61,7 +66,7 @@ def generate_twitter_news_card(text: str, image: ImageType) -> ImageType:
 
     # посередине между лого и низом
     text_y_coord = int(
-        (LOGO_Y_COORDINATE + logo.height + background.height - text_height) / 2
+        (LOGO_COORDINATES[1] + logo.height + background.height - text_height) / 2
     )
 
     text = '\n'.join(text)
@@ -69,15 +74,24 @@ def generate_twitter_news_card(text: str, image: ImageType) -> ImageType:
     if image:
         add_image_to_card(background, image)
 
+    background.alpha_composite(tail, (0, background.height - tail.height))
+
     draw = ImageDraw.Draw(background)
     draw.multiline_text(
         (RIGHT_PADDING, text_y_coord),
         text,
-        font=font,
+        font=text_font,
         fill=TEXT_FILL,
         spacing=FONT_SPACING,
     )
 
-    background.alpha_composite(logo, (RIGHT_PADDING, LOGO_Y_COORDINATE))
+    draw.multiline_text(
+        (RIGHT_PADDING, LOGO_COORDINATES[1]),
+        'НОВОСТЬ',
+        font=tag_font,
+        fill=TAG_FILL,
+    )
+
+    background.alpha_composite(logo, LOGO_COORDINATES)
 
     return background.convert('RGB')
