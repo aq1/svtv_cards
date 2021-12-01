@@ -41,7 +41,7 @@ def open_font(font_name, size) -> FreeTypeFont:
 def add_image_to_card(background: ImageType, image: ImageType):
     coef = max(background.width / image.width, background.height / image.height)
     new_size = int(image.width * coef), int(image.height * coef)
-    image = image.resize(new_size)
+    image = image.resize(new_size).convert('RGBA')
     image.putalpha(int(COVER_OPACITY * 255))
     background.alpha_composite(image)
 

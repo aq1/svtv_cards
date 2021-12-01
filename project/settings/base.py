@@ -121,8 +121,10 @@ CELERY_TASK_SOFT_TIME_LIMIT = 60
 
 SENTRY_URL = env('SENTRY_URL')
 
-sentry_sdk.init(
-    dsn=SENTRY_URL,
-    integrations=[DjangoIntegration()],
-    traces_sample_rate=1.0,
-)
+
+if not DEBUG:
+    sentry_sdk.init(
+        dsn=SENTRY_URL,
+        integrations=[DjangoIntegration()],
+        traces_sample_rate=1.0,
+    )
