@@ -48,7 +48,7 @@ def add_image_to_card(background: ImageType, image: ImageType):
     background.alpha_composite(image)
 
 
-def generate_twitter_news_card(text: str, image: ImageType) -> ImageType:
+def generate_twitter_card(text: str, image: ImageType) -> ImageType:
     background = open_image('news/background.png')
     logo = open_image('logo.png')
     tail = open_image('news/tail.png')

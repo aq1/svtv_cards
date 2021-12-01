@@ -8,7 +8,10 @@ from PIL import (
 from PIL.Image import Image as ImageType
 
 from project.celery import app
-from .generate_twitter_news_card import generate_twitter_news_card
+from ..generators import (
+    generate_twitter_card,
+    generate_thread_card,
+)
 from ghost.ghost_admin_request import (
     update_post,
     upload_image,
@@ -24,7 +27,8 @@ def download_image(image_url: str) -> Optional[ImageType]:
 
 
 generators = {
-    'news': generate_twitter_news_card,
+    'news': generate_twitter_card,
+    'thread': generate_thread_card,
 }
 
 
