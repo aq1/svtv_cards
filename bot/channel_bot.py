@@ -21,7 +21,7 @@ if not BOT_TOKEN:
         BOT_TOKEN = f.read().strip()
 
 
-def callback(update: Update, context: CallbackContext):
+def add_buttons_to_message(update: Update, context: CallbackContext):
     try:
         channel_id = update.message.forward_from_chat.id
     except AttributeError:
@@ -51,7 +51,7 @@ def callback(update: Update, context: CallbackContext):
 
 channel_handler = telegram.ext.MessageHandler(
     filters=Filters.update.message,
-    callback=callback,
+    callback=add_buttons_to_message,
 )
 
 if __name__ == '__main__':
