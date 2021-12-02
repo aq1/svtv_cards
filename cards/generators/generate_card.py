@@ -1,4 +1,5 @@
 import textwrap
+from typing import Optional
 
 from PIL import (
     Image,
@@ -9,20 +10,18 @@ from PIL.Image import Image as ImageType
 from PIL.ImageFont import FreeTypeFont
 from django.conf import settings
 
-FONT_SIZE = 58
-TAG_FONT_SIZE = 32
-FONT_SPACING = 14
-
-TEXT_WIDTH = 33
-TEXT_MAX_LINES = 4
-TEXT_PLACEHOLDER = '...'
-
-RIGHT_PADDING = 60
-TEXT_FILL = (255, 255, 255, 255)
-
-LOGO_COORDINATES = (795, 71)
-
-COVER_OPACITY = 0.15
+from .settings import (
+    FONT_SIZE,
+    TAG_FONT_SIZE,
+    FONT_SPACING,
+    TEXT_WIDTH,
+    TEXT_MAX_LINES,
+    TEXT_PLACEHOLDER,
+    RIGHT_PADDING,
+    TEXT_FILL,
+    LOGO_COORDINATES,
+    COVER_OPACITY,
+)
 
 
 def open_image(name: str) -> ImageType:
@@ -52,6 +51,7 @@ def generate_card(
         tag: str,
         tag_color: tuple[int, int, int],
         tail: str,
+        footer: Optional[ImageType] = None,
 ) -> ImageType:
     background = open_image('background.png')
     logo = open_image('logo.png')
@@ -97,5 +97,8 @@ def generate_card(
     )
 
     background.alpha_composite(logo, LOGO_COORDINATES)
+
+    if footer:
+        background.alpha_composite(footer, (0, background.width - footer.width))
 
     return background.convert('RGB')

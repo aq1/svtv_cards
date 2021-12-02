@@ -1,34 +1,24 @@
-import io
 from typing import Optional
 
-import requests
-from PIL import (
-    Image,
-)
-from PIL.Image import Image as ImageType
+from PIL.Image import Image
 
 from project.celery import app
 from ..generators import (
-    generate_twitter_card,
+    generate_news_card,
     generate_thread_card,
+    generate_opinion_card,
 )
 from ghost.ghost_admin_request import (
     update_post,
     upload_image,
 )
 
-
-def download_image(image_url: str) -> Optional[ImageType]:
-    response = requests.get(image_url)
-    if response.status_code != 200:
-        return
-
-    return Image.open(io.BytesIO(response.content))
-
+from .download_image import download_image
 
 generators = {
-    'news': generate_twitter_card,
+    'news': generate_news_card,
     'thread': generate_thread_card,
+    'opinion': generate_opinion_card,
 }
 
 
@@ -42,7 +32,7 @@ def update_twitter_card(post: dict) -> dict:
     except (TypeError, KeyError):
         return {}
 
-    image: Optional[ImageType] = None
+    image: Optional[Image] = None
 
     if not text:
         return {}
