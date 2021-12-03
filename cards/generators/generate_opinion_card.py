@@ -1,18 +1,29 @@
 from typing import Optional
 
-from PIL.Image import Image
+from PIL.Image import Image as ImageType
+from PIL import Image
 
 from ..utils import download_image
 
 from .generate_card import generate_card
-from .settings import OPINION_TAG_FILL
+from .settings import (
+    CARD_BACKGROUND_FILL,
+    OPINION_TAG_FILL,
+    FOOTER_SIZE,
+    RIGHT_PADDING,
+)
 
 
-def generate_opinion_footer(name: str, bio: str, image_url: str) -> Image:
-    profile_image: Optional[Image] = None
+def generate_opinion_footer(name: str, bio: str, image_url: str) -> ImageType:
+    footer = Image.new('RGBA', FOOTER_SIZE, CARD_BACKGROUND_FILL)
 
     if image_url:
-        profile_image = download_image(image_url)
+        profile_image: Optional[ImageType] = download_image(image_url)
+        if profile_image:
+            profile_image = profile_image.resize(120, 120)
+            footer.alpha_composite(profile_image, (RIGHT_PADDING, 0))
+
+    return footer
 
 
 def generate_opinion_card(text: str, image: Image, author: dict, **_) -> Image:

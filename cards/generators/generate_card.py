@@ -11,14 +11,16 @@ from PIL.ImageFont import FreeTypeFont
 from django.conf import settings
 
 from .settings import (
-    FONT_SIZE,
-    TAG_FONT_SIZE,
-    FONT_SPACING,
-    TEXT_WIDTH,
-    TEXT_MAX_LINES,
-    TEXT_PLACEHOLDER,
+    CARD_SIZE,
+    CARD_BACKGROUND_FILL,
+    TITLE_SIZE,
+    TAG_SIZE,
+    TITLE_SPACING,
+    TITLE_WIDTH,
+    TITLE_MAX_LINES,
+    TITLE_PLACEHOLDER,
     RIGHT_PADDING,
-    TEXT_FILL,
+    TITLE_FILL,
     LOGO_COORDINATES,
     COVER_OPACITY,
 )
@@ -53,20 +55,20 @@ def generate_card(
         tail: str,
         footer: Optional[ImageType] = None,
 ) -> ImageType:
-    background = open_image('background.png')
+    background = Image.new('RGBA', CARD_SIZE, CARD_BACKGROUND_FILL)
     logo = open_image('logo.png')
     tail = open_image(tail)
-    text_font = open_font('Roboto-Medium.ttf', FONT_SIZE)
-    tag_font = open_font('Roboto-Bold.ttf', TAG_FONT_SIZE)
+    text_font = open_font('Roboto-Medium.ttf', TITLE_SIZE)
+    tag_font = open_font('Roboto-Bold.ttf', TAG_SIZE)
 
     text = textwrap.wrap(
         text,
-        width=TEXT_WIDTH,
-        max_lines=TEXT_MAX_LINES,
-        placeholder=TEXT_PLACEHOLDER,
+        width=TITLE_WIDTH,
+        max_lines=TITLE_MAX_LINES,
+        placeholder=TITLE_PLACEHOLDER,
     )
 
-    text_height = FONT_SIZE * len(text) + FONT_SPACING * len(text) - 1
+    text_height = TITLE_SIZE * len(text) + TITLE_SPACING * len(text) - 1
 
     # посередине между лого и низом
     text_y_coord = int(
@@ -85,8 +87,8 @@ def generate_card(
         (RIGHT_PADDING, text_y_coord),
         text,
         font=text_font,
-        fill=TEXT_FILL,
-        spacing=FONT_SPACING,
+        fill=TITLE_FILL,
+        spacing=TITLE_SPACING,
     )
 
     draw.multiline_text(
