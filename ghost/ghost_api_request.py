@@ -30,10 +30,13 @@ def make_ghost_request(
     return requests.Session().send(request)
 
 
-def get_post(post_id: str):
+def get_post(post_id: str, include: Optional[list[str]] = None):
     response = make_ghost_request(
         'get',
         f'posts/{post_id}/',
+        params={
+            'include': include,
+        },
     )
 
     if response.status_code != 200:
