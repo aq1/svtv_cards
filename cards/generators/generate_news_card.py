@@ -1,5 +1,3 @@
-from typing import Optional
-
 from PIL import Image
 
 from ..layers.backgrounds import create_news_background_layer
