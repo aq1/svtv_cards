@@ -36,11 +36,8 @@ def update_twitter_card(post: dict) -> dict:
     if primary_tag not in generators:
         return {}
 
-    cover: Optional[Image.Image] = None
-
     cover = generators[primary_tag](
         post=post,
-        cover=cover,
     )
 
     response = upload_image(
