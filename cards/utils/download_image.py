@@ -9,7 +9,10 @@ from PIL.Image import Image as ImageType
 
 
 def download_image(image_url: str) -> Optional[ImageType]:
-    response = requests.get(image_url)
+    try:
+        response = requests.get(image_url)
+    except ValueError:
+        return
     if response.status_code != 200:
         return
 

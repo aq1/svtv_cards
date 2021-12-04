@@ -62,7 +62,7 @@ def test_compiler():
     compile_layers(
         background=background,
         layers=layers,
-    ).save('o.jpg')
+    ).show()
 
 
 test_compiler()

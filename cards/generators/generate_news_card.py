@@ -1,3 +1,5 @@
+from typing import Optional
+
 from PIL import Image
 
 from ..layers.backgrounds import create_news_background_layer
@@ -5,11 +7,12 @@ from ..layers.headers import create_news_header_layer
 from ..layers.titles import create_news_title_layer
 
 from ..compilers import compile_layers
+from ..utils import download_image
 
 
-def generate_news_card(post: dict, cover: Image.Image) -> Image.Image:
+def generate_news_card(post: dict) -> Image.Image:
     background: Image.Image = create_news_background_layer(
-        cover=cover,
+        cover=download_image(post.get('feature_image')),
     )
 
     layers: list[Image.Image] = [

@@ -5,11 +5,12 @@ from ..layers.headers import create_thread_header_layer
 from ..layers.titles import create_thread_title_layer
 
 from ..compilers import compile_layers
+from ..utils import download_image
 
 
-def generate_thread_card(post: dict, cover: Image.Image) -> Image.Image:
+def generate_thread_card(post: dict) -> Image.Image:
     background: Image.Image = create_thread_background_layer(
-        cover=cover,
+        cover=download_image(post.get('feature_image')),
     )
 
     layers: list[Image.Image] = [

@@ -13,19 +13,17 @@ from ghost.ghost_admin_request import (
     upload_image,
 )
 
-from .download_image import download_image
 
 generators = {
     'news': generate_news_card,
     'thread': generate_thread_card,
-    # 'opinion': generate_opinion_card,
+    'opinion': generate_opinion_card,
 }
 
 
 @app.task
 def update_twitter_card(post: dict) -> dict:
     text: str = post.get('title')
-    image_url: str = post.get('feature_image')
 
     try:
         primary_tag: str = post['primary_tag']['slug']
@@ -39,9 +37,6 @@ def update_twitter_card(post: dict) -> dict:
         return {}
 
     cover: Optional[Image.Image] = None
-
-    if image_url:
-        cover = download_image(image_url)
 
     cover = generators[primary_tag](
         post=post,
