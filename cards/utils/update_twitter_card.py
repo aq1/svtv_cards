@@ -1,6 +1,6 @@
 from typing import Optional
 
-from PIL.Image import Image
+from PIL import Image
 
 from project.celery import app
 from ..generators import (
@@ -32,25 +32,25 @@ def update_twitter_card(post: dict) -> dict:
     except (TypeError, KeyError):
         return {}
 
-    image: Optional[Image] = None
-
     if not text:
         return {}
 
     if primary_tag not in generators:
         return {}
 
-    if image_url:
-        image = download_image(image_url)
+    cover: Optional[Image.Image] = None
 
-    image = generators[primary_tag](
-        text=text,
-        image=image,
+    if image_url:
+        cover = download_image(image_url)
+
+    cover = generators[primary_tag](
+        post=post,
+        cover=cover,
     )
 
     response = upload_image(
         image_name=f'{post["id"]}_twitter.jpeg',
-        image=image,
+        image=cover,
     )
     if response.status_code != 201:
         return {}

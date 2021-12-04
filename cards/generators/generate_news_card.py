@@ -1,14 +1,23 @@
-from PIL.Image import Image
+from PIL import Image
 
-from .generate_card import generate_card
-from .settings import NEWS_TAG_FILL
+from ..layers.backgrounds import create_news_background_layer
+from ..layers.headers import create_news_header_layer
+from ..layers.titles import create_news_title_layer
+
+from ..compilers import compile_layers
 
 
-def generate_news_card(text: str, image: Image, **_) -> Image:
-    return generate_card(
-        text=text,
-        image=image,
-        tag='Новость',
-        tag_color=NEWS_TAG_FILL,
-        tail='news/news-tail.png',
+def generate_news_card(post: dict, cover: Image.Image) -> Image.Image:
+    background: Image.Image = create_news_background_layer(
+        cover=cover,
+    )
+
+    layers: list[Image.Image] = [
+        create_news_header_layer(),
+        create_news_title_layer(post.get('title', '')),
+    ]
+
+    return compile_layers(
+        background=background,
+        layers=layers,
     )

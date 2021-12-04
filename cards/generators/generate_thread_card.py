@@ -1,15 +1,23 @@
-from PIL.Image import Image
+from PIL import Image
 
-from .generate_card import generate_card
+from ..layers.backgrounds import create_thread_background_layer
+from ..layers.headers import create_thread_header_layer
+from ..layers.titles import create_thread_title_layer
 
-from .settings import THREAD_TAG_FILL
+from ..compilers import compile_layers
 
 
-def generate_thread_card(text: str, image: Image, **_) -> Image:
-    return generate_card(
-        text=text,
-        image=image,
-        tag='Тред',
-        tag_color=THREAD_TAG_FILL,
-        tail='threads/thread-tail.png',
+def generate_thread_card(post: dict, cover: Image.Image) -> Image.Image:
+    background: Image.Image = create_thread_background_layer(
+        cover=cover,
+    )
+
+    layers: list[Image.Image] = [
+        create_thread_header_layer(),
+        create_thread_title_layer(post.get('title', '')),
+    ]
+
+    return compile_layers(
+        background=background,
+        layers=layers,
     )
