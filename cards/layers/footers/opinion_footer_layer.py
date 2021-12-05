@@ -21,7 +21,8 @@ def create_circle_profile_image(profile_image: Image.Image) -> Image.Image:
     profile_image = profile_image.resize(OPINION_PROFILE_IMAGE_SIZE).convert('RGBA')
     profile_image_circle = Image.new('L', OPINION_PROFILE_IMAGE_SIZE, 0)
     draw = ImageDraw.Draw(profile_image_circle)
-    draw.ellipse((0, 0, OPINION_PROFILE_IMAGE_SIZE[0], OPINION_PROFILE_IMAGE_SIZE[1]), fill=255)
+    # минус один пиксель, потому что иначе круг обрезается неровно
+    draw.ellipse((0, 0, OPINION_PROFILE_IMAGE_SIZE[0] - 1, OPINION_PROFILE_IMAGE_SIZE[1] - 1), fill=255)
     profile_image.putalpha(profile_image_circle)
 
     return profile_image

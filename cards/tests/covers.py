@@ -1,14 +1,31 @@
 from cards.assets import open_image
 
-COVERS = [
-    open_image('test_images/background_default.jpeg'),
-    open_image('test_images/background_1x1.jpeg'),
-    open_image('test_images/background_2.jpeg'),
-    open_image('test_images/background_vertical.jpeg'),
-]
 
-AUTHORS = [
-    open_image('test_images/author_1.png'),
-    open_image('test_images/author_2.png'),
-    open_image('test_images/author_3.png'),
-]
+def open_test_images(*images: str):
+    return [
+        open_image(f'test_images/{image}')
+        for image in images
+    ]
+
+
+COVERS = open_test_images(
+    'background_default.jpeg',
+    'background_1x1.jpeg',
+    'background_2.jpeg',
+    'background_vertical.jpeg',
+)
+
+AUTHORS = open_test_images(
+    'author_1.png',
+    'author_2.png',
+    'author_3.png',
+    'author_4.png',
+    'author_not_circle.jpeg',
+)
+
+OPINION_COVERS = open_test_images(
+    'opinion_back_1.jpeg',
+    'opinion_back_2.jpeg',
+    'opinion_back_3.jpeg',
+    'opinion_back_4.jpeg',
+)
