@@ -20,20 +20,7 @@ generators = {
 
 @app.task
 def update_twitter_card(post: dict) -> dict:
-    text: str = post.get('title')
-
-    try:
-        primary_tag: str = post['primary_tag']['slug']
-    except (TypeError, KeyError):
-        return {}
-
-    if not text:
-        return {}
-
-    if primary_tag not in generators:
-        return {}
-
-    cover = generators[primary_tag](
+    cover = generators[post['primary_tag']['slug']](
         post=post,
     )
 
@@ -41,6 +28,7 @@ def update_twitter_card(post: dict) -> dict:
         image_name=f'{post["id"]}_twitter.jpeg',
         image=cover,
     )
+
     if response.status_code != 201:
         return {}
 
@@ -59,7 +47,7 @@ def update_twitter_card(post: dict) -> dict:
     ).json()
 
 
-def update_twitter_card_command(post: dict, previous: dict):
+def update_twitter_card_command(post: dict, previous: dict) -> None:
     fields_to_watch = [
         'title',
         'feature_image',
@@ -69,5 +57,16 @@ def update_twitter_card_command(post: dict, previous: dict):
     if post['twitter_image']:
         if not any([r in previous for r in fields_to_watch]):
             return
+
+    if not post.get('title'):
+        return
+
+    try:
+        primary_tag: str = post['primary_tag']['slug']
+    except (TypeError, KeyError):
+        return
+
+    if primary_tag not in generators:
+        return
 
     update_twitter_card.delay(post)
