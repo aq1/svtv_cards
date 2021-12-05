@@ -14,7 +14,7 @@ from ..generators import (
 generators = {
     'news': generate_news_card,
     'thread': generate_thread_card,
-    # 'opinion': generate_opinion_card,
+    'opinion': generate_opinion_card,
 }
 
 
