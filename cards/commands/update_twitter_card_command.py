@@ -1,3 +1,5 @@
+from typing import Optional
+
 from project.celery import app
 
 from ghost.ghost_admin_request import (
@@ -11,6 +13,10 @@ from ..generators import (
     generate_opinion_card,
     generate_factchecking_card,
 )
+from ..utils.factchecking import (
+    get_factchecking_meter_tag,
+    get_factchecking_tag_label,
+)
 
 generators = {
     'news': generate_news_card,
@@ -20,8 +26,7 @@ generators = {
 }
 
 
-@app.task
-def update_twitter_card(post: dict) -> dict:
+def create_post_cover(post: dict) -> Optional[str]:
     cover = generators[post['primary_tag']['slug']](
         post=post,
     )
@@ -32,24 +37,52 @@ def update_twitter_card(post: dict) -> dict:
     )
 
     if response.status_code != 201:
-        return {}
+        return
 
     try:
-        image_url = response.json()['images'][0]['url']
+        return response.json()['images'][0]['url']
     except (KeyError, IndexError):
+        return
+
+
+def get_factchecking_meta_fields(post: dict) -> dict[str, str]:
+    meta_title: str = 'Мы все проверили, и вот наш вердикт'
+    tag: str = get_factchecking_meter_tag(post)
+    meta_description: str = f'{post["feature_image_caption"]}: {get_factchecking_tag_label(tag)}'
+
+    return {
+        'og_title': meta_title,
+        'twitter_title': meta_title,
+        'meta_title': meta_title,
+        'og_description': meta_description,
+        'twitter_description': meta_description,
+        'meta_description': meta_description,
+    }
+
+
+@app.task
+def update_post_fields(post: dict) -> dict:
+    cover_url = create_post_cover(post)
+
+    if not cover_url:
         return {}
+
+    data = {
+        'og_image': cover_url,
+        'twitter_image': cover_url,
+    }
+
+    if post['primary_tag']['slug'] == 'factchecking':
+        data.update(get_factchecking_meta_fields(post))
 
     return update_post(
         post_id=post.get('id'),
         post_updated_at=post.get('updated_at'),
-        data={
-            'og_image': image_url,
-            'twitter_image': image_url,
-        },
+        data=data,
     ).json()
 
 
-def update_twitter_card_command(post: dict, previous: dict) -> None:
+def update_post_fields_command(post: dict, previous: dict) -> None:
     fields_to_watch = [
         'title',
         'feature_image',
@@ -71,4 +104,4 @@ def update_twitter_card_command(post: dict, previous: dict) -> None:
     if primary_tag not in generators:
         return
 
-    update_twitter_card.delay(post)
+    update_post_fields.delay(post)

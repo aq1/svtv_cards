@@ -1,6 +1,9 @@
 import textwrap
 
-from PIL import Image, ImageDraw
+from PIL import (
+    Image,
+    ImageDraw,
+)
 
 from ...assets import (
     open_image,

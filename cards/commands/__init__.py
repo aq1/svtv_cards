@@ -1,5 +1,5 @@
-from .update_twitter_card_command import update_twitter_card_command
+from .update_twitter_card_command import update_post_fields_command
 
 __all__ = [
-    update_twitter_card_command,
+    update_post_fields_command,
 ]
