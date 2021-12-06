@@ -7,7 +7,7 @@ from ...settings import (
 
 def create_news_header_layer():
     return create_generic_header_layer(
-        tag='Тред',
+        tag='Новость',
         tag_fill=NEWS_TAG_FILL,
         tag_size=DEFAULT_TAG_SIZE,
     )
