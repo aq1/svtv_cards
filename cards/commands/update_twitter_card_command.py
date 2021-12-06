@@ -9,12 +9,14 @@ from ..generators import (
     generate_news_card,
     generate_thread_card,
     generate_opinion_card,
+    generate_factchecking_card,
 )
 
 generators = {
     'news': generate_news_card,
     'thread': generate_thread_card,
     'opinion': generate_opinion_card,
+    'factchecking': generate_factchecking_card,
 }
 
 

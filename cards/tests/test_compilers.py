@@ -18,6 +18,7 @@ from cards.layers.titles import create_factchecking_title_layer
 from cards.layers.footers import create_opinion_footer_layer
 
 from cards.compilers.compiler import compile_layers
+from cards.settings import FACTCHECKING_TAGS
 from cards.tests.covers import (
     AUTHORS,
     COVERS,
@@ -114,15 +115,6 @@ def test_opinion_compiler():
 
 
 def test_factchecking_compiler():
-    tags = [
-        'lie',
-        'complete-lie',
-        'half-truth',
-        'almost-lie',
-        'almost-truth',
-        'truth',
-    ]
-
     title = (
         'В Беларуси США и страны НАТО осуществляют попытки свержения власти с'
         ' применением элементов гибридной войны  применением элементов гибридной войны  применением элементов гибридной войны '
@@ -130,7 +122,7 @@ def test_factchecking_compiler():
     author_name = 'Иван Иванов'
     date = 'написала в своем Телеграм-канале 3 декабря '
 
-    for tag in tags:
+    for tag in FACTCHECKING_TAGS:
         background = create_factchecking_background_layer()
         layers = [
             create_factchecking_header_layer(),
