@@ -15,7 +15,7 @@ def generate_factchecking_card(post: dict) -> Image.Image:
     tag: str = ''
 
     for post_tag in post.get('tags', []):
-        if post_tag in FACTCHECKING_TAGS:
+        if post_tag['slug'] in FACTCHECKING_TAGS:
             tag = post_tag['slug']
 
     if not tag:
