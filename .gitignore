@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 .idea/
 node/
+cards/tests/results/

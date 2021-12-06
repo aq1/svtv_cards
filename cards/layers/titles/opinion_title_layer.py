@@ -1,3 +1,5 @@
+from PIL import Image
+
 from .generic_title_layer import create_generic_title_layer
 from ...settings import (
     OPINION_TITLE_SIZE,
@@ -9,7 +11,7 @@ from ...settings import (
 )
 
 
-def create_opinion_title_layer(title):
+def create_opinion_title_layer(title: str) -> Image.Image:
     return create_generic_title_layer(
         title=title,
         font_size=OPINION_TITLE_SIZE,
