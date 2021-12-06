@@ -46,9 +46,9 @@ def create_post_cover(post: dict) -> Optional[str]:
 
 
 def get_factchecking_meta_fields(post: dict) -> dict[str, str]:
-    meta_title: str = 'Мы все проверили, и вот наш вердикт'
     tag: str = get_factchecking_meter_tag(post)
-    meta_description: str = f'{post["feature_image_caption"]}: {get_factchecking_tag_label(tag)}'
+    meta_title: str = f'{post["feature_image_caption"]}: {get_factchecking_tag_label(tag)}'
+    meta_description: str = 'Мы все проверили, и вот наш вердикт'
 
     return {
         'og_title': meta_title,
