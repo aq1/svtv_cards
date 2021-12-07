@@ -21,7 +21,6 @@ def create_generic_title_layer(
         layer_height: Optional[int] = TITLE_LAYER_HEIGHT,
         title_width: Optional[int] = TITLE_WIDTH,
         title_max_lines: Optional[int] = TITLE_MAX_LINES,
-        align: Optional['str'] = 'center',
 ) -> Image.Image:
     layer = Image.new('RGBA', (CARD_WIDTH, layer_height))
 
@@ -35,15 +34,10 @@ def create_generic_title_layer(
 
     title_height = font_size * len(title) + font_spacing * (len(title) - 1)
 
-    if align == 'top':
-        text_y_coord = font_size / 2
-    elif align == 'bottom':
-        text_y_coord = layer_height - title_height - font_spacing
-    else:
-        # посередине между лого и низом
-        text_y_coord = int(
-            (layer_height - title_height) / 2
-        )
+    # посередине между лого и низом
+    text_y_coord = int(
+        (layer_height - title_height) / 2
+    )
 
     title = '\n'.join(title)
 
