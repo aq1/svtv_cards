@@ -16,5 +16,7 @@ def create_test_title_layer(title: str) -> Image.Image:
         font_size=TITLE_SIZE,
         font_spacing=TITLE_SPACING,
         title_fill=TITLE_FILL,
+        title_max_lines=2,
         layer_height=CARD_HEIGHT - TEST_HEADER_HEIGHT,
+        align='top',
     )

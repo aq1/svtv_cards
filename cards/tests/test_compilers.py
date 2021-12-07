@@ -145,22 +145,26 @@ def test_factchecking_compiler():
 
 
 def test_test_compiler():
-    title = 'Считаете себя либертарианцем? Проверим!'
-
-    background = create_test_background_layer(
-        cover=TEST_COVERS[0],
+    titles = (
+        'Считаете себя либертарианцем? Проверим!',
+        'Одна строка',
     )
-    layers = [
-        create_test_header_layer(),
-        create_test_title_layer(
-            title=title,
-        ),
-    ]
 
-    compile_layers(
-        background=background,
-        layers=layers,
-    ).save(f'{RESULT_DIR}/t-{title}.jpg')
+    for title in titles:
+        background = create_test_background_layer(
+            cover=TEST_COVERS[0],
+        )
+        layers = [
+            create_test_header_layer(),
+            create_test_title_layer(
+                title=title,
+            ),
+        ]
+
+        compile_layers(
+            background=background,
+            layers=layers,
+        ).save(f'{RESULT_DIR}/t-{title}.jpg')
 
 
 def test_compilers():
