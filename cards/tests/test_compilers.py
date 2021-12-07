@@ -171,8 +171,8 @@ def test_compilers():
     # test_news_compiler()
     # test_threads_compiler()
     # test_opinion_compiler()
-    # test_factchecking_compiler()
-    test_test_compiler()
+    test_factchecking_compiler()
+    # test_test_compiler()
 
 
 if __name__ == '__main__':

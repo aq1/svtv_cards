@@ -5,6 +5,7 @@ FACTCHECKING_TAGS = [
     'almost-lie',
     'almost-truth',
     'truth',
+    'mistake',
 ]
 
 FACTCHECKING_LABELS_MAP = {
@@ -14,4 +15,5 @@ FACTCHECKING_LABELS_MAP = {
     'almost-lie': 'Скорее ложь',
     'almost-truth': 'Скорее правда',
     'truth': 'Чистая правда',
+    'mistake': 'Заблуждение',
 }
