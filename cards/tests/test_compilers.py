@@ -4,16 +4,19 @@ from cards.layers.backgrounds import create_news_background_layer
 from cards.layers.backgrounds import create_thread_background_layer
 from cards.layers.backgrounds import create_opinion_background_layer
 from cards.layers.backgrounds import create_factchecking_background_layer
+from cards.layers.backgrounds import create_test_background_layer
 
 from cards.layers.headers import create_news_header_layer
 from cards.layers.headers import create_thread_header_layer
 from cards.layers.headers import create_opinion_header_layer
 from cards.layers.headers import create_factchecking_header_layer
+from cards.layers.headers import create_test_header_layer
 
 from cards.layers.titles import create_news_title_layer
 from cards.layers.titles import create_thread_title_layer
 from cards.layers.titles import create_opinion_title_layer
 from cards.layers.titles import create_factchecking_title_layer
+from cards.layers.titles import create_test_title_layer
 
 from cards.layers.footers import create_opinion_footer_layer
 
@@ -23,6 +26,7 @@ from cards.tests.covers import (
     AUTHORS,
     COVERS,
     OPINION_COVERS,
+    TEST_COVERS,
 )
 
 RESULT_DIR = 'results'
@@ -140,11 +144,31 @@ def test_factchecking_compiler():
         ).save(f'{RESULT_DIR}/f-{tag}.jpg')
 
 
+def test_test_compiler():
+    title = 'Считаете себя либертарианцем? Проверим!'
+
+    background = create_test_background_layer(
+        cover=TEST_COVERS[0],
+    )
+    layers = [
+        create_test_header_layer(),
+        create_test_title_layer(
+            title=title,
+        ),
+    ]
+
+    compile_layers(
+        background=background,
+        layers=layers,
+    ).save(f'{RESULT_DIR}/t-{title}.jpg')
+
+
 def test_compilers():
-    test_news_compiler()
-    test_threads_compiler()
-    test_opinion_compiler()
-    test_factchecking_compiler()
+    # test_news_compiler()
+    # test_threads_compiler()
+    # test_opinion_compiler()
+    # test_factchecking_compiler()
+    test_test_compiler()
 
 
 if __name__ == '__main__':

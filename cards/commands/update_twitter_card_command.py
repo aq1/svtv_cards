@@ -12,6 +12,7 @@ from ..generators import (
     generate_thread_card,
     generate_opinion_card,
     generate_factchecking_card,
+    generate_test_card,
 )
 from ..utils.factchecking import (
     get_factchecking_meter_tag,
@@ -23,6 +24,7 @@ generators = {
     'thread': generate_thread_card,
     'opinion': generate_opinion_card,
     'factchecking': generate_factchecking_card,
+    'test': generate_test_card,
 }
 
 

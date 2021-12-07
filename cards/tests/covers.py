@@ -29,3 +29,7 @@ OPINION_COVERS = open_test_images(
     'opinion_back_3.jpeg',
     'opinion_back_4.jpeg',
 )
+
+TEST_COVERS = open_test_images(
+    'test_cover_1.png',
+)
