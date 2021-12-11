@@ -22,7 +22,7 @@ from ...settings import (
 )
 
 
-def create_test_title_layer(title: str) -> Image.Image:
+def create_test_title_layer(title: str, tag: str = '') -> Image.Image:
     layer = Image.new('RGBA', (CARD_WIDTH, CARD_HEIGHT - TEST_HEADER_HEIGHT))
 
     font = open_font('Roboto-Medium.ttf', TITLE_SIZE)
@@ -48,15 +48,15 @@ def create_test_title_layer(title: str) -> Image.Image:
         spacing=TITLE_SPACING,
     )
 
-    tag_y_coord = text_y_coord - (DEFAULT_TAG_SIZE + TITLE_SPACING)
-
-    font = open_font('Roboto-Bold.ttf', DEFAULT_TAG_SIZE)
-    draw = ImageDraw.Draw(layer)
-    draw.multiline_text(
-        (LEFT_PADDING, tag_y_coord),
-        'ТЕСТ',
-        font=font,
-        fill=TEST_TAG_FILL,
-    )
+    if tag:
+        tag_y_coord = text_y_coord - (DEFAULT_TAG_SIZE + TITLE_SPACING)
+        font = open_font('Roboto-Bold.ttf', DEFAULT_TAG_SIZE)
+        draw = ImageDraw.Draw(layer)
+        draw.multiline_text(
+            (LEFT_PADDING, tag_y_coord),
+            tag.upper(),
+            font=font,
+            fill=TEST_TAG_FILL,
+        )
 
     return layer

@@ -66,7 +66,7 @@ def test_threads_compiler():
 def test_opinion_compiler():
     titles = [
         'Как работают суды сегодня',
-        'Реквием по Рашагейту',
+        'Правосудие над либеральным фантазёром',
         'Как политика пришла в видеоигры',
         'Триумвират Германии',
         'Новое мение с длинным заголовком. Таким длинным что он даже не умещается в три строки.',
@@ -146,13 +146,50 @@ def test_factchecking_compiler():
 
 def test_test_compiler():
     titles = (
-        'Считаете себя либертарианцем? Проверим!',
+        'На сколько лет вы сядете в либеральной России будущего?',
         'Одна строка',
     )
 
+    from PIL import Image
+    cover = Image.open('/Users/vladimirgrechukhin/Downloads/hCCGCL8zZYEezDs3TwLVv.jpeg')
+
     for title in titles:
         background = create_test_background_layer(
-            cover=TEST_COVERS[0],
+            cover=cover,
+        )
+        layers = [
+            create_test_header_layer(),
+            create_test_title_layer(
+                title=title,
+                tag='тест',
+            ),
+        ]
+
+        compile_layers(
+            background=background,
+            layers=layers,
+        ).save(f'{RESULT_DIR}/t-{title}.jpg')
+
+
+def test_result_compiler():
+    titles = (
+        'Пожизненное заключение.',
+        'Десять лет.',
+        'Суд вас оправдал.',
+        'Пожизненное заключение.',
+    )
+
+    covers = (
+        '/Users/vladimirgrechukhin/Downloads/пожизненное.jpeg',
+        '/Users/vladimirgrechukhin/Downloads/10 лет.jpeg',
+        '/Users/vladimirgrechukhin/Downloads/свобода.jpeg',
+        '/Users/vladimirgrechukhin/Downloads/все равно пожизненное.jpeg',
+    )
+
+    from PIL import Image
+    for i, title, cover in zip(range(4), titles, covers):
+        background = create_test_background_layer(
+            cover=Image.open(cover),
         )
         layers = [
             create_test_header_layer(),
@@ -164,16 +201,16 @@ def test_test_compiler():
         compile_layers(
             background=background,
             layers=layers,
-        ).save(f'{RESULT_DIR}/t-{title}.jpg')
+        ).save(f'{RESULT_DIR}/r-{i}.jpg')
 
 
 def test_compilers():
-    # test_news_compiler()
-    # test_threads_compiler()
-    # test_opinion_compiler()
+    test_news_compiler()
+    test_threads_compiler()
+    test_opinion_compiler()
     test_factchecking_compiler()
-    # test_test_compiler()
+    test_test_compiler()
 
 
 if __name__ == '__main__':
-    test_compilers()
+    test_opinion_compiler()

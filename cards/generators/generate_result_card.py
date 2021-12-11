@@ -8,7 +8,7 @@ from ..compilers import compile_layers
 from ..utils import download_image
 
 
-def generate_test_card(post: dict) -> Image.Image:
+def generate_result_card(post: dict) -> Image.Image:
     background: Image.Image = create_test_background_layer(
         cover=download_image(post.get('feature_image')),
     )
@@ -17,7 +17,6 @@ def generate_test_card(post: dict) -> Image.Image:
         create_test_header_layer(),
         create_test_title_layer(
             title=post.get('title', ''),
-            tag='тест',
         ),
     ]
 
