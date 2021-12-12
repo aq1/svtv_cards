@@ -31,18 +31,22 @@ def create_factchecking_title_layer(title: str, author_name: str, date: str, tag
     layer = Image.new('RGBA', (CARD_WIDTH, FACTCHECKING_TITLE_LAYER_HEIGHT))
     layer.alpha_composite(meter, (layer.width - meter.width, layer.height - meter.height))
 
-    title = '\n'.join(textwrap.wrap(
+    title = textwrap.wrap(
         title,
         width=FACTCHECKING_TITLE_WIDTH,
         max_lines=FACTCHECKING_TITLE_MAX_LINES,
         placeholder=TITLE_PLACEHOLDER,
-    ))
+    )
+
+    title_font_size = FACTCHECKING_TITLE_FONT_SIZE + (FACTCHECKING_TITLE_MAX_LINES - len(title)) * 3
+
+    title = '\n'.join(title)
 
     draw = ImageDraw.Draw(layer)
     draw.text(
         (LEFT_PADDING, FACTCHECKING_TITLE_TOP_PADDING),
         title,
-        font=open_font('Roboto-Medium.ttf', FACTCHECKING_TITLE_FONT_SIZE),
+        font=open_font('Roboto-Medium.ttf', title_font_size),
         fill=TITLE_FILL,
         spacing=FACTCHECKING_TITLE_SPACING,
     )
