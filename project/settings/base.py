@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'webhooks',
     'cards',
     'notifications',
+    'youtube',
 ]
 
 MIDDLEWARE = [
@@ -108,6 +109,9 @@ TELEGRAM_TOKEN = env('TELEGRAM_TOKEN')
 TELEGRAM_CHAT_ID = env('TELEGRAM_CHAT_ID')
 TELEGRAM_USER = env('TELEGRAM_USER')
 
+YOUTUBE_CHANNEL_ID = env('YOUTUBE_CHANNEL_ID')
+YOUTUBE_BANNER_POST_ID = env('YOUTUBE_BANNER_POST_ID')
+
 # Celery
 if USE_TZ:
     CELERY_TIMEZONE = TIME_ZONE
@@ -120,7 +124,6 @@ CELERY_TASK_TIME_LIMIT = 5 * 60
 CELERY_TASK_SOFT_TIME_LIMIT = 60
 
 SENTRY_URL = env('SENTRY_URL')
-
 
 if not DEBUG:
     sentry_sdk.init(
