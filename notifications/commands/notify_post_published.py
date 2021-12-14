@@ -1,5 +1,21 @@
 from ..utils import notify
 
+PREFERABLE_URL_LENGTH = 200
+
+
+def verify_post(post: dict) -> list[str]:
+    url = post.get('url')
+
+    warnings = []
+
+    if len(url) > PREFERABLE_URL_LENGTH:
+        warnings.append(f'⚠️ Ссылка длиннее {PREFERABLE_URL_LENGTH} символов')
+
+    if 'untitled' in url:
+        warnings.append(f'❗️ Untitled в URL')
+
+    return warnings
+
 
 def notify_post_published(post, _):
     title = post.get('title')
@@ -11,4 +27,9 @@ def notify_post_published(post, _):
         return
 
     message = f'Новая публикация {tag}\n{title}\n{url}'
+    warnings = '\n'.join(verify_post(post))
+
+    if warnings:
+        message = f'{message}\n{warnings}'
+
     notify.delay(message=message)
