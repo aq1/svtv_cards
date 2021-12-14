@@ -44,7 +44,7 @@ def create_opinion_footer_layer(name: str, bio: str, profile_image: Image.Image)
 
     draw.text(
         OPINION_BIO_COORDS,
-        bio,
+        bio or '',
         font=open_font('Roboto-Regular.ttf', OPINION_BIO_FONT_SIZE),
         fill=OPINION_BIO_FILL,
     )
