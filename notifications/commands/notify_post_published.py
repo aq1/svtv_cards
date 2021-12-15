@@ -4,15 +4,20 @@ PREFERABLE_URL_LENGTH = 200
 
 
 def verify_post(post: dict) -> list[str]:
-    url = post.get('url')
+    url = post.get('url', '')
+    slug = post.get('slug', '')
+    title = post.get('title', '')
 
     warnings = []
 
+    if 'untitled' in slug:
+        warnings.append(f'❗️ Untitled в URL')
+
+    if '  ' in title:
+        warnings.append(f'⚠️ Двойной пробел в названии')
+
     if len(url) > PREFERABLE_URL_LENGTH:
         warnings.append(f'⚠️ Ссылка длиннее {PREFERABLE_URL_LENGTH} символов')
-
-    if 'untitled' in url:
-        warnings.append(f'❗️ Untitled в URL')
 
     return warnings
 
