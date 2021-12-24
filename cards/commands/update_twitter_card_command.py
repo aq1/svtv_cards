@@ -70,7 +70,6 @@ def update_post_fields(post: dict) -> dict:
         return {}
 
     data = {
-        'og_image': cover_url,
         'twitter_image': cover_url,
     }
 
