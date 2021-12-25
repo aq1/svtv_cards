@@ -53,12 +53,8 @@ def get_factchecking_meta_fields(post: dict) -> dict[str, str]:
     meta_description: str = 'Мы все проверили, и вот наш вердикт'
 
     return {
-        'og_title': meta_title,
         'twitter_title': meta_title,
-        'meta_title': meta_title,
-        'og_description': meta_description,
         'twitter_description': meta_description,
-        'meta_description': meta_description,
     }
 
 
