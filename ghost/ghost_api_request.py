@@ -46,3 +46,22 @@ def get_post(post_id: str, include: Optional[list[str]] = None):
         return response.json().get('posts')[0]
     except (KeyError, IndexError):
         return
+
+
+def browse_posts(include: Optional[list[str]] = None, request_filter: Optional[str] = None):
+    response = make_ghost_request(
+        'get',
+        f'posts/',
+        params={
+            'include': include,
+            'filter': request_filter,
+        },
+    )
+
+    if response.status_code != 200:
+        return
+
+    try:
+        return response.json().get('posts')
+    except (KeyError, IndexError):
+        return
