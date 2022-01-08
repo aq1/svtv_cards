@@ -26,8 +26,8 @@ jobs:
             cp "/apps/${app_name}/config/${app_name}_bot.service" /etc/systemd/system/
             yarn --cwd /apps/${app_name}/test_constructor/ install
             yarn --cwd /apps/${app_name}/test_constructor/ run build
-            /apps/${app_name}/.venv/bin/python manage.py collectstatic -y
-            /apps/${app_name}/.venv/bin/python manage.py migrate
+            ./manage.py collectstatic --noinput
+            ./manage.py migrate
             systemctl daemon-reload
             systemctl restart "${app_name}_gunicorn"
             systemctl restart "${app_name}_celery"
