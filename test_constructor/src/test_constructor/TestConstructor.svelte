@@ -27,10 +27,10 @@
     };
 
     const slides = [
-      'Основное',
-      'Вопросы',
-      'Результаты',
-      'Сохранить',
+        'Основное',
+        'Вопросы',
+        'Результаты',
+        'Сохранить',
     ];
 
     const getTest = () => {
@@ -39,7 +39,6 @@
             questions,
             results,
         };
-        console.log(test);
     };
 
     onMount(getTest);
@@ -65,8 +64,8 @@
     Loading...
   {/if}
   <pre>
-      {JSON.stringify(test, null, 2)}
-    </pre>
+    {JSON.stringify(test, null, 2)}
+  </pre>
 
 </div>
 

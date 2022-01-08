@@ -3,6 +3,25 @@
     export let type = 'text';
     export let placeholder = '';
     export let value;
+
+    let files;
+
+    const uploadFile = () => {
+        const fd = new FormData();
+        fd.append('image', files[0]);
+        fetch('/test-constructor/upload-file/', {
+            method: 'POST',
+            body: fd
+        }).then((response) => {
+            if (response.status !== 201) {
+                alert('ошибка загрузки');
+                return;
+            }
+            response.text().then((url) => {
+                value = url;
+            });
+        });
+    }
 </script>
 
 <div>
@@ -12,7 +31,7 @@
   {#if type === 'text'}
     <input type="text" bind:value={value} {placeholder}>
   {:else if type === 'image'}
-    <input type="file" bind:value={value} accept="image/*">
+    <input type="file" bind:value={files} accept="image/*" on:change={uploadFile} bind:files>
   {/if}
 </div>
 

@@ -1,5 +1,6 @@
 <script>
     import Button from '../../components/Button.svelte';
+
     export let test;
 
     const submitTest = () => {
@@ -16,10 +17,11 @@
     {test.general.description}
   </div>
 
-  <div class="test-submit__cover">
-    <img src="{test.general.cover}" alt="обложка теста">
-  </div>
-
+  {#if test.general.cover}
+    <div class="test-submit__cover">
+      <img class="test-submit__cover-image" src="{test.general.cover}" alt="обложка теста">
+    </div>
+  {/if}
   <div class="test-submit__questions">
     Вопросов: {test.questions.length}
   </div>
@@ -37,6 +39,17 @@
         flex-direction: column;
         gap: 10px;
         font-size: 1.1em;
+    }
+
+    .test-submit__cover {
+        width: 100%;
+        height: 200px;
+    }
+
+    .test-submit__cover-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
     }
 
     .test-submit__header-test {
