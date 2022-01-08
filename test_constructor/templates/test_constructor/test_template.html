@@ -1,0 +1,80 @@
+<!--kg-card-begin: html-->
+{% for question in test.questions %}
+  <div class="splide__slide">
+    <div class="quiz-test__screen-questions">
+      <div class="quiz-test__header">
+        <p class="quiz-test__category">Тест</p>
+        <p class="quiz-test__question-number">Вопрос {{ forloop.counter }}/{{ test.questions|length }}</p>
+        <p class="quiz-test__question">{{ question.text }}</p>
+      </div>
+      <div class="quiz-test__content">
+        {% if question.image %}
+          <p class="quiz-test__content-image"><img src="{{ question.image }}" alt="{{ forloop.counter }}"></p>
+        {% endif %}
+
+        <div class="quiz-test__poll">
+
+          {% for answer in test.questions.answer %}
+            <div class="quiz-test__poll-value" data-value="${index}">
+              <div class="quiz-test__poll-value-text">{{ answer.text }}</div>
+            </div>
+          {% endfor %}
+
+        </div>
+        <button class="quiz-test__button" disabled>Выбрать</button>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+{% for result in test.results %}
+  <div class="splide__slide">
+    <div class="quiz-test__screen-result">
+      <div class="quiz-test__header">
+        <p class="quiz-test__category">Тест</p>
+        <h1 class="quiz-test__title">{{ result.header }}</h1>
+        <p class="quiz-test__description">{{ text }}</p>
+      </div>
+
+      <div class="quiz-test__content">
+        <img class="quiz-test__image" src="{{ image }}" alt="Пройти еще раз">
+
+        <div class="quiz-test__socials-header">
+          <span>Поделиться результатом</span>
+        </div>
+        <div class="quiz-test__socials">
+
+          <a href="https://vk.com/share.php?url={{ result.shareUrl }}"
+             class="quiz-test__socials-link"
+             target="_blank" rel="nofollow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="inherit" xmlns="http://www.w3.org/2000/svg">
+              <use xlink:href="#vk-color"></use>
+            </svg>
+          </a>
+          <a href="https://t.me/share/url?url={{ result.shareUrl }}"
+             class="quiz-test__socials-link"
+             target="_blank" rel="nofollow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="inherit" xmlns="http://www.w3.org/2000/svg">
+              <use xlink:href="#telegram-color"></use>
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ result.shareUrl }}"
+             class="quiz-test__socials-link" target="_blank" rel="nofollow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="inherit" xmlns="http://www.w3.org/2000/svg">
+              <use xlink:href="#facebook-color"></use>
+            </svg>
+          </a>
+          <a href="https://twitter.com/intent/tweet?text=${shareText}&url={{ result.shareUrl }}"
+             class="quiz-test__socials-link" target="_blank" rel="nofollow">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="inherit" xmlns="http://www.w3.org/2000/svg">
+              <use xlink:href="#twitter-color"></use>
+            </svg>
+          </a>
+        </div>
+        <button class="quiz-test__button quiz-test__button--active quiz-test__button--offset-top">Пройти тест еще раз!
+        </button>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+<!--kg-card-end: html-->

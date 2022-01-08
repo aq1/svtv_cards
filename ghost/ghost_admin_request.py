@@ -76,7 +76,7 @@ def update_post(post_id: str, post_updated_at: str, data: dict[str, Any]) -> req
 
     return make_ghost_request(
         'put',
-        f'/posts/{post_id}',
+        f'/posts/{post_id}?source=html',
         json={
             'posts': [data],
         },
@@ -89,4 +89,17 @@ def get_post(post_id: str) -> dict:
         f'/posts/{post_id}',
     )
 
+    return response.json()['posts'][0]
+
+
+def create_post(title: str) -> dict:
+    response = make_ghost_request(
+        'post',
+        '/posts/?source=html',
+        json={
+            'posts': [{
+                'title': title,
+            }]
+        },
+    )
     return response.json()['posts'][0]

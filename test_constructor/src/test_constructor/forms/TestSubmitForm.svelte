@@ -4,7 +4,23 @@
     export let test;
 
     const submitTest = () => {
-
+        fetch('/test-constructor/save-test/', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(test),
+        }).then((response) => {
+            if (response.status !== 201) {
+                alert('ошибка загрузки');
+                return;
+            }
+            response.json().then((json) => {
+                test.general.id = json.id;
+                test.general.url = json.url;
+            });
+        });
     };
 </script>
 
@@ -12,6 +28,10 @@
   <div class="test-submit__header">
     Тест: <span class="test-submit__header-test">{test.general.title}</span>
   </div>
+
+  {#if test.general.url}
+    Пост: <a href="{test.general.url}">{test.general.url}</a>
+  {/if}
 
   <div class="test-submit__description">
     {test.general.description}

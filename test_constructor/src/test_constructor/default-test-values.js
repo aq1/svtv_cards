@@ -1,4 +1,6 @@
 export const general = {
+    id: '',
+    url: '',
     cover: '',
     title: '',
     description: '',
@@ -29,6 +31,7 @@ export const getResult = () => {
         image: '',
         header: '',
         text: '',
+        shareUrl: '',
     };
 };
 
