@@ -24,6 +24,10 @@ jobs:
             cp "/apps/${app_name}/config/${app_name}_gunicorn.service" /etc/systemd/system/
             cp "/apps/${app_name}/config/${app_name}_celery.service" /etc/systemd/system/
             cp "/apps/${app_name}/config/${app_name}_bot.service" /etc/systemd/system/
+            yarn --cwd /apps/${app_name}/test_constructor/ install
+            yarn --cwd /apps/${app_name}/test_constructor/ run build
+            /apps/${app_name}/.env/bin/python manage.py collectstatic
+            /apps/${app_name}/.env/bin/python manage.py migrate
             systemctl daemon-reload
             systemctl restart "${app_name}_gunicorn"
             systemctl restart "${app_name}_celery"
