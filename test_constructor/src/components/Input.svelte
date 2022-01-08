@@ -20,7 +20,7 @@
                 return;
             }
             response.text().then((url) => {
-                value = url;
+                value = `https://svtv.org${url}`;
             });
         });
     }

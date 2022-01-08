@@ -36,8 +36,7 @@ def save_test(request):
             'title': test['general']['title'],
             'feature_image': test['general']['cover'],
             'html': test_html,
-            'tags': [{'name': 'Тест'}],
-            'codeinjection_foot': '<script src="/assets/built/js/test2.js"></script>',
+            'tags': [{'name': 'Тест'}, {'name': '#АвтоТест'}],
         },
     )
 
