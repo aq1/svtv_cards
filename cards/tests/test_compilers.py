@@ -180,17 +180,17 @@ def test_test_compiler():
 
 def test_result_compiler():
     titles = (
-        'Пожизненное заключение.',
-        'Десять лет.',
-        'Суд вас оправдал.',
-        'Пожизненное заключение.',
+        'Вы совсем не разбираетесь в новогодней гастрономии',
+        'Вы совсем немножко разбираетесь в новогодней гастрономии',
+        'Вы разбираетесь в новогодней гастрономии!',
+        'Поздравляем, Вы — новогодний гастрономический эксперт!',
     )
 
     covers = (
-        '/Users/vladimirgrechukhin/Downloads/пожизненное.jpeg',
-        '/Users/vladimirgrechukhin/Downloads/10 лет.jpeg',
-        '/Users/vladimirgrechukhin/Downloads/свобода.jpeg',
-        '/Users/vladimirgrechukhin/Downloads/все равно пожизненное.jpeg',
+        '/Users/vladimirgrechukhin/Downloads/photo_2021-12-30 13.43.50.jpeg',
+        '/Users/vladimirgrechukhin/Downloads/photo_2021-12-30 13.43.52.jpeg',
+        '/Users/vladimirgrechukhin/Downloads/photo_2021-12-30 13.43.54.jpeg',
+        '/Users/vladimirgrechukhin/Downloads/photo_2021-12-30 13.43.55 (1).jpeg',
     )
 
     from PIL import Image
@@ -220,4 +220,4 @@ def test_compilers():
 
 
 if __name__ == '__main__':
-    test_factchecking_compiler()
+    test_result_compiler()

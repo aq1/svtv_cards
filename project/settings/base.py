@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'cards',
     'notifications',
     'youtube',
+    'test_constructor',
 ]
 
 MIDDLEWARE = [
