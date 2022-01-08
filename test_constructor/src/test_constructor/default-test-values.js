@@ -44,3 +44,5 @@ export const getTest = () => {
         results: [getResult()],
     };
 };
+
+export const API_URL = '/webhook/test-constructor';

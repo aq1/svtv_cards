@@ -1,10 +1,11 @@
 <script>
     import Button from '../../components/Button.svelte';
+    import {API_URL} from '../default-test-values';
 
     export let test;
 
     const submitTest = () => {
-        fetch('/test-constructor/save-test/', {
+        fetch(`${API_URL}/save-test/`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

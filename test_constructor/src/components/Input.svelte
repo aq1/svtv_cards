@@ -1,4 +1,6 @@
 <script>
+    import {API_URL} from '../test_constructor/default-test-values';
+
     export let name = '';
     export let type = 'text';
     export let placeholder = '';
@@ -9,7 +11,7 @@
     const uploadFile = () => {
         const fd = new FormData();
         fd.append('image', files[0]);
-        fetch('/test-constructor/upload-file/', {
+        fetch(`${API_URL}/upload-file/`, {
             method: 'POST',
             body: fd
         }).then((response) => {

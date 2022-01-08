@@ -9,7 +9,7 @@
     import SplideControls from '../components/SplideControls.svelte';
     import '@splidejs/splide/dist/css/splide.min.css';
 
-    import {getTest} from './default-test-values';
+    import {getTest, API_URL} from './default-test-values';
 
     let splide;
     let tests;
@@ -37,7 +37,7 @@
     ];
 
     const getTests = () => {
-        fetch('/test-constructor/tests/').then((response) => {
+        fetch(`${API_URL}/tests/`).then((response) => {
             response.json().then((json) => {
                 tests = [];
                 for (let t of json.tests) {
