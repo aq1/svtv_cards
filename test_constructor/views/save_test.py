@@ -23,7 +23,7 @@ def save_test(request):
         id=test['general']['id'],
     )
 
-    test_model.json = test
+    test_model.json = json.dumps(test, ensure_ascii=False)
     test_model.save()
 
     test_html = render_to_string('test_constructor/test_template.html', context={'test': test})
@@ -34,8 +34,10 @@ def save_test(request):
         post_updated_at=ghost_post['updated_at'],
         data={
             'title': test['general']['title'],
+            'feature_image': test['general']['cover'],
             'html': test_html,
             'tags': [{'name': 'Тест'}],
+            'codeinjection_foot': '<script src="/assets/built/js/test2.js"></script>',
         },
     )
 

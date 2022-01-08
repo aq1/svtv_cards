@@ -1,9 +1,11 @@
-export const general = {
-    id: '',
-    url: '',
-    cover: '',
-    title: '',
-    description: '',
+export const getGeneral = () => {
+    return {
+        id: '',
+        url: '',
+        cover: '',
+        title: '',
+        description: '',
+    };
 };
 
 export const getAnswer = () => {
@@ -35,10 +37,10 @@ export const getResult = () => {
     };
 };
 
-export const questions = [
-    getQuestion(),
-];
-
-export const results = [
-    getResult(),
-];
+export const getTest = () => {
+    return {
+        general: getGeneral(),
+        questions: [getQuestion()],
+        results: [getResult()],
+    };
+};

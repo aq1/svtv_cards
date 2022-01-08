@@ -1,6 +1,7 @@
 <script>
     import {onMount} from 'svelte';
     import {Splide, SplideSlide} from '@splidejs/svelte-splide';
+    import TestSelectForm from './forms/TestSelectForm.svelte';
     import TestGeneralForm from './forms/TestGeneralForm.svelte';
     import TestQuestionsForm from './forms/TestQuestionsForm.svelte';
     import TestResultsForm from './forms/TestResultsForm.svelte';
@@ -8,9 +9,10 @@
     import SplideControls from '../components/SplideControls.svelte';
     import '@splidejs/splide/dist/css/splide.min.css';
 
-    import {general, questions, results} from './default-test-values';
+    import {getTest} from './default-test-values';
 
     let splide;
+    let tests;
     let test;
 
     const options = {
@@ -27,26 +29,33 @@
     };
 
     const slides = [
+        'Выбрать тест',
         'Основное',
         'Вопросы',
         'Результаты',
         'Сохранить',
     ];
 
-    const getTest = () => {
-        test = {
-            general,
-            questions,
-            results,
-        };
+    const getTests = () => {
+        fetch('/test-constructor/tests/').then((response) => {
+            response.json().then((json) => {
+                tests = [];
+                for (let t of json.tests) {
+                    tests = [...tests, JSON.parse(t)];
+                }
+            });
+        });
+        test = getTest();
     };
-
-    onMount(getTest);
+    onMount(getTests);
 </script>
 <div class="slider">
-  {#if test}
+  {#if tests}
     <SplideControls {slides} {splide}/>
     <Splide {options} bind:this={ splide }>
+      <SplideSlide>
+        <TestSelectForm {tests} bind:test/>
+      </SplideSlide>
       <SplideSlide>
         <TestGeneralForm bind:data={test.general}/>
       </SplideSlide>
