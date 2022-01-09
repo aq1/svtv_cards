@@ -5,6 +5,7 @@ export const getGeneral = () => {
         cover: '',
         title: '',
         description: '',
+        slug: '',
     };
 };
 
