@@ -4,7 +4,7 @@
     export let className = '';
 </script>
 
-<button on:click={callback} class="{className}">
+<button on:click={callback} class="{className}" tabindex="-1">
   {text}
 </button>
 
