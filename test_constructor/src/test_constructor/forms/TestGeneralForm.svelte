@@ -9,6 +9,6 @@
 <Card>
   <ImageInput bind:value={data.cover}/>
   <Input bind:value={data.title} placeholder="Название"/>
+  <Input bind:value={data.slug} placeholder="Slug в ссылке"/>
   <Input bind:value={data.description} placeholder="Короткое описание"/>
 </Card>
-

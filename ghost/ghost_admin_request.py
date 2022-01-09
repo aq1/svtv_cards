@@ -92,6 +92,19 @@ def get_post(post_id: str) -> dict:
     return response.json()['posts'][0]
 
 
+def get_page(page_id: Optional[str] = '', page_slug: Optional[str] = '') -> dict:
+    url = f'/pages/{page_id}'
+    if page_slug:
+        url = f'/pages/slug/{page_slug}'
+
+    response = make_ghost_request(
+        'get',
+        url,
+    )
+
+    return response.json()['pages'][0]
+
+
 def create_post(title: str) -> dict:
     response = make_ghost_request(
         'post',
@@ -103,3 +116,30 @@ def create_post(title: str) -> dict:
         },
     )
     return response.json()['posts'][0]
+
+
+def create_page(title: str) -> dict:
+    response = make_ghost_request(
+        'post',
+        '/pages/?source=html',
+        json={
+            'pages': [{
+                'title': title,
+            }]
+        },
+    )
+    return response.json()['pages'][0]
+
+
+def update_page(page_id: str, page_updated_at: str, data: dict[str, Any]) -> requests.Response:
+    data.update({
+        'updated_at': page_updated_at,
+    })
+
+    return make_ghost_request(
+        'put',
+        f'/pages/{page_id}?source=html',
+        json={
+            'pages': [data],
+        },
+    )
