@@ -45,4 +45,4 @@ export const getTest = () => {
     };
 };
 
-export const API_URL = '/test-constructor';
+export const API_URL = '/webhook/test-constructor';
