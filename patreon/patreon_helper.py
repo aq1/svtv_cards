@@ -11,7 +11,7 @@ app = quart.Quart(__name__)
 main = Main()
 
 
-@app.route("/patron/api/")
+@app.route("/webhook/patron/api/")
 async def not_main_route():
     user_id = quart.request.args.get("state")
     if not user_id:
