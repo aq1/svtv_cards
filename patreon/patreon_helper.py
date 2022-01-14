@@ -16,6 +16,16 @@ async def ping():
     return {'ping': 'pong'}, 200
 
 
+@app.route("/patreon/ping")
+async def ping():
+    return {'ping': 'patreon pong'}, 200
+
+
+@app.route("/webhook/patreon/ping")
+async def ping():
+    return {'ping': 'webhook pong'}, 200
+
+
 @app.route("/api")
 async def not_main_route():
     user_id = quart.request.args.get("state")
