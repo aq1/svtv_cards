@@ -58,16 +58,16 @@ async def join_user_chat(message: types.Message):
             await message.reply(f"Поприветствуем <a href='tg://user?id={message.new_chat_members[0].id}'>{message.new_chat_members[0].first_name}</a> в нашем уютном чатике!",
             parse_mode='HTML')
         elif DB.selectDB('id_telegram', 'id_telegram', message.new_chat_members[0].id) != message.new_chat_members[0].id:
-            await bot.kick_chat_member(chat_id, message.new_chat_members[0].id, until_date=timedelta(seconds=60)) 
+            await bot.kick_chat_member(chat_id, message.new_chat_members[0].id, until_date=timedelta(seconds=60))
             await bot.send_message(chat_id, f"Кто-то дал ссылку неавторизованному пользователю. Я успешно выгнал незнакомца!")
         elif DB.selectDB('sum', 'id_telegram', message.new_chat_members[0].id) < cents:
-            await bot.kick_chat_member(chat_id, message.new_chat_members[0].id, until_date=timedelta(seconds=60)) 
+            await bot.kick_chat_member(chat_id, message.new_chat_members[0].id, until_date=timedelta(seconds=60))
             await bot.send_message(chat_id, f"Кто-то дал ссылку неавторизованному пользователю. Я успешно выгнал незнакомца!")
         elif DB.selectDB('sum', 'id_telegram', message.new_chat_members[0].id) >= cents:
             await message.reply(f"Поприветствуем патрона <a href='tg://user?id={message.new_chat_members[0].id}'>{message.new_chat_members[0].first_name}</a> в нашем уютном чатике!",
             parse_mode='HTML')
         elif value_whitelist != message.new_chat_members[0].id:
-            await bot.kick_chat_member(chat_id, message.new_chat_members[0].id, until_date=timedelta(seconds=60)) 
+            await bot.kick_chat_member(chat_id, message.new_chat_members[0].id, until_date=timedelta(seconds=60))
             await bot.send_message(chat_id, f"Кто-то дал ссылку неавторизованному пользователю. Я успешно выгнал незнакомца!")
     except Exception as e:
         main.log(str(e), 'join_user_chat')
@@ -84,16 +84,16 @@ async def add_whitelist(message: types.Message):
             return
         else:
             DB.whitelistDB_add(id)
-            await message.reply(f"<a href='tg://user?id={id}'>{escape(status['user']['first_name'])}</a> успешно добавлен в Белый список и может получить ссылку на чат!", 
+            await message.reply(f"<a href='tg://user?id={id}'>{escape(status['user']['first_name'])}</a> успешно добавлен в Белый список и может получить ссылку на чат!",
             parse_mode='HTML')
     except Exception as e:
         if str(e) == "User not found":
             if value == True:
-                await message.reply(f"Юзверь с айдишником {id} уже находится в Белом списке!", 
+                await message.reply(f"Юзверь с айдишником {id} уже находится в Белом списке!",
                 parse_mode='HTML')
             else:
                 DB.whitelistDB_add(id)
-                await message.reply(f"Юзверь с айдишником {id} успешно добавлен в Белый список и может получить ссылку на чат!", 
+                await message.reply(f"Юзверь с айдишником {id} успешно добавлен в Белый список и может получить ссылку на чат!",
                 parse_mode='HTML')
         main.log(str(e), 'add_whitelist')
 
@@ -113,25 +113,25 @@ async def remove_whitelist(message: types.Message):
         status = await bot.get_chat_member(chat_id, id)
         value = DB.selectDB_whitelist(id)
         if value == True:
-            await message.reply(f"<a href='tg://user?id={id}'>{escape(status['user']['first_name'])}</a> не находится в Белом списке! Исключать некого.", 
+            await message.reply(f"<a href='tg://user?id={id}'>{escape(status['user']['first_name'])}</a> не находится в Белом списке! Исключать некого.",
             parse_mode='HTML')
         elif status['status'] != 'left' or status['status'] != 'kicked':
             DB.whitelistDB_remove(id)
             await message.reply(f"<a href='tg://user?id={id}'>{escape(status['user']['first_name'])}</a> успешно вынесен из Белого списка!", parse_mode='HTML')
-            await bot.unban_chat_member(message.chat.id, id) 
+            await bot.unban_chat_member(message.chat.id, id)
             await bot.send_message(chat_id, f"Мне пришлось выгнать <a href='tg://user?id={id}'>{status['user']['first_name']}</a> за отсутствие подписки :(",
-            parse_mode='HTML') 
+            parse_mode='HTML')
         else:
             DB.whitelistDB_remove(id)
             await message.reply(f"<a href='tg://user?id={id}'>{escape(status['user']['first_name'])}</a> успешно вынесен из Белого списка и кикнут из чата!", parse_mode='HTML')
     except Exception as e:
         if str(e) == "User not found":
             if value == True:
-                await message.reply(f"Юзверя с айдишником {id} нет в Белом списке! Исключать некого.", 
+                await message.reply(f"Юзверя с айдишником {id} нет в Белом списке! Исключать некого.",
                 parse_mode='HTML')
             else:
                 DB.whitelistDB_remove(id)
-                await message.reply(f"Юзверь с айдишником {id} успешно вынесен из Белого списка и кикнут из чата!", 
+                await message.reply(f"Юзверь с айдишником {id} успешно вынесен из Белого списка и кикнут из чата!",
                 parse_mode='HTML')
         main.log(str(e), 'remove_whitelist')
 
@@ -172,5 +172,4 @@ async def on_startup(dp):
 
 if __name__ == '__main__':
     DB.setupDB()
-    dp.loop.create_task(run_server())
     executor.start_polling(dp, skip_updates=True, on_startup=on_startup)

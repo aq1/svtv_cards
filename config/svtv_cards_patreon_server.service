@@ -1,0 +1,12 @@
+[Unit]
+Description=SVTV Patreon Server
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/apps/svtv_cards/.venv/bin/python /apps/svtv_cards/patreon/patreon_helper.py
+WorkingDirectory=/apps/svtv_cards/patreon/
+StandardInput=tty-force
+
+[Install]
+WantedBy=multi-user.target
