@@ -158,7 +158,3 @@ async def gather_pledges(access_token, uids):
 
 async def run_server():
     await asyncio.serve(app, conf)
-
-
-if __name__ == 'main':
-    dp.loop.create_task(run_server())

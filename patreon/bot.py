@@ -172,4 +172,5 @@ async def on_startup(dp):
 
 if __name__ == '__main__':
     DB.setupDB()
+    dp.loop.create_task(run_server())
     executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
