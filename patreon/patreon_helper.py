@@ -72,7 +72,7 @@ async def not_main_route():
             await bot.send_message(user_id, "Ты — наш патрон, это хорошо! Теперь введи /start для верификации.")
         except:
             pass
-        return {"ok": True, "res": "Congratulation! cum back to our bot for getting chat link"}, 200
+        return {"ok": True, "res": "Congratulation! come back to our bot for getting chat link"}, 200
 
     try:
         await bot.send_message(int(user_id), "Извини, но похоже, что ты не являешься нашим патроном.")
