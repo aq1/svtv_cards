@@ -2,7 +2,7 @@ import patreon
 import quart
 from hypercorn import config, asyncio
 
-from config import db, bot, admins, cents, client_id, client_secret, redirect_uri, address, dp
+from config import db, bot, admins, cents, client_id, client_secret, redirect_uri, address
 from main import Main
 
 conf = config.Config()
@@ -11,7 +11,12 @@ app = quart.Quart(__name__)
 main = Main()
 
 
-@app.route("/webhook/patron/api")
+@app.route("/webhook/patreon/ping")
+async def ping():
+    return {'ping': 'pong'}, 200
+
+
+@app.route("/webhook/patreon/api")
 async def not_main_route():
     user_id = quart.request.args.get("state")
     if not user_id:
