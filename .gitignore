@@ -130,3 +130,5 @@ dmypy.json
 .idea/
 node/
 cards/tests/results/
+patreon/config.py
+patreon/patreon.db
