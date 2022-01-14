@@ -2,7 +2,7 @@ import patreon
 import quart
 from hypercorn import config, asyncio
 
-from config import db, bot, admins, cents, client_id, client_secret, redirect_uri, address
+from config import db, bot, admins, cents, client_id, client_secret, redirect_uri, address, dp
 from main import Main
 
 conf = config.Config()
@@ -161,4 +161,4 @@ async def run_server():
 
 
 if __name__ == 'main':
-    run_server()
+    dp.loop.create_task(run_server())
