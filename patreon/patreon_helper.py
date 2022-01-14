@@ -17,12 +17,12 @@ async def ping():
 
 
 @app.route("/patreon/ping")
-async def ping():
+async def ping1():
     return {'ping': 'patreon pong'}, 200
 
 
 @app.route("/webhook/patreon/ping")
-async def ping():
+async def ping2():
     return {'ping': 'webhook pong'}, 200
 
 
