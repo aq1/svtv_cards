@@ -74,7 +74,7 @@ async def not_main_route():
         if not attributes:
             return {"ok": False, "err": "wtf"}, 404
         amount = attributes.get("amount_cents")
-        if amount < cents:
+        if amount <= cents:
             try:
                 await bot.send_message(int(user_id),
                                        "Похоже, у тебя недостаточный уровень поддержки на Patreon, выбери другой.")
