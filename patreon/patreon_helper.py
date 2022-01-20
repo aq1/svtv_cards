@@ -74,13 +74,8 @@ async def not_main_route():
         if not attributes:
             return {"ok": False, "err": "wtf"}, 404
         amount = attributes.get("amount_cents")
-        if amount <= cents:
-            try:
-                await bot.send_message(int(user_id),
-                                       "Похоже, у тебя недостаточный уровень поддержки на Patreon, выбери другой.")
-            except:
-                pass
-            return {"ok": False, "err": "You are not patron"}, 403
+        if amount < cents:
+            continue
         patron_id = pledge.json_data["relationships"]['patron']['data']['id']
         db.insertDB(user_id, int(patron_id), amount)
         try:
