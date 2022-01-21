@@ -1,18 +1,17 @@
 from typing import Optional
 
-from project.celery import app
-
 from ghost.ghost_admin_request import (
     update_post,
     upload_image,
 )
-
+from project.celery import app
 from ..generators import (
     generate_news_card,
     generate_thread_card,
     generate_opinion_card,
     generate_factchecking_card,
     generate_test_card,
+    generate_translation_card,
 )
 from ..utils.factchecking import (
     get_factchecking_meter_tag,
@@ -23,6 +22,7 @@ generators = {
     'news': generate_news_card,
     'thread': generate_thread_card,
     'opinion': generate_opinion_card,
+    'translation': generate_translation_card,
     'factchecking': generate_factchecking_card,
     'test': generate_test_card,
 }

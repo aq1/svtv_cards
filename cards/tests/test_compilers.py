@@ -3,12 +3,14 @@ from pathlib import Path
 from cards.layers.backgrounds import create_news_background_layer
 from cards.layers.backgrounds import create_thread_background_layer
 from cards.layers.backgrounds import create_opinion_background_layer
+from cards.layers.backgrounds import create_translation_background_layer
 from cards.layers.backgrounds import create_factchecking_background_layer
 from cards.layers.backgrounds import create_test_background_layer
 
 from cards.layers.headers import create_news_header_layer
 from cards.layers.headers import create_thread_header_layer
 from cards.layers.headers import create_opinion_header_layer
+from cards.layers.headers import create_translation_header_layer
 from cards.layers.headers import create_factchecking_header_layer
 from cards.layers.headers import create_test_header_layer
 
@@ -103,11 +105,11 @@ def test_opinion_compiler():
     covers = OPINION_COVERS + COVERS[:1]
 
     for cover, title, author in zip(covers, titles, authors):
-        background = create_opinion_background_layer(
+        background = create_translation_background_layer(
             cover=cover,
         )
         layers = [
-            create_opinion_header_layer(),
+            create_translation_header_layer('cnn.com'),
             create_opinion_title_layer(title),
             create_opinion_footer_layer(**author),
         ]
@@ -220,4 +222,4 @@ def test_compilers():
 
 
 if __name__ == '__main__':
-    test_result_compiler()
+    test_opinion_compiler()

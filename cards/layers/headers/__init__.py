@@ -1,8 +1,9 @@
-from .news_header_layer import create_news_header_layer
-from .thread_header_layer import create_thread_header_layer
-from .opinion_header_layer import create_opinion_header_layer
 from .factchecking_header_layer import create_factchecking_header_layer
+from .news_header_layer import create_news_header_layer
+from .opinion_header_layer import create_opinion_header_layer
 from .test_header_layer import create_test_header_layer
+from .thread_header_layer import create_thread_header_layer
+from .translation_header_layer import create_translation_header_layer
 
 __all__ = [
     create_news_header_layer,
@@ -10,4 +11,5 @@ __all__ = [
     create_opinion_header_layer,
     create_factchecking_header_layer,
     create_test_header_layer,
+    create_translation_header_layer,
 ]
