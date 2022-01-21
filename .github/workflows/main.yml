@@ -25,7 +25,7 @@ jobs:
             cp "/apps/${app_name}/config/${app_name}_celery.service" /etc/systemd/system/
             cp "/apps/${app_name}/config/${app_name}_bot.service" /etc/systemd/system/
             cp "/apps/${app_name}/config/${app_name}_patreon.service" /etc/systemd/system/
-            cp "/apps/${app_name}/config/${app_name}_patreon_server.service" /etc/systemd/system/
+
             yarn --cwd /apps/${app_name}/test_constructor/ install
             yarn --cwd /apps/${app_name}/test_constructor/ run build
             ./manage.py collectstatic --noinput
@@ -33,4 +33,4 @@ jobs:
             systemctl daemon-reload
             systemctl restart "${app_name}_gunicorn"
             systemctl restart "${app_name}_celery"
-            systemctl restart "${app_name}_patreon"
+
