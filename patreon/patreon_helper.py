@@ -11,21 +11,6 @@ app = quart.Quart(__name__)
 main = Main()
 
 
-@app.route("/ping")
-async def ping():
-    return {'ping': 'pong'}, 200
-
-
-@app.route("/patreon/ping")
-async def ping1():
-    return {'ping': 'patreon pong'}, 200
-
-
-@app.route("/webhook/patreon/ping")
-async def ping2():
-    return {'ping': 'webhook pong'}, 200
-
-
 @app.route("/api")
 async def not_main_route():
     user_id = quart.request.args.get("state")
@@ -38,9 +23,9 @@ async def not_main_route():
     except Exception as e:
         main.log(str(e), "not_main_route")
         return {"ok": False, "err": "invalid client"}, 401
+    main.log(f'get_tokens response for user {user_id}: ' + str(tokens), 'not_main_route')
     access_token = tokens.get("access_token")
     if not access_token:
-        # print(str(tokens), str(quart.request.args))
         return {"ok": False, "err": "invalid client"}, 401
     elif user_id[0] == '-' and user_id[1:].isnumeric():
         try:
@@ -58,50 +43,48 @@ async def not_main_route():
 
     api_client = patreon.API(access_token)
     user_response = api_client.fetch_user()
-    # print(str(user_response.json_data), access_token)
     user = user_response.data()
     pledges = user.relationship('pledges')
-    # print(str(pledges))
+    main.log(str(pledges), 'not_main_route')
     if not pledges:
         try:
             await bot.send_message(int(user_id), "Извини, но похоже, что ты не являешься нашим патроном.")
-        except:
-            pass
+        except Exception as e:
+            main.log(str(e), 'not_main_route')
         return {"ok": False, "err": "You are not patron"}, 403
 
-    for pledge in pledges:
-        attributes = pledge.json_data.get("attributes")
-        if not attributes:
-            return {"ok": False, "err": "wtf"}, 404
-        amount = attributes.get("amount_cents")
-        if amount < cents:
-            continue
-        patron_id = pledge.json_data["relationships"]['patron']['data']['id']
-        db.insertDB(user_id, int(patron_id), amount)
+    attributes = pledges[0].json_data.get("attributes")
+    if not attributes:
+        main.log('attributes not found, wtf', 'not_main_route')
+        return {"ok": False, "err": "wtf"}, 404
+    amount = attributes.get("amount_cents")
+    patron_id = pledges[0].json_data["relationships"]['patron']['data']['id']
+    main.log('patron: ' + patron_id + ', amount: ' + amount, 'not_main_route')
+    if amount < cents:
         try:
-            await bot.send_message(user_id, "Ты — наш патрон, это хорошо! Теперь введи /start для верификации.")
-        except:
-            pass
-        return {"ok": True, "res": "Congratulation! come back to our bot for getting chat link"}, 200
-
+            await bot.send_message(int(user_id),
+                                   f"Похоже, у тебя недостаточный уровень поддержки на Patreon ({amount} центов), "
+                                   f"выбери другой.")
+        except Exception as e:
+            main.log(str(e), 'not_main_route')
+        return {"ok": False, "err": "You are not patron"}, 403
+    db.insertDB(user_id, int(patron_id), amount)
     try:
-        await bot.send_message(int(user_id), "Извини, но похоже, что ты не являешься нашим патроном.")
-    except:
-        pass
-    return {"ok": False, "err": "You are not patron"}, 403
+        await bot.send_message(user_id, "Ты — наш патрон, это хорошо! Теперь введи /start для верификации.")
+    except Exception as e:
+        main.log(str(e), 'not_main_route')
+    return {"ok": True, "res": "Congratulation! cum back to our bot for getting chat link"}, 200
 
 
 async def activday(hand=False):
-    # main.log("activday started", "activday")
-
     patreon_tokens = db.selectDB_patreon_helper()
     if not patreon_tokens:
         for x in admins:
             try:
                 await bot.send_message(x, """Похоже, в бд бота нет токенов для работы с апи патреона, это хреново.
 Отправь /settokens для их добавления""")
-            except:
-                continue
+            except Exception as e:
+                main.log(str(e), 'activday')
         return
 
     uids = db.selectDB_patreons()
@@ -162,6 +145,7 @@ async def gather_pledges(access_token, uids):
     for id_telegram in patron_ids.values():
         db.deleteDB(id_telegram)
         await main.kick(id_telegram)
+        main.log(f'{id_telegram}: bye-bye', 'gather_pledges')
 
     return patron_ids
 
