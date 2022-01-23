@@ -73,7 +73,7 @@ async def not_main_route():
         await bot.send_message(user_id, "Ты — наш патрон, это хорошо! Теперь введи /start для верификации.")
     except Exception as e:
         main.log(str(e), 'not_main_route')
-    return {"ok": True, "res": "Congratulation! cum back to our bot for getting chat link"}, 200
+    return {"ok": True, "res": "Congratulation! Come back to our bot for getting chat link"}, 200
 
 
 async def activday(hand=False):
