@@ -59,7 +59,7 @@ async def not_main_route():
         return {"ok": False, "err": "wtf"}, 404
     amount = attributes.get("amount_cents")
     patron_id = pledges[0].json_data["relationships"]['patron']['data']['id']
-    main.log('patron: ' + patron_id + ', amount: ' + amount, 'not_main_route')
+    main.log(f'patron: {patron_id} amount: {amount}', 'not_main_route')
     if amount < cents:
         try:
             await bot.send_message(int(user_id),
