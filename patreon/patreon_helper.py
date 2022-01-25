@@ -63,7 +63,7 @@ async def not_main_route():
             main.log(str(e), "not_main_route")
 
     if not user_id.isnumeric():
-        main.log('{"ok": False, "err": "invalid state parameter: {}"}, 401'.format(user_id), 'not_main_route', 'INFO')
+        main.log(f'"ok": False, "err": "invalid state parameter: {user_id}", 401', 'not_main_route', 'INFO')
         return html_template
 
     api_client = patreon.API(access_token)
@@ -97,14 +97,14 @@ async def not_main_route():
                                    f"выбери другой.")
         except Exception as e:
             main.log(str(e), 'not_main_route')
-        main.log('{"ok": False, "err": "{} not true patron"}, 403'.format(user_id), 'not_main_route', 'INFO')
+        main.log(f'"ok": False, "err": "{user_id} not true patron", 403', 'not_main_route', 'INFO')
         return html_template
     db.insertDB(user_id, int(patron_id), amount)
     try:
         await bot.send_message(user_id, "Ты — наш патрон, это хорошо! Теперь введи /start для верификации.")
     except Exception as e:
         main.log(str(e), 'not_main_route')
-    main.log('{"ok": True, "res": "Congratulation! {} should cum back to bot for getting link"}, 200'.format(user_id),
+    main.log(f'"ok": True, "res": "Congratulation! {user_id} should cum back to bot for getting link", 200',
              'not_main_route', 'INFO')
     return html_template
 
