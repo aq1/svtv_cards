@@ -1,6 +1,6 @@
 import patreon
-import quart
 from hypercorn import config, asyncio
+import quart
 
 from config import db, bot, admins, cents, client_id, client_secret, redirect_uri, address
 from main import Main
@@ -10,28 +10,29 @@ conf.bind = [address]
 app = quart.Quart(__name__)
 main = Main()
 
-
-@app.route("/ping")
-async def ping():
-    return {k: v for (k, v) in quart.request.args.items()}, 200
+html_template = '<html><head><title>/apibebe/closetabhaha/spystyle/lol</title></head><body><script ' \
+                'type="text/javascript">window.close() ;</script></body></html> '
 
 
 @app.route("/api")
 async def not_main_route():
     user_id = quart.request.args.get("state")
     if not user_id:
-        return {"ok": False, "err": "invalid URL: where state parameter, a?"}, 401
+        main.log('{"ok": False, "err": "invalid URL: where state parameter, a?"}, 401', 'not_main_route', 'INFO')
+        return html_template
 
     oauth_client = patreon.OAuth(client_id, client_secret)
     try:
         tokens = oauth_client.get_tokens(quart.request.args.get("code"), redirect_uri)
     except Exception as e:
         main.log(str(e), "not_main_route")
-        return {"ok": False, "err": "invalid client"}, 401
+        main.log('{"ok": False, "err": "invalid client"}, 401', 'not_main_route')
+        return html_template
     main.log(f'get_tokens response for user {user_id}: ' + str(tokens), 'not_main_route')
     access_token = tokens.get("access_token")
     if not access_token:
-        return {"ok": False, "err": "invalid client"}, 401
+        main.log('{"ok": False, "err": "invalid client"}, 401', 'not_main_route')
+        return html_template
     elif user_id[0] == '-' and user_id[1:].isnumeric():
         try:
             if int(user_id[1:]) not in admins:
@@ -39,12 +40,14 @@ async def not_main_route():
             db.insertDB_patreon_helper(access_token, tokens.get("refresh_token"))
             await bot.send_message(int(user_id[1:]),
                                    "Вы установили все необходимые для работы с апи патреона токены, поздравляю!")
-            return {"ok": True, "res": "Congratulation, tokens are set"}, 200
+            main.log('{"ok": True, "res": "Congratulation, tokens are set"}, 200', 'not_main_route', 'INFO')
+            return html_template
         except Exception as e:
             main.log(str(e), "not_main_route")
 
     if not user_id.isnumeric():
-        return {"ok": False, "err": "invalid state parameter"}, 401
+        main.log('{"ok": False, "err": "invalid state parameter: {}"}, 401'.format(user_id), 'not_main_route', 'INFO')
+        return html_template
 
     api_client = patreon.API(access_token)
     user_response = api_client.fetch_user()
@@ -56,32 +59,41 @@ async def not_main_route():
             await bot.send_message(int(user_id), "Извини, но похоже, что ты не являешься нашим патроном.")
         except Exception as e:
             main.log(str(e), 'not_main_route')
-        return {"ok": False, "err": "You are not patron"}, 403
+        main.log('{"ok": False, "err": "{} not patron"}, 403'.format(user_id), 'not_main_route', 'INFO')
+        return html_template
 
     attributes = pledges[0].json_data.get("attributes")
     if not attributes:
         main.log('attributes not found, wtf', 'not_main_route')
-        return {"ok": False, "err": "wtf"}, 404
+        return html_template
     amount = attributes.get("amount_cents")
+    currency = attributes.get("currency")
+    if currency not in cents.keys():
+        main.log(f'currency {currency} not found', 'not_main_route')
+        return html_template
     patron_id = pledges[0].json_data["relationships"]['patron']['data']['id']
-    main.log(f'patron: {patron_id} amount: {amount}', 'not_main_route')
-    if amount < cents:
+    main.log('patron: ' + patron_id + ', amount: ' + amount + ', currency: ' + currency, 'not_main_route')
+    if amount < cents[currency]:
         try:
             await bot.send_message(int(user_id),
                                    f"Похоже, у тебя недостаточный уровень поддержки на Patreon ({amount} центов), "
                                    f"выбери другой.")
         except Exception as e:
             main.log(str(e), 'not_main_route')
-        return {"ok": False, "err": "You are not patron"}, 403
+        main.log('{"ok": False, "err": "{} not true patron"}, 403'.format(user_id), 'not_main_route', 'INFO')
+        return html_template
     db.insertDB(user_id, int(patron_id), amount)
     try:
         await bot.send_message(user_id, "Ты — наш патрон, это хорошо! Теперь введи /start для верификации.")
     except Exception as e:
         main.log(str(e), 'not_main_route')
-    return {"ok": True, "res": "Congratulation! Come back to our bot for getting chat link"}, 200
+    main.log('{"ok": True, "res": "Congratulation! {} should cum back to bot for getting link"}, 200'.format(user_id),
+             'not_main_route', 'INFO')
+    return html_template
 
 
 async def activday(hand=False):
+
     patreon_tokens = db.selectDB_patreon_helper()
     if not patreon_tokens:
         for x in admins:
@@ -116,7 +128,8 @@ async def activday(hand=False):
                 try:
                     await bot.send_message(x, """Похоже, в бд бота совсем нет рабочих токенов для апи патреона.
 Отправь /settokens для их добавления""")
-                except:
+                except Exception as e:
+                    main.log(str(e), "activday")
                     continue
             return
 
@@ -150,7 +163,7 @@ async def gather_pledges(access_token, uids):
     for id_telegram in patron_ids.values():
         db.deleteDB(id_telegram)
         await main.kick(id_telegram)
-        main.log(f'{id_telegram}: bye-bye', 'gather_pledges')
+        main.log(f'{id_telegram}: bye-bye', 'gather_pledges', 'INFO')
 
     return patron_ids
 

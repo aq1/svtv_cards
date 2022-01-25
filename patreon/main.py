@@ -6,9 +6,9 @@ from config import bot, chat_id
 
 
 class Main:
-    def log(self, some_str_logs, name):
+    def log(self, some_str_logs, name, level='ERROR'):
         with open("logs.txt", "a") as f:
-            f.write(f"{datetime.now(pytz.timezone('Europe/Moscow')).strftime('%Y-%m-%d %H:%M:%S')}. {name}: ERROR: {some_str_logs}\n")
+            f.write(f"{datetime.now(pytz.timezone('Europe/Moscow')).strftime('%Y-%m-%d %H:%M:%S')}. {name}: {level}: {some_str_logs}\n")
 
     async def create_link(self, user_name):
         try:
