@@ -26,6 +26,11 @@ location.replace('https://svtv.org');
 '''
 
 
+@app.route("/ping")
+async def ping():
+    return quart.request.args.items(), 200
+
+
 @app.route("/api")
 async def not_main_route():
     user_id = quart.request.args.get("state")
