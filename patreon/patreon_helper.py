@@ -10,8 +10,25 @@ conf.bind = [address]
 app = quart.Quart(__name__)
 main = Main()
 
-html_template = '<html><head><title>/apibebe/closetabhaha/spystyle/lol</title></head><body><script ' \
-                'type="text/javascript">window.close() ;</script></body></html> '
+html_template = '''
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SVTV Bot</title>
+</head>
+<body>
+<script>
+window.close();
+</script> 
+</body>
+</html>
+
+'''
 
 
 @app.route("/api")
