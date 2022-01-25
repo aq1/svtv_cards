@@ -22,8 +22,11 @@ def auth(func):
 async def start(message: types.Message):
     value_whitelist = DB.selectDB_whitelist(message.from_user.id)
     user_sum_crypt = DB.selectDB('sum', 'id_telegram', message.from_user.id)
-    user_sum = user_sum_crypt >> 3
-    user_cur = [y for x, y in enumerate(cents.keys()) if x == user_sum_crypt & 7][0]
+    if user_sum_crypt:
+        user_sum = user_sum_crypt >> 3
+        user_cur = [y for x, y in enumerate(cents.keys()) if x == user_sum_crypt & 7][0]
+    else:
+        user_sum, user_cur = 0, "USD"
     if value_whitelist == message.from_user.id:
         status = await bot.get_chat_member(chat_id, message.from_user.id)
         if status['status'] != 'left' and status['status'] != 'kicked':
@@ -58,8 +61,11 @@ async def join_user_chat(message: types.Message):
         print(message.new_chat_members[0])
         value_whitelist = DB.selectDB_whitelist(message.new_chat_members[0].id)
         user_sum_crypt = DB.selectDB('sum', 'id_telegram', message.new_chat_members[0].id)
-        user_sum = user_sum_crypt >> 3
-        user_cur = [y for x, y in enumerate(cents.keys()) if x == user_sum_crypt & 7][0]
+        if user_sum_crypt:
+            user_sum = user_sum_crypt >> 3
+            user_cur = [y for x, y in enumerate(cents.keys()) if x == user_sum_crypt & 7][0]
+        else:
+            user_sum, user_cur = 0, "USD"
         if value_whitelist == message.new_chat_members[0].id:
             await message.reply(f"Поприветствуем <a href='tg://user?id={message.new_chat_members[0].id}'>{message.new_chat_members[0].first_name}</a> в нашем уютном чатике!",
             parse_mode='HTML')
