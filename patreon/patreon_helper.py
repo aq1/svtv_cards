@@ -63,7 +63,7 @@ async def not_main_route():
             main.log(str(e), "not_main_route")
 
     if not user_id.isnumeric():
-        main.log(f'"ok": False, "err": "invalid state parameter: {user_id}", 401', 'not_main_route', 'INFO')
+        main.log('{"ok": False, "err": "invalid state parameter: {}"}, 401'.format(user_id), 'not_main_route', 'INFO')
         return html_template
 
     api_client = patreon.API(access_token)
@@ -76,7 +76,7 @@ async def not_main_route():
             await bot.send_message(int(user_id), "Извини, но похоже, что ты не являешься нашим патроном.")
         except Exception as e:
             main.log(str(e), 'not_main_route')
-        main.log(f'"ok": False, "err": "{user_id} not patron", 403', 'not_main_route', 'INFO')
+        main.log('{"ok": False, "err": "{} not patron"}, 403'.format(user_id), 'not_main_route', 'INFO')
         return html_template
 
     attributes = pledges[0].json_data.get("attributes")
@@ -89,7 +89,7 @@ async def not_main_route():
         main.log(f'currency {currency} not found', 'not_main_route')
         return html_template
     patron_id = pledges[0].json_data["relationships"]['patron']['data']['id']
-    main.log(f'patron: {patron_id} amount: {amount} currency {currency}', 'not_main_route')
+    main.log('patron: ' + patron_id + ', amount: ' + amount + ', currency: ' + currency, 'not_main_route')
     if amount < cents[currency]:
         try:
             await bot.send_message(int(user_id),
@@ -97,14 +97,14 @@ async def not_main_route():
                                    f"выбери другой.")
         except Exception as e:
             main.log(str(e), 'not_main_route')
-        main.log(f'"ok": False, "err": "{user_id} not true patron", 403', 'not_main_route', 'INFO')
+        main.log('{"ok": False, "err": "{} not true patron"}, 403'.format(user_id), 'not_main_route', 'INFO')
         return html_template
-    db.insertDB(user_id, int(patron_id), amount)
+    db.insertDB(user_id, int(patron_id), amount << 3 | [x for x, y in enumerate(cents.keys()) if y == currency][0])
     try:
         await bot.send_message(user_id, "Ты — наш патрон, это хорошо! Теперь введи /start для верификации.")
     except Exception as e:
         main.log(str(e), 'not_main_route')
-    main.log(f'"ok": True, "res": "Congratulation! {user_id} should cum back to bot for getting link", 200',
+    main.log('{"ok": True, "res": "Congratulation! {} should cum back to bot for getting link"}, 200'.format(user_id),
              'not_main_route', 'INFO')
     return html_template
 
