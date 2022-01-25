@@ -19,7 +19,7 @@ html_template = '''
 </head>
 <body>
 <script>
-window.close();
+location.replace('https://svtv.org');
 </script> 
 </body>
 </html>
