@@ -89,7 +89,7 @@ async def not_main_route():
         main.log(f'currency {currency} not found', 'not_main_route')
         return html_template
     patron_id = pledges[0].json_data["relationships"]['patron']['data']['id']
-    main.log('patron: ' + patron_id + ', amount: ' + amount + ', currency: ' + currency, 'not_main_route')
+    main.log(f'patron: {patron_id} amount: {amount} currency {currency}', 'not_main_route')
     if amount < cents[currency]:
         try:
             await bot.send_message(int(user_id),
