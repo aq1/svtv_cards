@@ -76,7 +76,7 @@ async def not_main_route():
             await bot.send_message(int(user_id), "Извини, но похоже, что ты не являешься нашим патроном.")
         except Exception as e:
             main.log(str(e), 'not_main_route')
-        main.log('{"ok": False, "err": "{} not patron"}, 403'.format(user_id), 'not_main_route', 'INFO')
+        main.log(f'"ok": False, "err": "{user_id} not patron", 403', 'not_main_route', 'INFO')
         return html_template
 
     attributes = pledges[0].json_data.get("attributes")
