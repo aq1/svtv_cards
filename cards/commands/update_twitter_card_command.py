@@ -67,6 +67,7 @@ def update_post_fields(post: dict) -> dict:
 
     data = {
         'twitter_image': cover_url,
+        'og_image': cover_url,
     }
 
     if post['primary_tag']['slug'] == 'factchecking':
