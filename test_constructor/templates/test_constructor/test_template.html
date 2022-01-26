@@ -1,5 +1,5 @@
 <!--kg-card-begin: html-->
-  <div class="splide__slide">
+  <div class="splide__slide" data-test-type="{{ test.general.type }}">
     <div class="quiz-test__screen-start">
       <div class="quiz-test__header">
         <p class="quiz-test__category">Тест</p>
@@ -30,7 +30,8 @@
         <div class="quiz-test__poll">
 
           {% for answer in question.answers %}
-            <div class="quiz-test__poll-value" data-value="{{ answer.value|default_if_none:forloop.counter }}">
+            <div class="quiz-test__poll-value"
+                 data-value="{% if test.general.type == 'default' %}{{ forloop.counter }}{% else %}{{ answer.value }}{% endif %}">
               <div class="quiz-test__poll-value-text">{{ answer.text }}</div>
             </div>
           {% endfor %}

@@ -21,6 +21,54 @@ def get_redirect_script_for_share_page(url):
     ''' % url
 
 
+def get_result_html(url):
+    return f'''
+    <!doctype html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <title></title>
+        </head>
+        <body>
+        <div id="url" data-url="{url}"></div>
+        <script src="/assets/built/js/testResult.js?v=2"></script>
+        </body>
+        </html>
+    '''
+
+
+def generate_result_picture(title, image):
+    from cards.layers.backgrounds import create_test_background_layer
+    from cards.layers.headers import create_test_header_layer
+    from cards.layers.titles import create_test_title_layer
+    from cards.compilers import compile_layers
+    from ghost.ghost_admin_request import upload_image
+
+    import requests
+    from PIL import Image
+
+    background = create_test_background_layer(
+        cover=Image.open(requests.get(image).content),
+    )
+
+    layers: list = [
+        create_test_header_layer(),
+        create_test_title_layer(
+            title=title,
+        ),
+    ]
+
+    cover = compile_layers(
+        background=background,
+        layers=layers,
+    )
+
+    return upload_image(
+        f'{title}.jpg',
+        cover,
+    ).json()['images'][0]['url']
+
+
 @csrf_exempt
 def save_test(request):
     test = json.loads(request.body.decode('utf8'))
@@ -43,13 +91,17 @@ def save_test(request):
                 title=f'Шеринг теста: {result["header"]}',
             )
 
+        twitter_image = generate_result_picture(result['header'], result['image'])
         response = update_page(
             page_id=page['id'],
             page_updated_at=page['updated_at'],
             data={
                 'slug': result['shareUrl'],
                 'feature_image': result['image'],
-                'codeinjection_head': get_redirect_script_for_share_page(test['general']['slug']),
+                'meta_title': result['header'],
+                'meta_description': f'{result["header"]} - проверьте по ссылке',
+                'twitter_image': twitter_image,
+                'html': get_result_html(test['general']['url']),
             },
         )
 
