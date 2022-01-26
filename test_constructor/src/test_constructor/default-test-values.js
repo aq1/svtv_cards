@@ -48,3 +48,8 @@ export const getTest = () => {
 };
 
 export const API_URL = '/webhook/test-constructor';
+
+export const TEST_TYPES = [
+    {name: 'default', label: 'Обычный'},
+    {name: 'points', label: 'С набором баллов'},
+];
