@@ -36,6 +36,7 @@ export const getResult = () => {
         header: '',
         text: '',
         shareUrl: '',
+        points: '',
     };
 };
 
