@@ -6,6 +6,7 @@ export const getGeneral = () => {
         title: '',
         description: '',
         slug: '',
+        type: 'default',
     };
 };
 

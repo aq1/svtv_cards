@@ -26,6 +26,9 @@
         <div class="answer__text">
           <Input bind:value={answer.text}/>
         </div>
+        <div class="answer__value">
+          <Input bind:value={answer.value}/>
+        </div>
         <!--      <div class="answer__value">-->
         <!--        <Input bind:value={answer.value} placeholder="Значение"/>-->
         <!--      </div>-->
@@ -58,7 +61,7 @@
     }
 
     .answer__text {
-        flex: 1 1 70%;
+        flex: 1 1 80%;
     }
 
     .answer__value {
