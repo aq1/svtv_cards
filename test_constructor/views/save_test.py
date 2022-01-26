@@ -100,7 +100,7 @@ def save_test(request):
                 'slug': result['shareUrl'],
                 'feature_image': result['image'],
                 'meta_title': result['header'],
-                'meta_description': f'{result["header"]} - проверьте по ссылке',
+                'meta_description': f'{test["general"]["title"]} - проверьте по ссылке',
                 'twitter_image': twitter_image,
                 'html': get_result_html(test['general']['url']),
             },
