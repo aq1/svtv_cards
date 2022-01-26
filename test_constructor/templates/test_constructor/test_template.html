@@ -44,7 +44,7 @@
 {% endfor %}
 
 {% for result in test.results %}
-  <div class="splide__slide">
+  <div class="splide__slide" data-points="{{ result.points }}">
     <div class="quiz-test__screen-result">
       <div class="quiz-test__header">
         <p class="quiz-test__category">Тест</p>
