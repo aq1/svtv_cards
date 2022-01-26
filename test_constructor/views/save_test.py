@@ -43,12 +43,10 @@ def generate_result_picture(title, image):
     from cards.layers.titles import create_test_title_layer
     from cards.compilers import compile_layers
     from ghost.ghost_admin_request import upload_image
-
-    import requests
-    from PIL import Image
+    from cards.utils import download_image
 
     background = create_test_background_layer(
-        cover=Image.open(requests.get(image).content),
+        cover=download_image(image),
     )
 
     layers: list = [
