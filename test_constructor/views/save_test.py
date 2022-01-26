@@ -91,7 +91,10 @@ def save_test(request):
                 title=f'Шеринг теста: {result["header"]}',
             )
 
-        twitter_image = generate_result_picture(result['header'], result['image'])
+        twitter_image = None
+        if result['image']:
+            twitter_image = generate_result_picture(result['header'], result['image'])
+
         response = update_page(
             page_id=page['id'],
             page_updated_at=page['updated_at'],
