@@ -47,9 +47,11 @@ def make_ghost_request(
     return requests.Session().send(request)
 
 
-def upload_image(image_name: str, image: Image = None) -> requests.Response:
+def upload_image(image_name: str, image: Image) -> requests.Response:
     _file = io.BytesIO()
-    image.save(_file, 'jpeg')
+    is_gif = image_name.endswith('gif')
+    _format = 'gif' if is_gif else 'jpeg'
+    image.save(_file, format=_format, save_all=is_gif)
     _file.seek(0)
 
     files = {

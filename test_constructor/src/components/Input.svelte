@@ -19,8 +19,8 @@
                 alert('ошибка загрузки');
                 return;
             }
-            response.text().then((url) => {
-                value = `https://svtv.org${url}`;
+            response.json().then((json) => {
+                value = json.file.url;
             });
         });
     }
