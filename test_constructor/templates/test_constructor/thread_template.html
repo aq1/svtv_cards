@@ -32,9 +32,11 @@
         </figure>
       {% endif %}
       {% if block.type == 'embed' and block.data.service == 'youtube' %}
-        <iframe src="{{ block.data.source }}" title="YouTube video player"
+        <iframe width="100%" height="315" src="{{ block.data.embed }}" title="YouTube video player"
+                frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen="" width="100%" height="315" frameborder="0"></iframe>
+                allowfullscreen></iframe>
+        <figcaption>{{ block.data.caption }}</figcaption>
       {% endif %}
     {% endfor %}
   </div>
