@@ -54,7 +54,7 @@
   </div>
   <div>
     <p>
-      <a href="{thread.general.url}">{thread.general.url}</a>
+      <a href="{thread.general.url}" target="_blank">{thread.general.url}</a>
     </p>
   </div>
   {#each thread.cards as card, index}
