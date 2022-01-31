@@ -53,7 +53,9 @@
     <ImageInput name="Обложка" bind:value={thread.general.cover}/>
   </div>
   <div>
-    <p>{thread.general.url}</p>
+    <p>
+      <a href="{thread.general.url}">{thread.general.url}</a>
+    </p>
   </div>
   {#each thread.cards as card, index}
     <ThreadCard bind:card {index} removeCard={removeCard(index)}/>
