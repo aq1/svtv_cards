@@ -1,5 +1,4 @@
 <script>
-    import {onMount} from 'svelte';
     import EditorJS from '@editorjs/editorjs';
     import List from '@editorjs/list';
     import Embed from '@editorjs/embed';
