@@ -48,7 +48,8 @@ export const getTest = () => {
     };
 };
 
-export const API_URL = '/webhook/test-constructor';
+// export const API_URL = '/constructors';
+export const API_URL = '/webhook/constructors';
 
 export const TEST_TYPES = [
     {name: 'default', label: 'Обычный'},
