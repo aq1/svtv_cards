@@ -13,7 +13,7 @@
 
     const deleteAnswer = (index) => () => {
         question.answers = [...question.answers.slice(0, index), ...question.answers.slice(index + 1, question.answers.length)];
-    }
+    };
 </script>
 
 <div class="wrapper">

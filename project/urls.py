@@ -8,7 +8,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('', include('webhooks.urls')),
-    path('test-constructor/', include('test_constructor.urls')),
+    path('constructors/', include('test_constructor.urls')),
 ]
 
 

@@ -1,0 +1,10 @@
+<!--kg-card-begin: html-->
+{% for card in cards %}
+  <div class="thread-blob">
+    {% for block in card.data.blocks %}
+      {% if block.type == 'paragraph' %}
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endfor %}
+<!--kg-card-end: html-->
