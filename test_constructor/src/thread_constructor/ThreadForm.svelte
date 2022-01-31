@@ -70,8 +70,4 @@
         flex-direction: column;
         gap: 10px;
     }
-
-    pre {
-        overflow: hidden;
-    }
 </style>

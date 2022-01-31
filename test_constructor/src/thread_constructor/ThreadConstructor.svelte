@@ -55,12 +55,6 @@
     </SplideSlide>
   </Splide>
 {/if}
-
-{#if thread}
-  <pre>
-    {JSON.stringify(thread, null, 4)}
-  </pre>
-{/if}
 <style>
 
 </style>
