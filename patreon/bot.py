@@ -177,7 +177,7 @@ async def patron4ek(message: types.Message):
 async def on_startup(dp):
     try:
         scheduler = AsyncIOScheduler(timezone=pytz.timezone('Europe/Moscow'))
-        scheduler.add_job(activday, "cron", hour="12", minute="0", day="1")
+        scheduler.add_job(activday, "cron", hour="12", minute="0", day="3")
         scheduler.start()
     except Exception as e:
         main.log(str(e), 'on_startup')
