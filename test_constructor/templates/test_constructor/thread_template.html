@@ -1,8 +1,12 @@
 <!--kg-card-begin: html-->
 {% for card in thread.cards %}
-  <div class="thread-blob">
+  <div class="thread-blob" id="card-{{ forloop.counter }}">
     {% if card.title %}
-      <b><span class="thread-blob__date">{{ card.title }}</span></b>
+      <b>
+        <span class="thread-blob__date">
+          {{ card.title }}
+        </span>
+      </b>
     {% endif %}
     {% for block in card.data.blocks %}
       {% if block.type == 'paragraph' %}
