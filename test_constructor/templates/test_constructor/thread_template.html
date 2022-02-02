@@ -43,6 +43,16 @@
         <figcaption>{{ block.data.caption }}</figcaption>
       {% endif %}
     {% endfor %}
+    <div class="thread-blob__share" data-index="{{ forloop.counter }}">
+      <div class="thread-blob__share-icon">
+        <svg width="20" height="25" viewBox="0 -5 20 25" xmlns="http://www.w3.org/2000/svg">
+          <use xlink:href="#link"></use>
+        </svg>
+      </div>
+      <div class="thread-blob__share-text">
+        Поделиться
+      </div>
+    </div>
   </div>
 {% endfor %}
 <!--kg-card-end: html-->

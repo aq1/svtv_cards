@@ -651,7 +651,7 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
-svelte-editorjs@^0.1.0:
+svelte-editorjs@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/svelte-editorjs/-/svelte-editorjs-0.1.0.tgz#6e38b646eec8d7bb8df481d6b01f8a2751b6d1a3"
   integrity sha512-aqMfmH8A3zaCWeNLf7/syRqhcNKSOultSVTUkNS2ny/T4hgNbXrKG1wLN0DvUzTcrXxsilt0doxtHJ9vXX8roQ==
