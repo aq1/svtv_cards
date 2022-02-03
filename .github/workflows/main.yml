@@ -31,6 +31,7 @@ jobs:
             yarn --cwd /apps/${app_name}/test_constructor/ run build
             ./manage.py collectstatic --noinput
             ./manage.py migrate
+            ./manage.py shell -c "from currencies.update_rates import *; update_rates()"
             systemctl daemon-reload
             systemctl restart "${app_name}_gunicorn"
             systemctl restart "${app_name}_celery"
