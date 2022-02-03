@@ -34,4 +34,3 @@ jobs:
             systemctl daemon-reload
             systemctl restart "${app_name}_gunicorn"
             systemctl restart "${app_name}_celery"
-            systemctl restart "${app_name}_beat"
