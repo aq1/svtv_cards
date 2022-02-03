@@ -66,7 +66,7 @@ def update_rates():
         },
     )
 
-    update_rates.apply_async(countdown=10)
+    update_rates.apply_async(countdown=1 * 60 * 60)
 
     Bot(token=settings.TELEGRAM_TOKEN).send_message(
         settings.TELEGRAM_ADMIN_ID,
