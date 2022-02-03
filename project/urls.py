@@ -9,7 +9,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('', include('webhooks.urls')),
-    path('admin/', admin.site.urls),
+    path('webhook/admin/', admin.site.urls),
     path('constructors/', include('test_constructor.urls')),
 ]
 
