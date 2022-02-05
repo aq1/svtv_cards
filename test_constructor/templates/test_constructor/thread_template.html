@@ -35,11 +35,17 @@
           <figcaption>{{ block.data.caption }}</figcaption>
         </figure>
       {% endif %}
-      {% if block.type == 'embed' and block.data.service == 'youtube' %}
-        <iframe width="100%" height="315" src="{{ block.data.embed }}" title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
+      {% if block.type == 'embed' %}
+        {% if block.data.service == 'youtube' %}
+          <iframe width="100%" height="315" src="{{ block.data.embed }}" title="YouTube video player"
+                  frameborder="0"
+                  allowfullscreen></iframe>
+        {% endif %}
+        {% if block.data.service == 'bitchute' %}
+          <iframe width="100%" height="315" src="{{ block.data.embed }}" title="Bitchute video player"
+                  frameborder="0"
+                  allowfullscreen></iframe>
+        {% endif %}
         <figcaption>{{ block.data.caption }}</figcaption>
       {% endif %}
     {% endfor %}
