@@ -26,6 +26,11 @@
                 config: {
                     services: {
                         youtube: true,
+                        'bitchute': {
+                            regex: /https:\/\/www.bitchute.com\/video\/(.*?)\//,
+                            embedUrl: 'https://www.bitchute.com/embed/<%= remote_id %>/',
+                            html: `<iframe width="640" height="360" scrolling="no" frameborder="0" style="border: none;"></iframe>`,
+                        }
                     }
                 }
             },
