@@ -1,5 +1,5 @@
-<!--kg-card-begin: html-->
 {% for card in thread.cards %}
+  <!--kg-card-begin: html-->
   <div class="thread-blob" id="card-{{ forloop.counter }}">
     {% if card.title %}
       <b>
@@ -63,5 +63,5 @@
       </div>
     </div>
   </div>
+  <!--kg-card-end: html-->
 {% endfor %}
-<!--kg-card-end: html-->
