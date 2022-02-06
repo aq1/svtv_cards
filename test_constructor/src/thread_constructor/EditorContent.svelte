@@ -51,4 +51,9 @@
     .editor-content:hover {
         background-color: rgba(0, 0, 0, 0.1);
     }
+
+    img {
+        max-width: 100%;
+        max-height: 400px;
+    }
 </style>

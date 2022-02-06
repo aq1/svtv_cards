@@ -15,7 +15,7 @@
 
 <div>
   {#if threads}
-    <Button text="Новый тред" callback={selectThread()}/>
+    <Button text="Новый тред" callback={selectThread()} className="success"/>
     {#each threads as t}
       <Button text={t.general.title} callback={selectThread(t)}/>
     {/each}
