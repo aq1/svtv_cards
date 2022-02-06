@@ -4,12 +4,9 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
 
-from ghost.ghost_admin_request import get_post
-from ghost.ghost_admin_request import get_page
-from ghost.ghost_admin_request import update_post
-from ghost.ghost_admin_request import update_page
 from ghost.ghost_admin_request import create_post
-from ghost.ghost_admin_request import create_page
+from ghost.ghost_admin_request import get_post
+from ghost.ghost_admin_request import update_post
 from ..models import Thread
 
 
@@ -21,6 +18,9 @@ def save_thread(request):
         ghost_post = create_post(thread['general']['title'])
         thread['general']['id'] = ghost_post['id']
         thread['general']['url'] = ghost_post['url']
+
+    for card in thread['cards']:
+        card.pop('isActive', None)
 
     thread_model, _ = Thread.objects.get_or_create(
         id=thread['general']['id'],

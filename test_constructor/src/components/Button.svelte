@@ -1,10 +1,12 @@
 <script>
     export let text;
     export let callback;
+    export let tooltip;
+    export let disabled;
     export let className = '';
 </script>
 
-<button on:click={callback} class="{className}" tabindex="-1">
+<button on:click={callback} class="{className}" tabindex="-1" title={tooltip} {disabled}>
   {text}
 </button>
 
@@ -63,5 +65,16 @@
 
     button:active:before {
         background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    button:disabled:before {
+        display: none;
+    }
+
+    button:disabled {
+        --color: white;
+        --border-color: rgba(0, 0, 0, .1);
+        background-color: rgba(0, 0, 0, .1);
+        opacity: .8;
     }
 </style>

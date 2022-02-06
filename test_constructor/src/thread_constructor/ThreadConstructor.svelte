@@ -1,6 +1,7 @@
 <script>
     import {onMount} from 'svelte';
     import {API_URL} from './default-thread-values';
+    import {thread} from './stores';
 
     import ThreadForm from "./ThreadForm.svelte";
     import SplideControls from "../components/SplideControls.svelte";
@@ -8,7 +9,6 @@
     import ThreadSelectForm from "./ThreadSelectForm.svelte";
 
     let threads;
-    let thread;
     let splide;
 
     const getThreads = () => {
@@ -46,11 +46,11 @@
   <SplideControls {slides} {splide}/>
   <Splide {options} bind:this={ splide }>
     <SplideSlide>
-      <ThreadSelectForm {threads} bind:thread/>
+      <ThreadSelectForm {threads}/>
     </SplideSlide>
     <SplideSlide>
-      {#if thread}
-        <ThreadForm {thread}/>
+      {#if $thread.cards.length}
+        <ThreadForm/>
       {/if}
     </SplideSlide>
   </Splide>

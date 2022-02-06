@@ -1,27 +1,15 @@
 <script>
     import Button from "../components/Button.svelte";
+    import {thread} from './stores';
 
     export let threads;
-    export let thread;
-
-    const defaultThread = {
-        general: {
-            id: '',
-            title: '',
-            cover: '',
-            url: '',
-            slug: '',
-        },
-        cards: [
-            {
-                title: '',
-                data: {},
-            }
-        ],
-    };
 
     const selectThread = (t) => () => {
-        thread = t || defaultThread;
+        if (t) {
+          thread.set(t);
+        } else {
+            thread.reset();
+        }
     };
 </script>
 
