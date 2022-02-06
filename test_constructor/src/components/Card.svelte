@@ -11,6 +11,7 @@
 <style>
     .card {
         background-color: var(--text-primary);
+        position: relative;
         padding: 15px;
         border: 1px solid rgba(0, 0, 0, .1);
         border-radius: 15px;

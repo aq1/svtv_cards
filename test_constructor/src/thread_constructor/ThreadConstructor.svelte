@@ -7,6 +7,7 @@
     import SplideControls from "../components/SplideControls.svelte";
     import {Splide, SplideSlide} from "@splidejs/svelte-splide";
     import ThreadSelectForm from "./ThreadSelectForm.svelte";
+    import ThreadSaveForm from "./ThreadSaveForm.svelte";
 
     let threads;
     let splide;
@@ -26,6 +27,7 @@
     const slides = [
         'Выбрать треды',
         'Редактор',
+        'Сохранить',
     ];
 
     const options = {
@@ -43,8 +45,10 @@
 </script>
 
 {#if threads}
-  <div>
-    <SplideControls {slides} {splide}/>
+  <div class="sticky">
+    <div>
+      <SplideControls {slides} {splide}/>
+    </div>
   </div>
   <div>
     <Splide {options} bind:this={ splide }>
@@ -56,11 +60,22 @@
           <ThreadForm/>
         {/if}
       </SplideSlide>
+      <SplideSlide>
+        {#if $thread.cards.length}
+          <ThreadSaveForm/>
+        {/if}
+      </SplideSlide>
     </Splide>
   </div>
 {/if}
 <style>
     div {
         padding: 5px 0;
+    }
+
+    .sticky {
+        position: sticky;
+        top: 10px;
+        z-index: 10;
     }
 </style>

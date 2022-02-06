@@ -4,12 +4,15 @@
 
     export let splide;
     export let slides = [];
+    export let scrollToTop = true;
     let currentIndex = 0;
 
     const go = (index) => () => {
         currentIndex = index;
         splide.splide.Components.Controller.go(index);
-        document.body.scrollIntoView(true);
+        if (scrollToTop) {
+          document.body.scrollIntoView(true);
+        }
     };
 </script>
 

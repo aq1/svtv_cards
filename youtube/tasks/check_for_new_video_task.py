@@ -54,9 +54,8 @@ def update_video_banner(post: dict, video_id: str, cover_url: str, title: str) -
     response.raise_for_status()
 
 
-@app.task(bind=True)
-def check_for_new_video(self: celery.Task) -> None:
-    # не хочу настраивать celery beat, поэтому пусть таска будет вызывать себя бесконечно
+@app.task()
+def check_for_new_video() -> None:
     post: dict = get_post(post_id=settings.YOUTUBE_BANNER_POST_ID)
     try:
         current_video_id = parse_qs(urlparse(post['feature_image_caption']).query)['v'][0]
@@ -71,5 +70,3 @@ def check_for_new_video(self: celery.Task) -> None:
             cover_url=cover_url,
             title=title,
         )
-
-    self.apply_async(countdown=TASK_RETRY_COUNTDOWN)
