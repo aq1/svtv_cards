@@ -1,4 +1,9 @@
-<div class="card">
+<script>
+  	import { fade } from 'svelte/transition';
+
+</script>
+
+<div class="card" transition:fade>
   <slot></slot>
 </div>
 

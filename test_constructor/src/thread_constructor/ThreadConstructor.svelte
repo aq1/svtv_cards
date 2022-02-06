@@ -43,18 +43,24 @@
 </script>
 
 {#if threads}
-  <SplideControls {slides} {splide}/>
-  <Splide {options} bind:this={ splide }>
-    <SplideSlide>
-      <ThreadSelectForm {threads}/>
-    </SplideSlide>
-    <SplideSlide>
-      {#if $thread.cards.length}
-        <ThreadForm/>
-      {/if}
-    </SplideSlide>
-  </Splide>
+  <div>
+    <SplideControls {slides} {splide}/>
+  </div>
+  <div>
+    <Splide {options} bind:this={ splide }>
+      <SplideSlide>
+        <ThreadSelectForm {threads}/>
+      </SplideSlide>
+      <SplideSlide>
+        {#if $thread.cards.length}
+          <ThreadForm/>
+        {/if}
+      </SplideSlide>
+    </Splide>
+  </div>
 {/if}
 <style>
-
+    div {
+        padding: 5px 0;
+    }
 </style>

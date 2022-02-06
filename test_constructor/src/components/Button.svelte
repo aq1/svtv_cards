@@ -7,7 +7,7 @@
 </script>
 
 <button on:click={callback} class="{className}" tabindex="-1" title={tooltip} {disabled}>
-  {text}
+  {@html text}
 </button>
 
 <style>

@@ -26,16 +26,13 @@ function createThread() {
         reset: () => {
             set(defaultThread);
         },
-        addCard: () => update((thread) => {
-            const cards = [...thread.cards, {
+        addCard: (index) => update((thread) => {
+            thread.cards.splice(index, 0, {
                 title: '',
                 isActive: false,
                 data: {},
-            }];
-            return {
-                ...thread,
-                cards,
-            };
+            });
+            return thread;
         }),
         removeCard: (index) => update((thread) => {
             const cards = thread.cards;
@@ -59,7 +56,9 @@ function createThread() {
                     return thread;
                 }
 
-                thread.cards.forEach((card) => {card.isActive = false});
+                thread.cards.forEach((card) => {
+                    card.isActive = false
+                });
 
                 thread.cards.splice(
                     index + direction,

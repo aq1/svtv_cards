@@ -52,7 +52,6 @@
   {#each $thread.cards as card, index}
     <ThreadCard bind:card {index}/>
   {/each}
-  <Button text="+ карточка" callback={thread.addCard}/>
   <Button text="Сохранить" className="success" callback={save}/>
 </div>
 

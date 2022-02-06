@@ -90,14 +90,20 @@
 <Card>
   <div class="wrapper">
     <div class="row">
-      <Input type="text" bind:value={card.title} placeholder="Заголовок"/>
+      <div class="card-index">
+        <Button text="<b>{index + 1}</b> / {$thread.cards.length}" disabled={true}/>
+      </div>
+      <div class="input">
+        <Input type="text" bind:value={card.title} placeholder="Заголовок"/>
+      </div>
       <div class="button">
         <Button text="^" callback={() => thread.moveCard(index, -1)} disabled={index === 0}
                 tooltip="Переместить вверх"/>
 
       </div>
       <div class="button">
-        <Button text="˅" callback={() => thread.moveCard(index, 1)} disabled={index === $thread.cards.length - 1} tooltip="Переместить вниз"/>
+        <Button text="˅" callback={() => thread.moveCard(index, 1)} disabled={index === $thread.cards.length - 1}
+                tooltip="Переместить вниз"/>
       </div>
       <div class="button">
         <Button text="-" callback={() => thread.removeCard(index)} className="danger" tooltip="Удалить"/>
@@ -114,6 +120,7 @@
         <EditorContent data={card.data}/>
       </div>
     {/if}
+    <Button text="+ карточка" callback={() => {thread.addCard(index + 1)}}/>
   </div>
 </Card>
 
@@ -135,6 +142,14 @@
 
     .button {
         flex: 40px 0 0;
+    }
+
+    .card-index {
+        flex: 80px 0 0;
+    }
+
+    .input {
+        flex-grow: 1;
     }
 
     .editor {

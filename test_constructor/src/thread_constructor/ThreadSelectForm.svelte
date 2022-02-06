@@ -1,6 +1,7 @@
 <script>
     import Button from "../components/Button.svelte";
     import {thread} from './stores';
+    import Card from "../components/Card.svelte";
 
     export let threads;
 
@@ -13,14 +14,14 @@
     };
 </script>
 
-<div>
+<Card>
   {#if threads}
     <Button text="Новый тред" callback={selectThread()} className="success"/>
     {#each threads as t}
       <Button text={t.general.title} callback={selectThread(t)}/>
     {/each}
   {/if}
-</div>
+</Card>
 
 <style>
     div {
