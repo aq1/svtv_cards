@@ -66,9 +66,9 @@ def update_rates():
         },
     )
 
-    update_rates.apply_async(countdown=1 * 60 * 60)
+    task = update_rates.apply_async(countdown=1 * 60 * 60)
 
     Bot(token=settings.TELEGRAM_TOKEN).send_message(
         settings.TELEGRAM_ADMIN_ID,
-        text=f'Обновил курс валют\n{context}',
+        text=f'Обновил курс валют\n{context}\n{task}',
     )
