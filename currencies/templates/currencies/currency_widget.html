@@ -8,6 +8,8 @@
     <span class="sb-currency__arrow sb-currency__arrow--up">▲</span>
   {% endif %}
 </div>
+<!--kg-card-end: html-->
+<!--kg-card-begin: html-->
 <div class="sb-currency__item">
   <span class="sb-currency__token">€</span>
   <span class="sb-currency__value">{{ eur.value }}</span>
@@ -17,12 +19,10 @@
     <span class="sb-currency__arrow sb-currency__arrow--up">▲</span>
   {% endif %}
 </div>
+<!--kg-card-end: html-->
+<!--kg-card-begin: html-->
 <div class="sb-currency__item">
-        <span class="sb-currency__token sb-currency__token--icon">
-        <svg style="padding-top: 2px;" width="9" height="12" viewBox="0 0 9 12" xmlns="http://www.w3.org/2000/svg">
-          <use xlink:href="#btc-color"></use>
-        </svg>
-        </span>
+  <span class="sb-currency__token sb-currency__token--btc">₿</span>
   <span class="sb-currency__value">{{ btc.value }}</span>
   {% if btc.down %}
     <span class="sb-currency__arrow sb-currency__arrow--down">▼</span>
