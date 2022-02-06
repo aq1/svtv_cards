@@ -27,7 +27,7 @@
     {/if}
     {#if block.type === 'image'}
       <img src="{block.data.file.url}" alt="">
-      <p class="caption">{block.data.file.caption}</p>
+      <p class="caption">{block.data.caption}</p>
     {/if}
     {#if block.type === 'embed'}
       {#if block.data.service === 'youtube'}
@@ -35,6 +35,7 @@
                 frameborder="0"
                 allowfullscreen></iframe>
       {/if}
+      <p class="caption">{block.data.caption}</p>
     {/if}
   {/each}
 </div>
@@ -55,5 +56,11 @@
     img {
         max-width: 100%;
         max-height: 400px;
+    }
+
+    .caption {
+        width: 100%;
+        text-align: center;
+        opacity: .5;
     }
 </style>
