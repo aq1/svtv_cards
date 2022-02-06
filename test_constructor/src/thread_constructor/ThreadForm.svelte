@@ -6,6 +6,12 @@
     import Input from "../components/Input.svelte";
     import ImageInput from "../components/ImageInput.svelte";
 
+    let adminUrl;
+    $: if ($thread.general?.url) {
+        const origin = (new URL($thread.general.url)).origin;
+        adminUrl = `${origin}/ghost/#/editor/post/${$thread.general.id}`;
+    }
+
     const save = async () => {
         const response = await fetch(`${API_URL}/save-thread/`, {
             method: 'POST',
@@ -37,7 +43,10 @@
   </div>
   <div>
     <p>
-      <a href="{$thread.general.url}" target="_blank">{$thread.general.url}</a>
+      {#if $thread.general.url}
+        <a href="{$thread.general.url}" target="_blank">Превью</a> /
+        <a href="{adminUrl}" target="_blank">Админка</a>
+      {/if}
     </p>
   </div>
   {#each $thread.cards as card, index}
