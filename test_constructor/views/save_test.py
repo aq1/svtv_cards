@@ -125,6 +125,7 @@ def save_test(request):
             'feature_image': test['general']['cover'],
             'html': test_html,
             'tags': [{'name': 'Тест'}, {'name': '#АвтоТест'}],
+            'authors': ['ruvalerydz@gmail.com'],
         },
     )
 

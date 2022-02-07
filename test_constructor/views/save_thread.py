@@ -41,6 +41,7 @@ def save_thread(request):
             'feature_image': thread['general']['cover'],
             'html': thread_html,
             'tags': [{'name': 'Тред'}],
+            'authors': ['ruvalerydz@gmail.com'],
         },
     )
 
