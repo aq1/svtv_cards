@@ -4,9 +4,6 @@ import requests
 from django.conf import settings
 from django.utils import timezone
 from django.template.loader import render_to_string
-from telegram import (
-    Bot,
-)
 
 from project.celery import app
 from ghost.ghost_admin_request import get_post
@@ -64,9 +61,4 @@ def update_rates():
         data={
             'html': html,
         },
-    )
-
-    Bot(token=settings.TELEGRAM_TOKEN).send_message(
-        settings.TELEGRAM_ADMIN_ID,
-        text=f'Обновил курс валют\n{context}',
     )
