@@ -47,6 +47,7 @@ def update_rates():
         'usd': usd,
         'eur': eur,
         'btc': btc,
+        'now': timezone.now().isoformat(),
     }
 
     html = render_to_string(
