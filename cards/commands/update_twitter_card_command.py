@@ -64,22 +64,20 @@ def get_factchecking_meta_fields(post: dict) -> dict[str, str]:
 def update_post_fields(post: dict) -> None:
     cover_url = create_post_cover(post)
 
-    if not cover_url:
-        return
+    if cover_url:
+        data = {
+            'twitter_image': cover_url,
+            'og_image': cover_url,
+        }
 
-    data = {
-        'twitter_image': cover_url,
-        'og_image': cover_url,
-    }
+        if post['primary_tag']['slug'] == 'factchecking':
+            data.update(get_factchecking_meta_fields(post))
 
-    if post['primary_tag']['slug'] == 'factchecking':
-        data.update(get_factchecking_meta_fields(post))
-
-    update_post(
-        post_id=post.get('id'),
-        post_updated_at=post.get('updated_at'),
-        data=data,
-    ).json()
+        update_post(
+            post_id=post.get('id'),
+            post_updated_at=post.get('updated_at'),
+            data=data,
+        ).json()
 
     notify_post_published(post, None)
 
