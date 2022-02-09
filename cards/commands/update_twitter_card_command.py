@@ -5,6 +5,8 @@ from ghost.ghost_admin_request import (
     upload_image,
 )
 from project.celery import app
+from notifications.commands import notify_post_published
+
 from ..generators import (
     generate_news_card,
     generate_thread_card,
@@ -59,11 +61,11 @@ def get_factchecking_meta_fields(post: dict) -> dict[str, str]:
 
 
 @app.task
-def update_post_fields(post: dict) -> dict:
+def update_post_fields(post: dict) -> None:
     cover_url = create_post_cover(post)
 
     if not cover_url:
-        return {}
+        return
 
     data = {
         'twitter_image': cover_url,
@@ -73,11 +75,13 @@ def update_post_fields(post: dict) -> dict:
     if post['primary_tag']['slug'] == 'factchecking':
         data.update(get_factchecking_meta_fields(post))
 
-    return update_post(
+    update_post(
         post_id=post.get('id'),
         post_updated_at=post.get('updated_at'),
         data=data,
     ).json()
+
+    notify_post_published(post, None)
 
 
 def update_post_fields_command(post: dict, previous: dict) -> None:
