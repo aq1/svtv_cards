@@ -37,4 +37,4 @@ def notify_post_published(post, _):
     if warnings:
         message = f'{message}\n{warnings}'
 
-    notify.delay(message=message)
+    notify.apply_async(kwargs={'message': message}, countdown=10)
