@@ -79,8 +79,6 @@ def update_post_fields(post: dict) -> None:
             data=data,
         ).json()
 
-    notify_post_published(post, None)
-
 
 def update_post_fields_command(post: dict, previous: dict) -> None:
     fields_to_watch = [
