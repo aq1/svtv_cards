@@ -1,4 +1,5 @@
 from pathlib import Path
+
 import environ
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
@@ -24,7 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'bot',
+    'online',
     'webhooks',
     'cards',
     'notifications',
@@ -119,6 +120,7 @@ TELEGRAM_USER = env('TELEGRAM_USER')
 
 YOUTUBE_CHANNEL_ID = env('YOUTUBE_CHANNEL_ID')
 YOUTUBE_BANNER_POST_ID = env('YOUTUBE_BANNER_POST_ID')
+YOUTUBE_API_KEY = env('YOUTUBE_API_KEY')
 
 # Celery
 if USE_TZ:
@@ -139,3 +141,11 @@ if not DEBUG:
         integrations=[DjangoIntegration()],
         traces_sample_rate=1.0,
     )
+
+# Tweepy
+TWITTER_CONSUMER_KEY = env('TWITTER_CONSUMER_KEY')
+TWITTER_CONSUMER_SECRET = env('TWITTER_CONSUMER_SECRET')
+TWITTER_REDIRECT_URI = env('TWITTER_REDIRECT_URI')
+TWITTER_ACCESS_TOKEN = env('TWITTER_ACCESS_TOKEN')
+TWITTER_SECRET_TOKEN = env('TWITTER_SECRET_TOKEN')
+
