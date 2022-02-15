@@ -20,7 +20,7 @@
       <div class="quiz-test__header">
         <p class="quiz-test__category">Тест</p>
         <p class="quiz-test__question-number">Вопрос {{ forloop.counter }}/{{ test.questions|length }}</p>
-        <p class="quiz-test__question">{{ question.text }}</p>
+        <p class="quiz-test__question">{{ question.text | safe }}</p>
       </div>
       <div class="quiz-test__content">
         {% if question.image %}
@@ -35,7 +35,7 @@
               <div class="quiz-test__poll-value-text">{{ answer.text }}</div>
               <div class="quiz-test__poll-value-text-answer">
                 {% if answer.answerText %}
-                    {{ answer.answerText }}
+                    {{ answer.answerText | safe }}
                 {% endif %}
               </div>
             </div>
