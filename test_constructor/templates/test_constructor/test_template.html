@@ -1,18 +1,18 @@
 <!--kg-card-begin: html-->
-  <div class="splide__slide" data-test-type="{{ test.general.type }}">
-    <div class="quiz-test__screen-start">
-      <div class="quiz-test__header">
-        <p class="quiz-test__category">Тест</p>
-        <h1 class="quiz-test__title">{{ test.general.title }}</h1>
-        <p class="quiz-test__description">{{ test.general.description }}</p>
-      </div>
-      <div class="quiz-test__content">
-        <img class="quiz-test__poster" src="{{ test.general.cover }}" alt="">
-        <button class="quiz-test__button quiz-test__button--active quiz-test__button--offset-top">Начать
-        </button>
-      </div>
+<div class="splide__slide" data-test-type="{{ test.general.type }}">
+  <div class="quiz-test__screen-start">
+    <div class="quiz-test__header">
+      <p class="quiz-test__category">Тест</p>
+      <h1 class="quiz-test__title">{{ test.general.title }}</h1>
+      <p class="quiz-test__description">{{ test.general.description }}</p>
+    </div>
+    <div class="quiz-test__content">
+      <img class="quiz-test__poster" src="{{ test.general.cover }}" alt="">
+      <button class="quiz-test__button quiz-test__button--active quiz-test__button--offset-top">Начать
+      </button>
     </div>
   </div>
+</div>
 
 {% for question in test.questions %}
   <div class="splide__slide">
@@ -33,6 +33,15 @@
             <div class="quiz-test__poll-value"
                  data-value="{% if test.general.type == 'default' %}{{ forloop.counter }}{% else %}{{ answer.value }}{% endif %}">
               <div class="quiz-test__poll-value-text">{{ answer.text }}</div>
+              <div class="quiz-test__poll-value-text-answer">
+                {% if question.correct and question.wrong %}
+                  {% if answer.value == '0' %}
+                    {{ question.wrong }}
+                  {% else %}
+                    {{ question.correct }}
+                  {% endif %}
+                {% endif %}
+              </div>
             </div>
           {% endfor %}
 

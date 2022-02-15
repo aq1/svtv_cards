@@ -21,6 +21,8 @@ export const getQuestion = () => {
     return {
         text: '',
         image: '',
+        correct: '',
+        wrong: '',
         answers: [
             getAnswer(),
             getAnswer(),
