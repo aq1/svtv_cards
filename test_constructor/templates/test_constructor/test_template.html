@@ -34,12 +34,8 @@
                  data-value="{% if test.general.type == 'default' %}{{ forloop.counter }}{% else %}{{ answer.value }}{% endif %}">
               <div class="quiz-test__poll-value-text">{{ answer.text }}</div>
               <div class="quiz-test__poll-value-text-answer">
-                {% if question.correct and question.wrong %}
-                  {% if answer.value == '0' %}
-                    {{ question.wrong }}
-                  {% else %}
-                    {{ question.correct }}
-                  {% endif %}
+                {% if answer.answerText %}
+                    {{ answer.answerText }}
                 {% endif %}
               </div>
             </div>

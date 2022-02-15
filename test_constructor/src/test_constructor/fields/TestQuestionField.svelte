@@ -36,6 +36,10 @@
           <Button text="-" callback={deleteAnswer(index)} className="danger"/>
         </div>
       </div>
+
+      <div>
+        <Input bind:value={answer.answerText} placeholder="Текст при выборе ответа"/>
+      </div>
     {/each}
   </div>
   <div>

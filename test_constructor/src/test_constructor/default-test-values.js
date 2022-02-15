@@ -13,6 +13,7 @@ export const getGeneral = () => {
 export const getAnswer = () => {
     return {
         text: '',
+        answerText: '',
         value: '',
     };
 };
