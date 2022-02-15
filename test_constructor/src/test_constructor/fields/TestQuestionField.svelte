@@ -42,10 +42,6 @@
       </div>
     {/each}
   </div>
-  <div>
-    <Input bind:value={question.correct} placeholder="Текст правильного ответа"/>
-    <Input bind:value={question.wrong} placeholder="Текст непрвильного ответа"/>
-  </div>
   <Button text="+ ответ" callback={addAnswer}/>
 </div>
 
