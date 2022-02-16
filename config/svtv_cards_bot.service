@@ -4,7 +4,7 @@ After=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/apps/svtv_cards/.venv/bin/python /apps/svtv_cards/bot/channel_bot.py
+ExecStart=/apps/svtv_cards/.venv/bin/python /apps/svtv_cards/manage.py start_bot
 WorkingDirectory=/apps/svtv_cards/bot/
 StandardInput=tty-force
 

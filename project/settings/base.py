@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # 'online',
+    'online',
     'webhooks',
     'cards',
     'notifications',
@@ -114,6 +114,7 @@ GHOST_API_KEY = env('GHOST_API_KEY')
 GHOST_ADMIN_KEY = env('GHOST_ADMIN_KEY')
 GHOST_CURRENCY_POST_ID = env('GHOST_CURRENCY_POST_ID')
 TELEGRAM_TOKEN = env('TELEGRAM_TOKEN')
+CHANNEL_BOT_TOKEN = env('CHANNEL_BOT_TOKEN', default=TELEGRAM_TOKEN)
 TELEGRAM_CHAT_ID = env('TELEGRAM_CHAT_ID')
 TELEGRAM_ADMIN_ID = env('TELEGRAM_ADMIN_ID')
 TELEGRAM_USER = env('TELEGRAM_USER')
