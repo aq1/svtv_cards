@@ -78,7 +78,7 @@ def save_thread(request):
             'html': thread_html,
             'tags': [{'name': 'Тред'}],
             'authors': ['ruvalerydz@gmail.com'],
-            'excerpt': f'{cards_count} {get_word(cards_count)}'
+            'custom_excerpt': f'{cards_count} {get_word(cards_count)}'
         },
     )
 
