@@ -17,15 +17,15 @@ from online.tasks import process_message
 
 def handle_channel_message(update: Update, _: CallbackContext):
     post: Message = update.channel_post or update.edited_channel_post
-    # for entity in post.entities:
-    #     if entity.type in ('url', 'text_link'):
-    #         url = getattr(entity, 'url') or post.text[entity.offset:entity.offset + entity.length]
-    #         parsed_url = urlparse(url)
-    #         if not parsed_url.scheme:
-    #             url = f'https://{urlunparse(parsed_url)}'
-    #
-    #         if urlparse(url).hostname == 'svtv.org':
-    #             return
+    for entity in post.entities:
+        if entity.type in ('url', 'text_link'):
+            url = getattr(entity, 'url') or post.text[entity.offset:entity.offset + entity.length]
+            parsed_url = urlparse(url)
+            if not parsed_url.scheme:
+                url = f'https://{urlunparse(parsed_url)}'
+
+            if urlparse(url).hostname == 'svtv.org':
+                return
     process_message(
         message_id=post.message_id,
         text=post.text,
