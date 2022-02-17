@@ -15,7 +15,7 @@ from online.tasks import process_message
 
 def handle_channel_message(update: Update, _: CallbackContext):
     post: Message = update.channel_post or update.edited_channel_post
-    process_message(
+    process_message.delay(
         message_id=post.message_id,
         text=post.text,
         html=post.text_html_urled,
