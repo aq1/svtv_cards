@@ -4,6 +4,8 @@ After=multi-user.target
 
 [Service]
 Type=simple
+User=root
+Group=root
 ExecStart=/apps/svtv_cards/.venv/bin/python /apps/svtv_cards/manage.py start_bot
 WorkingDirectory=/apps/svtv_cards/
 StandardInput=tty-force

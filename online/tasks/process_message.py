@@ -48,7 +48,7 @@ def process_message(message_id: str, text: str, html: str):
     online_message.ghost_id = post['id']
     online_message.message = text
     online_message.save()
-    Bot(token=settings.TELEGRAM_TOKEN).send_message(
+    Bot(token=settings.CHANNEL_BOT_TOKEN).send_message(
         settings.TELEGRAM_ADMIN_ID,
         text=f'Saved {online_message}',
     )
