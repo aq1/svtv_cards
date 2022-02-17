@@ -26,10 +26,11 @@ def handle_channel_message(update: Update, _: CallbackContext):
 
             if urlparse(url).hostname == 'svtv.org':
                 return
+
     process_message(
         message_id=post.message_id,
-        text=post.text,
-        html=post.text_html_urled,
+        text=post.text or post.caption,
+        html=post.text_html_urled or post.caption_html_urled,
     )
 
 
@@ -41,6 +42,7 @@ channel_handler = telegram.ext.MessageHandler(
 
 def start():
     _bot = telegram.Bot(token=settings.CHANNEL_BOT_TOKEN)
+    print(f'{_bot.first_name} started')
     updater = telegram.ext.Updater(bot=_bot, use_context=True)
     dispatcher = updater.dispatcher
     dispatcher.add_handler(channel_handler)
