@@ -19,7 +19,12 @@ def process_message(message_id: str, text: str, html: str):
         message_service_id=message_id,
     )
 
-    title = textwrap.shorten(text, width=70, placeholder='...')
+    try:
+        title = text.strip().splitlines()[0].split('.')[0]
+    except IndexError:
+        title = text
+
+    title = textwrap.shorten(title, width=70, placeholder='...')
 
     if not online_message.ghost_id:
         post = create_post(title=title)
