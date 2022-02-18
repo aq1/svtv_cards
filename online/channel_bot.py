@@ -1,3 +1,4 @@
+import json
 from urllib.parse import urlparse, urlunparse
 
 import telegram
@@ -27,7 +28,7 @@ def handle_channel_message(update: Update, _: CallbackContext):
                 return
 
     with open('log.txt', 'a') as f:
-        f.write(post.to_json())
+        f.write(json.dumps(post.to_dict(), ensure_ascii=False, indent=2))
 
     process_message.delay(
         message_id=post.message_id,
