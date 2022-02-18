@@ -1,10 +1,23 @@
-<!--kg-card-begin: html-->
-<div class="online-content">
-  {{ html | safe }}
-</div>
-<!--kg-card-end: html-->
-<!--kg-card-begin: html-->
-<div class="online-raw">
-  {{ text | safe }}
-</div>
-<!--kg-card-end: html-->
+{% for date, messages in online_messages %}
+  <!--kg-card-begin: html-->
+  <div>
+    <span class="online__date">
+      {% if date == today %}
+        Сегодня
+      {% elif date == yesterday %}
+        Вчера
+      {% else %}
+        {{ date | date:"d E" }}
+      {% endif %}
+    </span>
+  </div>
+  <!--kg-card-end: html-->
+
+  <!--kg-card-begin: html-->
+  {% for message in messages %}
+    <div class="online__message">
+      {{ message.text | safe }}
+    </div>
+  {% endfor %}
+  <!--kg-card-end: html-->
+{% endfor %}

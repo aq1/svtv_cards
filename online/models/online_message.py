@@ -16,6 +16,7 @@ class OnlineMessage(models.Model):
     )
 
     text = models.TextField()
+    html = models.TextField()
 
     def __str__(self):
         return f'{self.message_service_id}: {self.ghost_id}'
