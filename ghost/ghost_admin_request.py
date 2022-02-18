@@ -85,10 +85,14 @@ def update_post(post_id: str, post_updated_at: str, data: dict[str, Any]) -> req
     )
 
 
-def get_post(post_id: str) -> dict:
+def get_post(post_id: Optional[str] = '', post_slug: Optional[str] = '') -> dict:
+    url = f'/posts/{post_id}'
+    if post_slug:
+        url = f'/posts/slug/{post_slug}'
+
     response = make_ghost_request(
         'get',
-        f'/posts/{post_id}',
+        url,
     )
 
     return response.json()['posts'][0]

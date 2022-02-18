@@ -7,8 +7,10 @@ class OnlineMessage(models.Model):
         max_length=255,
     )
 
-    ghost_id = models.CharField(
-        max_length=255,
+    title = models.CharField(
+        max_length=2000,
+        default='',
+        blank=True,
     )
 
     created_at = models.DateTimeField(
@@ -19,4 +21,4 @@ class OnlineMessage(models.Model):
     html = models.TextField()
 
     def __str__(self):
-        return f'{self.message_service_id}: {self.ghost_id}'
+        return f'{self.message_service_id}: {self.title}'

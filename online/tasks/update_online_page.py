@@ -4,16 +4,16 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 
 from ghost.ghost_admin_request import get_page
+from ghost.ghost_admin_request import get_post
 from ghost.ghost_admin_request import update_page
+from ghost.ghost_admin_request import update_post
 from online.models import OnlineMessage
 from project.celery import app
 
 
 @app.task
 def update_online_page():
-    messages = OnlineMessage.objects.filter(
-
-    ).order_by(
+    messages = OnlineMessage.objects.order_by(
         '-created_at',
     )[:50]
 
@@ -38,6 +38,23 @@ def update_online_page():
     update_page(
         page_id=page['id'],
         page_updated_at=page['updated_at'],
+        data={
+            'html': html,
+            'authors': ['ruvalerydz@gmail.com'],
+        },
+    )
+
+    html = render_to_string(
+        'online/online_message_title_template.html',
+        context={
+            'online_messages': messages[:3],
+        },
+    )
+
+    post = get_post(post_slug='online-titles')
+    update_post(
+        post_id=post['id'],
+        post_updated_at=post['updated_at'],
         data={
             'html': html,
             'authors': ['ruvalerydz@gmail.com'],
