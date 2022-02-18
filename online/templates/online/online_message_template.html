@@ -22,7 +22,7 @@
         {{ message.created_at | date:"G:i" }}
       </div>
       <div class="online__message-text">
-        {{ message.text | safe }}
+        {{ message.html | safe }}
       </div>
     </div>
   {% endfor %}
