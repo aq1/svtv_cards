@@ -47,6 +47,7 @@ def process_message(message_id: str, text: str, html: str):
             'html': post_html,
             'tags': [{'name': 'Онлайн'}],
             'authors': ['ruvalerydz@gmail.com'],
+            'status': 'published',
         },
     )
 
