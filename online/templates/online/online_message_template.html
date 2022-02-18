@@ -17,7 +17,7 @@
 
   <!--kg-card-begin: html-->
   {% for message in messages %}
-    <div class="online__message" data-id="{{ message.message_service_id }}">
+    <div class="online__message" id="{{ message.message_service_id }}">
       <div class="online__message-time">
         {{ message.created_at | date:"G:i" }}
       </div>

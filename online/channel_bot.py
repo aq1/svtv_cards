@@ -1,8 +1,7 @@
 from urllib.parse import urlparse, urlunparse
 
-from django.conf import settings
-
 import telegram
+from django.conf import settings
 from telegram import (
     Update,
     Message,
@@ -26,6 +25,9 @@ def handle_channel_message(update: Update, _: CallbackContext):
 
             if urlparse(url).hostname == 'svtv.org':
                 return
+
+    with open('log.txt', 'a') as f:
+        f.write(post.to_json())
 
     process_message.delay(
         message_id=post.message_id,
