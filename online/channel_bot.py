@@ -1,4 +1,5 @@
 import json
+from itertools import chain
 from urllib.parse import urlparse, urlunparse
 
 import telegram
@@ -17,7 +18,7 @@ from online.tasks import process_message
 
 def handle_channel_message(update: Update, _: CallbackContext):
     post: Message = update.channel_post or update.edited_channel_post
-    for entity in post.entities:
+    for entity in chain(post.entities, post.caption_entities):
         if entity.type in ('url', 'text_link'):
             url = getattr(entity, 'url') or post.text[entity.offset:entity.offset + entity.length]
             parsed_url = urlparse(url)
@@ -26,6 +27,10 @@ def handle_channel_message(update: Update, _: CallbackContext):
 
             if urlparse(url).hostname == 'svtv.org':
                 return
+
+    text = post.text or post.caption
+    if not text:
+        return
 
     with open('log.txt', 'a') as f:
         f.write(json.dumps(post.to_dict(), ensure_ascii=False, indent=2))
