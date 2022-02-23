@@ -5,10 +5,10 @@ from ghost.ghost_admin_request import (
     upload_image,
 )
 from project.celery import app
-from notifications.commands import notify_post_published
 
 from ..generators import (
     generate_news_card,
+    generate_context_card,
     generate_thread_card,
     generate_opinion_card,
     generate_factchecking_card,
@@ -22,6 +22,7 @@ from ..utils.factchecking import (
 
 generators = {
     'news': generate_news_card,
+    'context': generate_context_card,
     'thread': generate_thread_card,
     'opinion': generate_opinion_card,
     'translation': generate_translation_card,
