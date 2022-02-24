@@ -26,6 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
 
+    'simple_history',
+
     'online',
     'webhooks',
     'cards',
@@ -33,6 +35,7 @@ INSTALLED_APPS = [
     'youtube',
     'test_constructor',
     'currencies',
+    'post_backup',
 ]
 
 MIDDLEWARE = [
@@ -99,7 +102,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/webhook/static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 if DEBUG:
     STATIC_URL = '/static/'
