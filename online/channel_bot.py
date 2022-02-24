@@ -1,4 +1,3 @@
-import json
 from itertools import chain
 from urllib.parse import urlparse, urlunparse
 
@@ -31,9 +30,6 @@ def handle_channel_message(update: Update, _: CallbackContext):
     text = post.text or post.caption
     if not text:
         return
-
-    with open('log.txt', 'a') as f:
-        f.write(json.dumps(post.to_dict(), ensure_ascii=False, indent=2))
 
     process_message.delay(
         message_id=post.message_id,

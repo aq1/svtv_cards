@@ -13,6 +13,12 @@ class OnlineMessage(models.Model):
         blank=True,
     )
 
+    ghost_id = models.CharField(
+        max_length=255,
+        default='',
+        blank=True,
+    )
+
     created_at = models.DateTimeField(
         auto_now_add=True,
     )

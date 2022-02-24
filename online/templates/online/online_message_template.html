@@ -1,30 +1,5 @@
-{% for date, messages in online_messages %}
-  <!--kg-card-begin: html-->
-  <div>
-    <div class="online__date">
-      <span class="online__date-text">
-        {% if date == today %}
-          Сегодня
-        {% elif date == yesterday %}
-          Вчера
-        {% else %}
-          {{ date | date:"d E" }}
-        {% endif %}
-      </span>
-    </div>
-  </div>
-  <!--kg-card-end: html-->
-
-  <!--kg-card-begin: html-->
-  {% for message in messages %}
-    <div class="online__message" id="{{ message.message_service_id }}">
-      <div class="online__message-time">
-        {{ message.created_at | date:"G:i" }}
-      </div>
-      <div class="online__message-text">
-        {{ message.html | safe }}
-      </div>
-    </div>
-  {% endfor %}
-  <!--kg-card-end: html-->
-{% endfor %}
+<!--kg-card-begin: html-->
+<div>
+  {{ html | safe }}
+</div>
+<!--kg-card-end: html-->
