@@ -8,6 +8,8 @@ class PostBackup(models.Model):
         max_length=255,
     )
 
-    post = models.JSONField()
+    post = models.JSONField(
+        default=dict,
+    )
 
     history = HistoricalRecords()
