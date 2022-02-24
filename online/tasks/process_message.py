@@ -40,7 +40,7 @@ def process_message(message_id: str, text: str, html: str):
         data={
             'title': title,
             'html': post_html,
-        }
+        },
     )
 
     online_message.text = text
