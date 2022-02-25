@@ -13,3 +13,6 @@ class PostBackup(models.Model):
     )
 
     history = HistoricalRecords()
+
+    def __str__(self):
+        return f'Post {self.ghost_id}'
