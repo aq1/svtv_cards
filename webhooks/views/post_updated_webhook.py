@@ -7,7 +7,7 @@ from .ghost_webhook_view import ghost_webhook_view
 
 @ghost_webhook_view
 def post_updated_webhook(request: HttpRequest, post, previous) -> HttpResponse:
-    log_post(post)
+    log_post.delay(post)
 
     if post['status'] == 'published':
         update_post_fields_command(post, previous)
