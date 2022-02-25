@@ -26,23 +26,23 @@ def process_message(message_id: str, text: str, html: str):
     else:
         post = create_post(title=title)
 
-    post_html = render_to_string(
-        'online/online_message_template.html', {
-            'html': html,
-        }
-    )
+    # post_html = render_to_string(
+    #     'online/online_message_template.html', {
+    #         'html': html,
+    #     }
+    # )
 
-    update_post(
-        post_id=post['id'],
-        post_updated_at=post['updated_at'],
-        data={
-            'title': title,
-            'html': post_html,
-            'status': 'published',
-            'tags': [{'name': '#Онлайн'}],
-            'authors': ['ruvalerydz@gmail.com'],
-        },
-    )
+    # update_post(
+    #     post_id=post['id'],
+    #     post_updated_at=post['updated_at'],
+    #     data={
+    #         'title': title,
+    #         'html': post_html,
+    #         'status': 'published',
+    #         'tags': [{'name': '#Онлайн'}],
+    #         'authors': ['ruvalerydz@gmail.com'],
+    #     },
+    # )
 
     online_message.text = text
     online_message.ghost_id = post['id']
