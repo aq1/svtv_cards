@@ -17,6 +17,10 @@ class PostBackup(models.Model):
         default=dict,
     )
 
+    updated_at = models.DateTimeField(
+        auto_now=True,
+    )
+
     history = HistoricalRecords()
 
     def __str__(self):

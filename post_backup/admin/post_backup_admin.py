@@ -5,4 +5,4 @@ from ..models import PostBackup
 
 @admin.register(PostBackup)
 class PostBackupAdmin(admin.ModelAdmin):
-    list_display = ['ghost_id', 'title']
+    list_display = ['ghost_id', 'updated_at', 'title']
