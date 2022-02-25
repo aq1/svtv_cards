@@ -7,7 +7,10 @@ from .ghost_webhook_view import ghost_webhook_view
 
 @ghost_webhook_view
 def post_updated_webhook(request: HttpRequest, post, previous) -> HttpResponse:
-    update_post_fields_command(post, previous)
-    update_featured_posts_command(post, previous)
     log_post(post)
+
+    if post['status'] == 'published':
+        update_post_fields_command(post, previous)
+        update_featured_posts_command(post, previous)
+
     return HttpResponse()
