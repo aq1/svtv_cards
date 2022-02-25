@@ -21,11 +21,9 @@ def process_message(message_id: str, text: str, html: str):
     except IndexError:
         title = textwrap.shorten(text, width=70, placeholder='...')
 
-    post = get_post(
-        post_id=online_message.ghost_id,
-    )
-
-    if not post:
+    if online_message.ghost_id:
+        post = get_post(post_id=online_message.ghost_id)
+    else:
         post = create_post(title=title)
 
     post_html = render_to_string(
