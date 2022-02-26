@@ -20,18 +20,18 @@ def process_message(message_id: str, text: str, html: str):
         title = text.strip().splitlines()[0].split('.')[0]
     except IndexError:
         title = textwrap.shorten(text, width=70, placeholder='...')
-    #
+
     # if online_message.ghost_id:
     #     post = get_post(post_id=online_message.ghost_id)
     # else:
     #     post = create_post(title=title)
-
+    #
     # post_html = render_to_string(
     #     'online/online_message_template.html', {
     #         'html': html,
     #     }
     # )
-
+    #
     # update_post(
     #     post_id=post['id'],
     #     post_updated_at=post['updated_at'],
@@ -44,8 +44,8 @@ def process_message(message_id: str, text: str, html: str):
     #     },
     # )
 
+    # online_message.ghost_id = 'post['id']'
     online_message.text = text
-    online_message.ghost_id = post['id']
     online_message.html = html
     online_message.title = title
     online_message.save()
