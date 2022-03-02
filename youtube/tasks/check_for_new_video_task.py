@@ -18,6 +18,13 @@ from ghost.ghost_admin_request import (
 TASK_RETRY_COUNTDOWN = 5 * 60
 
 
+def _exit_on_failed_response(response):
+    try:
+        response.raise_for_status()
+    except requests.HTTPError:
+        exit()
+
+
 def get_video_snippet(video_id: str):
     url = 'https://www.googleapis.com/youtube/v3/videos'
     response = requests.get(url, params={
@@ -26,14 +33,16 @@ def get_video_snippet(video_id: str):
         'key': settings.YOUTUBE_API_KEY,
     })
 
-    response.raise_for_status()
+    _exit_on_failed_response(response)
 
     return response.json()['items'][0]['snippet']
 
 
 def get_last_youtube_video():
     response = requests.get(f'https://www.youtube.com/feeds/videos.xml?channel_id={settings.YOUTUBE_CHANNEL_ID}')
-    response.raise_for_status()
+
+    _exit_on_failed_response(response)
+
     tree = ET.fromstring(response.text)
     video = tree.find('{http://www.w3.org/2005/Atom}entry')
     video_id = video.find('{http://www.youtube.com/xml/schemas/2015}videoId').text
@@ -48,7 +57,7 @@ def update_video_banner(post, video_id, snippet) -> None:
         image=cover,
     )
 
-    response.raise_for_status()
+    _exit_on_failed_response(response)
 
     response = update_post(
         post_id=post['id'],
@@ -60,7 +69,8 @@ def update_video_banner(post, video_id, snippet) -> None:
             'title': snippet['title'],
         },
     )
-    response.raise_for_status()
+
+    _exit_on_failed_response(response)
 
 
 def notify(text):
