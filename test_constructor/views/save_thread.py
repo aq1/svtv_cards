@@ -9,25 +9,6 @@ from ghost.ghost_admin_request import get_post
 from ghost.ghost_admin_request import update_post
 from ..models import Thread
 
-'''
-const getWord = function (count) {
-    "use strict";
-    count = Math.abs(count) % 100;
-    const n1 = count % 10;
-
-    if (count > 10 && count < 20) {
-        return 'карточек';
-    }
-    if (n1 > 1 && n1 < 5) {
-        return 'карточки';
-    }
-    if (n1 === 1) {
-        return 'карточка';
-    }
-    return 'карточек';
-};
-'''
-
 
 def get_word(count):
     count = abs(count) % 100
@@ -88,10 +69,14 @@ def save_thread(request):
             status=400,
         )
 
+    post = post_response.json()['posts'][0]
+
     return JsonResponse(
         data={
             'id': thread['general']['id'],
             'url': thread['general']['url'],
+            'slug': post['slug'],
+            'cover': post['feature_image'],
         },
         status=201,
     )

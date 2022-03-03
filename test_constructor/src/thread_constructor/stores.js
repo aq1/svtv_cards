@@ -23,6 +23,7 @@ function createThread() {
     return {
         subscribe,
         set,
+        update,
         reset: () => {
             set(defaultThread);
         },

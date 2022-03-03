@@ -25,8 +25,12 @@
             return;
         }
         response.json().then((json) => {
-            $thread.general.id = json.id;
-            $thread.general.url = json.url;
+            thread.update((thread) => {
+                for (let key in json) {
+                    thread.general[key] = json[key];
+                }
+                return thread;
+            });
         });
         alert('Сохранено');
     };
