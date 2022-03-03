@@ -11,4 +11,4 @@ class Thread(models.Model):
     json = models.TextField()
 
     def __str__(self):
-        return f'Test {self.id}'
+        return f'Thread {self.id}'
