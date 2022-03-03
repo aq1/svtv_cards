@@ -18,9 +18,3 @@
     <Button text="{test.general.title}" callback={selectTest(test)}/>
   {/each}
 </Card>
-
-<style>
-    p {
-        text-align: center;
-    }
-</style>

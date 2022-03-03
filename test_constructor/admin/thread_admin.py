@@ -1,13 +1,15 @@
 from django.contrib import admin
-from django.forms import fields
-from django_json_widget.widgets import JSONEditorWidget
 from simple_history.admin import SimpleHistoryAdmin
 
+from .test_admin import TestForm
 from ..models import Thread
+
+
+class ThreadForm(TestForm):
+    class Meta(TestForm.Meta):
+        model = Thread
 
 
 @admin.register(Thread)
 class ThreadAdmin(SimpleHistoryAdmin):
-    formfield_overrides = {
-        fields.JSONField: {'widget': JSONEditorWidget},
-    }
+    form = ThreadForm
