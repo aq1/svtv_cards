@@ -104,7 +104,7 @@ async def not_main_route():
         await bot.send_message(user_id, "Ты — наш патрон, это хорошо! Теперь введи /start для верификации.")
     except Exception as e:
         main.log(str(e), 'not_main_route')
-    main.log(f'"ok": True, "res": "Congratulation! {user_id} should cum back to bot for getting link", 200',
+    main.log(f'"ok": True, "res": "Congratulation! {user_id} should come back to bot for getting link", 200',
              'not_main_route', 'INFO')
     return html_template
 
