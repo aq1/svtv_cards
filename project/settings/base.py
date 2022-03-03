@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
 
     'simple_history',
+    'django_json_widget',
 
     'online',
     'webhooks',
