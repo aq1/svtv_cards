@@ -113,7 +113,6 @@ async def add_whitelist(message: types.Message):
 async def check_id(message: types.Message):
     try:
         await message.reply(message.chat.id)
-        await bot.send_message(399010380, f'HUY')
     except Exception as e:
         main.log(str(e), 'check_id')
 
