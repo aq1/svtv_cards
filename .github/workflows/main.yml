@@ -26,6 +26,7 @@ jobs:
             cp "/apps/${app_name}/config/${app_name}_bot.service" /etc/systemd/system/
             cp "/apps/${app_name}/config/${app_name}_patreon.service" /etc/systemd/system/
             cp "/apps/${app_name}/config/${app_name}_beat.service" /etc/systemd/system/
+            cp "/apps/${app_name}/config/${app_name}_monitor.service" /etc/systemd/system/
 
             yarn --cwd /apps/${app_name}/test_constructor/ install
             yarn --cwd /apps/${app_name}/test_constructor/ run build
@@ -35,3 +36,4 @@ jobs:
             systemctl restart "${app_name}_gunicorn"
             systemctl restart "${app_name}_celery"
             systemctl restart "${app_name}_bot"
+            systemctl restart "${app_name}_monitor"

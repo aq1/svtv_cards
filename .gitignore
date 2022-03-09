@@ -132,3 +132,5 @@ node/
 cards/tests/results/
 patreon/config.py
 patreon/patreon.db
+monitor/config.py
+monitor/database.db
