@@ -56,8 +56,13 @@ async def spin_pattern():
             continue
         log(f"start fetching by word {x[1]} with id {x[0]}, pattern id {pattern[0]}...", "spin_pattern", "INFO")
         try:
+            res = db.select_channelDB()
+            if not res:
+                black_list = []
+            else:
+                black_list = literal_eval(res)
             answer = fetch_posts_by_word(
-                x[1], x[2], literal_eval(db.select_channelDB()), interval=240*len(words))
+                x[1], x[2], black_list, interval=240*len(words))
         except Exception as e:
             log(str(e), "spin_pattern")
             answer = str(e)
