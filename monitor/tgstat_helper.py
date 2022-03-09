@@ -3,7 +3,7 @@ import requests
 import time
 from html import escape
 
-from config import tgstat_token as token
+from monitor.config import tgstat_token as token
 
 endpoint = "https://api.tgstat.ru"
 usage_stat = endpoint + "/usage/stat?token={token}"

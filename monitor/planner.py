@@ -1,7 +1,7 @@
 import random
 from ast import literal_eval
 
-from config import db, bot, chat_id
+from monitor.config import db, bot, chat_id
 from mini_logs import log
 from tgstat_helper import fetch_posts_by_word
 

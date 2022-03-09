@@ -6,7 +6,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, BotCommand, BotCommandScopeAllGroupChats
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-from .config import bot, chat_id, db as DB, dp
+from monitor.config import bot, chat_id, db as DB, dp
 from mini_logs import log
 from planner import spin_pattern
 from states import State_SVTV
