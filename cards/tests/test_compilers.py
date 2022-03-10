@@ -13,6 +13,7 @@ from cards.layers.headers import create_opinion_header_layer
 from cards.layers.headers import create_translation_header_layer
 from cards.layers.headers import create_factchecking_header_layer
 from cards.layers.headers import create_test_header_layer
+from cards.layers.headers.generic_header_layer import create_generic_header_layer
 
 from cards.layers.titles import create_news_title_layer
 from cards.layers.titles import create_thread_title_layer
@@ -20,10 +21,12 @@ from cards.layers.titles import create_opinion_title_layer
 from cards.layers.titles import create_factchecking_title_layer
 from cards.layers.titles import create_test_title_layer
 
-from cards.layers.footers import create_opinion_footer_layer
+from cards.layers.footers import create_opinion_footer_layer, create_context_footer_layer
 
 from cards.compilers.compiler import compile_layers
-from cards.settings import FACTCHECKING_TAGS
+from cards.layers.titles.generic_title_layer import create_generic_title_layer
+from cards.settings import FACTCHECKING_TAGS, NEWS_TAG_FILL, DEFAULT_TAG_SIZE, OPINION_TITLE_LAYER_HEIGHT, TITLE_SIZE, \
+    TITLE_SPACING, TITLE_FILL
 from cards.tests.covers import (
     AUTHORS,
     COVERS,
@@ -47,6 +50,34 @@ def test_news_compiler():
         background=background,
         layers=layers,
     ).save(f'{RESULT_DIR}/news.jpg')
+
+
+def test_context_compiler():
+    background = create_news_background_layer(
+        cover=COVERS[0],
+    )
+    layers = [
+        create_generic_header_layer(
+            tag='Контекст',
+            tag_fill=NEWS_TAG_FILL,
+            tag_size=DEFAULT_TAG_SIZE,
+        ),
+        create_generic_title_layer(
+            title='VК возглавит сын Сергея Кириенко',
+            layer_height=OPINION_TITLE_LAYER_HEIGHT,
+            font_size=TITLE_SIZE,
+            font_spacing=TITLE_SPACING,
+            title_fill=TITLE_FILL,
+        ),
+        create_context_footer_layer(
+            excerpt='VК возглавит сын Сергея Кириенко',
+        ),
+    ]
+
+    compile_layers(
+        background=background,
+        layers=layers,
+    ).save(f'{RESULT_DIR}/context.jpg')
 
 
 def test_threads_compiler():
@@ -221,4 +252,4 @@ def test_compilers():
 
 
 if __name__ == '__main__':
-    test_news_compiler()
+    test_context_compiler()
