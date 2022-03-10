@@ -18,7 +18,7 @@ def create_context_footer_layer(excerpt: str) -> Image.Image:
     excerpt = '\n'.join(
         textwrap.wrap(
             excerpt,
-            width=60,
+            width=55,
             max_lines=2,
             placeholder='...',
         )
