@@ -70,7 +70,7 @@ def test_context_compiler():
             title_fill=TITLE_FILL,
         ),
         create_context_footer_layer(
-            excerpt='VК возглавит сын Сергея Кириенко',
+            excerpt='VК возглавит сын Сергея Кириенко VК возглавит сын Сергея Кириенко VК возглавит сын Сергея Кириенко',
         ),
     ]
 
