@@ -46,7 +46,7 @@ def create_factchecking_title_layer(title: str, author_name: str, date: str, tag
     draw.text(
         (LEFT_PADDING, FACTCHECKING_TITLE_TOP_PADDING),
         title,
-        font=open_font('Roboto-Medium.ttf', title_font_size),
+        font=open_font('charterc-bold.woff', title_font_size),
         fill=TITLE_FILL,
         spacing=FACTCHECKING_TITLE_SPACING,
     )

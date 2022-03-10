@@ -24,7 +24,7 @@ def create_generic_title_layer(
 ) -> Image.Image:
     layer = Image.new('RGBA', (CARD_WIDTH, layer_height))
 
-    font = open_font('Roboto-Medium.ttf', font_size)
+    font = open_font('charterc-bold.woff', font_size)
     title = textwrap.wrap(
         title,
         width=title_width,

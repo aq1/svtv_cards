@@ -25,7 +25,7 @@ from ...settings import (
 def create_test_title_layer(title: str, tag: str = '') -> Image.Image:
     layer = Image.new('RGBA', (CARD_WIDTH, CARD_HEIGHT - TEST_HEADER_HEIGHT))
 
-    font = open_font('Roboto-Medium.ttf', TITLE_SIZE)
+    font = open_font('charterc-bold.woff', TITLE_SIZE)
     title = textwrap.wrap(
         title,
         width=TITLE_WIDTH,

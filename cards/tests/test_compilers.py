@@ -28,7 +28,6 @@ from cards.tests.covers import (
     AUTHORS,
     COVERS,
     OPINION_COVERS,
-    TEST_COVERS,
 )
 
 RESULT_DIR = 'results'
@@ -222,4 +221,4 @@ def test_compilers():
 
 
 if __name__ == '__main__':
-    test_opinion_compiler()
+    test_news_compiler()
