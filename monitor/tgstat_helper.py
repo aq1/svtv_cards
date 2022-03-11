@@ -1,4 +1,6 @@
 import datetime
+import re
+
 import requests
 import time
 from html import escape
@@ -58,16 +60,17 @@ def fetch_posts_by_word(word: str, minus_words: str,
             continue
         if "/c/" in item["link"]:
             continue
-        emoji = '¬ '
+        emoji = '•'
         if item.get("media") and item["media"].get("media_type"):
-            emoji = emoji_media_types[item["media"]["media_type"]]
+            emoji = '• ' + emoji_media_types[item["media"]["media_type"]]
             if item['media'].get("mime_type") in emoji_media_types:
-                emoji = emoji_media_types[item['media']["mime_type"]]
-        answer += f"\n<a href='https://" \
-                  f"{item['link']}'>" \
-                  f"{emoji}" \
-                  f"{escape(item['text'][:75])}" \
-                  f"{'...' if len(item['text']) > 75 else ''}</a>"
+                emoji = '• ' + emoji_media_types[item['media']["mime_type"]]
+        clean_text = ' '.join(
+            x for x in re.split(r'(?:\n|(<[^<>]+>))', item['text']) if x and (x[0] != '<' or x[-1] != '>')
+        )
+        answer += f"\n{emoji} {escape(clean_text[:69])}" \
+                  f"{'...' if len(clean_text) > 69 else ''}" \
+                  f"\n<a href='https://{item['link']}'>link</a>"
     return answer
 
 
