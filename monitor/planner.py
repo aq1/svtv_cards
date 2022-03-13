@@ -1,11 +1,9 @@
 import random
 from ast import literal_eval
 
-from config import db, bot, chat_id
+from config import db, bot, chat_id, actual_pattern
 from mini_logs import log
 from tgstat_helper import fetch_posts_by_word
-
-actual_pattern = {"actual_word_id": -1}
 
 
 def create_pattern(pattern_name: str):

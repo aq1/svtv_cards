@@ -183,6 +183,10 @@ class DB:
                         DB.insert_wordDB(self, (pattern_id*50+(word_id+1), pattern_id+1, ' ', ' '))
             self.cursor.execute("""CREATE TABLE IF NOT EXISTS black_list
                   (id_channel text);""")
+            self.cursor.execute('SELECT count(*) FROM black_list;')
+            count = self.cursor.fetchall()
+            if count[0][0] == 0:
+                DB.insert_channelDB(self, ('[]',))
             return True
         except Exception as e:
             log(str(e), "setupDB")
