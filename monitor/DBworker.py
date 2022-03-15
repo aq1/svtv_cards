@@ -139,7 +139,7 @@ class DB:
             value = self.cursor.fetchone()[0]
             return value
         except Exception as e:
-            log(str(e), "select_channelDB")
+            log(str(e), "select_channelDB", "WARNING")
 
     def select_several_patternDB(self, info):
         try:

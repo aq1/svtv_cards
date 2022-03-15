@@ -297,15 +297,25 @@ async def blacklist(message: types.Message):
     try:
         with open('blacklist.json', 'r') as f:
             args = json.load(f)
-        channels = 'Чёрный список каналов: <br>'
+        if not args:
+            return await message.reply("Чёрный список пуст")
+        channels = ['Чёрный список каналов: <br>']
+        i, index = 0, 0
         for x in args:
-            channels += f'<ol>{x} | {args[x]}</ol>'
-        print(len(channels))
-        r = telegraph.edit_page(f"Black-list-03-12-3", "".join(f"Black list"), 
-        html_content=f"{channels}", author_name='murix')
-        # r = telegraph.create_page("".join(f"Black list"), html_content=f"{channels}",
-        # author_name='murix')
-        await message.reply(f"Чёрный список: {r['url']}")
+            i += 1
+            if i > 420:
+                channels.append("Чёрный список каналов: <br>")
+                index += 1
+                i = 0
+            channels[index] += f'<ol>{x} | {args[x]}</ol>'
+        answer = 'Чёрный список:'
+        for x in channels:
+            r = telegraph.create_page(
+                "".join(f"Black list"),
+                html_content=f"{x}", author_name='murix'
+            )
+            answer += f"\n - {r['url']}"
+        await message.reply(answer)
     except Exception as e:
         if str(e) == "CONTENT_TOO_BIG":
             print('Ошибка')
@@ -364,56 +374,14 @@ async def svtv_state_name_minusword(message: types.Message, state: FSMContext):
     except Exception as e:
         log(str(e), "svtv_state_name_word")
 
-# @dp.message_handler(state=State_SVTV.add_channel)
-# async def svtv_state_add_channel(message: types.Message, state: FSMContext):
-#     try:
-#         print(type(message.forward_from_chat))
-#         if message.forward_from_chat:
-#             print('yes')
-    #     channel = message.text.split()[0]
-    #     channel = int(channel)
-    #     if type(channel) == int:
-    #         data = leval(DB.select_channelDB())
-    #         if channel in data:
-    #             await message.reply('Данный канал уже занесён в Чёрный список.')
-    #             await state.finish()
-    #             return
-    #         data.append(channel)
-    #         DB.update_channelDB(info=(str(data),))
-    #         await message.reply(f'Канал {channel} успешно занесён в Чёрный список!')
-    #         await state.finish()
-    except Exception as e:
-        if str(e)[:39] == "invalid literal for int() with base 10:":
-            await message.reply('Похоже, что Вы ввели не ID.')
-        await state.finish()
-        log(str(e), "svtv_state_add_channel")
-
-@dp.message_handler(state=State_SVTV.remove_channel)
-async def svtv_state_remove_channel(message: types.Message, state: FSMContext):
-    try:
-        channel = message.text.split()[0]
-        channel = int(channel)
-        if type(channel) == int:
-            data = leval(DB.select_channelDB())
-            if channel not in data:
-                await message.reply('Данного канала нет в Чёрном списке.')
-                await state.finish()
-                return
-            data.remove(channel)
-            DB.update_channelDB(info=(str(data),))
-            await message.reply(f'Канал {channel} успешно вынесен из Чёрного списка!')
-            await state.finish()
-    except Exception as e:
-        if str(e)[:39] == "invalid literal for int() with base 10:":
-            await message.reply('Похоже, что Вы ввели не ID.')
-        await state.finish()
-        log(str(e), "svtv_state_remove_channel")
-
 async def set_commands():
-    await dp.bot.set_my_commands(commands=[BotCommand('setting', 'Настройки')], scope=BotCommandScopeAllGroupChats())
-    await dp.bot.set_my_commands(commands=[BotCommand('ban', 'Внести канал в ЧС')], scope=BotCommandScopeAllGroupChats())
-    await dp.bot.set_my_commands(commands=[BotCommand('unban', 'Вынести канал из ЧС')], scope=BotCommandScopeAllGroupChats())
-    await dp.bot.set_my_commands(commands=[BotCommand('bl', 'Просмотреть ЧС')], scope=BotCommandScopeAllGroupChats())
+    await dp.bot.set_my_commands(commands=[
+        BotCommand('setting', 'Настройки'),
+        BotCommand('ban', 'Внести канал в ЧС'),
+        BotCommand('unban', 'Вынести канал из ЧС'),
+        BotCommand('bl', 'Просмотреть ЧС'),
+        BotCommand('status', 'Статус API')
+    ], scope=BotCommandScopeAllGroupChats())
 
 async def on_startup(dp):
     try:
