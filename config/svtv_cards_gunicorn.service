@@ -8,7 +8,7 @@ User=root
 Group=root
 WorkingDirectory=/apps/svtv_cards/
 Environment="DJANGO_SETTINGS_MODULE=project.settings.production"
-ExecStart=/apps/svtv_cards/.venv/bin/gunicorn project.wsgi --bind 0.0.0.0:8008 --log-level error --error-logfile svtv_cards_gunicorn_error.log --workers 2 --preload
+ExecStart=/apps/svtv_cards/.venv/bin/gunicorn project.wsgi --bind 127.0.0.1:8008 --log-level error --error-logfile svtv_cards_gunicorn_error.log --workers 2 --preload
 
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
