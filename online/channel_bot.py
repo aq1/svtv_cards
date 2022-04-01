@@ -27,14 +27,16 @@ def handle_channel_message(update: Update, _: CallbackContext):
             if urlparse(url).hostname == 'svtv.org':
                 return
 
-    text = post.text or post.caption
-    if not text:
-        return
+    attachment = post.effective_attachment
+    if isinstance(attachment, list):
+        attachment = attachment[-2]
 
-    process_message.delay(
+    process_message(
         message_id=post.message_id,
-        text=post.text or post.caption,
-        html=post.text_html_urled or post.caption_html_urled,
+        text=post.text or post.caption or '',
+        html=post.text_html_urled or post.caption_html_urled or '',
+        media_group_id=post.media_group_id,
+        attachment=attachment.to_dict(),
     )
 
 

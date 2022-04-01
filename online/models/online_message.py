@@ -7,6 +7,11 @@ class OnlineMessage(models.Model):
         max_length=255,
     )
 
+    media_group_id = models.CharField(
+        max_length=2055,
+        default='',
+    )
+
     title = models.CharField(
         max_length=2000,
         default='',
