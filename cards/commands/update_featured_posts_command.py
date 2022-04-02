@@ -24,13 +24,13 @@ def unfeature_post(post: dict):
 @app.task
 def update_featured_posts() -> None:
     # обязательно чтобы были заферены
-    # по одному мнению и тесту
+    # по одному мнению и переводу
     # и два любых других поста
 
     # как-то запутанно получилось
 
     counter = {
-        'test': 0,
+        'translation': 0,
         'opinion': 0,
         'others': 0,
     }
@@ -41,7 +41,7 @@ def update_featured_posts() -> None:
     )
 
     for post in posts:
-        if post['primary_tag']['slug'] not in ('test', 'opinion'):
+        if post['primary_tag']['slug'] not in ('translation', 'opinion'):
             counter['others'] += 1
             if counter['others'] > 2:
                 unfeature_post(post)
