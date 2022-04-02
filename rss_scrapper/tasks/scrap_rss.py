@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from ..models import RSSSource
 
-MESSAGE_CHUNK_SIZE = 5
+MESSAGE_CHUNK_SIZE = 10
 
 
 def scrap_rss():
