@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'test_constructor',
     'currencies',
     'post_backup',
+    'rss_scrapper',
 ]
 
 MIDDLEWARE = [
@@ -166,3 +167,5 @@ CSRF_TRUSTED_ORIGINS = env('CSRF_TRUSTED_ORIGINS', default=[])
 # AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 AWS_BUCKET = env('AWS_BUCKET')
 AWS_ROLE_ARN = env('AWS_ROLE_ARN')
+
+RSS_FEED_CHANNEL_ID = env('RSS_FEED_CHANNEL_ID')
