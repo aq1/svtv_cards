@@ -20,7 +20,7 @@ def scrap_rss():
                 continue
 
             entries.append(
-                f"[{entry['title']}]({entry['link']}) - {feed_dict['feed']['title']}"
+                f"[{entry['title']}]({entry['link']}) - *{feed_dict['feed']['title']}*"
             )
 
         source.last_updated_at = timezone.now()
