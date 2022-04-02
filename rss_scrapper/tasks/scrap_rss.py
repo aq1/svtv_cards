@@ -15,12 +15,16 @@ def scrap_rss():
 
     for source in RSSSource.objects.filter(is_active=True):
         feed_dict = feedparser.parse(source.url)
+        source_title = feed_dict['feed'].get('title', source.url)
+
         for entry in reversed(feed_dict['entries']):
             if entry['published_parsed'] <= source.last_updated_at.timetuple():
                 continue
 
+            link = entry['link']
+            title = entry['title']
             entries.append(
-                f"[{entry['title']}]({entry['link']}) - *{feed_dict['feed']['title']}*"
+                f'<a href="{link}">{title}</a> - <pre>{source_title}</pre>'
             )
 
         source.last_updated_at = timezone.now()
@@ -35,7 +39,7 @@ def scrap_rss():
         bot.send_message(
             settings.RSS_FEED_CHANNEL_ID,
             text='\n\n'.join(entries[i:i + MESSAGE_CHUNK_SIZE]),
-            parse_mode=telegram.ParseMode.MARKDOWN,
+            parse_mode=telegram.ParseMode.HTML,
             disable_web_page_preview=True,
         )
         sleep(1)
