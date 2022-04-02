@@ -1,4 +1,5 @@
-from time import sleep
+import datetime
+from time import sleep, mktime
 
 import feedparser
 import telegram
@@ -27,7 +28,7 @@ def scrap_rss():
                 f'<a href="{link}">{title}</a> - <pre>{source_title}</pre>'
             )
 
-        source.last_updated_at = timezone.now()
+            source.last_updated_at = datetime.datetime.fromtimestamp(mktime(entry['published_parsed']))
         source.save()
 
     if not entries:
