@@ -17,9 +17,17 @@ def scrap_rss():
     for source in RSSSource.objects.filter(is_active=True):
         feed_dict = feedparser.parse(source.url)
         source_title = feed_dict['feed'].get('title', source.url)
+        published_at = None
 
         for entry in reversed(feed_dict['entries']):
-            if entry['published_parsed'] <= source.last_updated_at.timetuple():
+            published_at = datetime.datetime.fromtimestamp(
+                mktime(entry['published_parsed']),
+            ).replace(
+                microsecond=0,
+                tzinfo=None,
+            ).isoformat()
+
+            if published_at <= source.last_updated_at:
                 continue
 
             link = entry['link']
@@ -28,8 +36,9 @@ def scrap_rss():
                 f'<a href="{link}">{title}</a> - <pre>{source_title}</pre>'
             )
 
-            source.last_updated_at = datetime.datetime.fromtimestamp(mktime(entry['published_parsed']))
-        source.save()
+        if published_at:
+            source.last_updated_at = published_at
+            source.save()
 
     if not entries:
         return
@@ -44,3 +53,11 @@ def scrap_rss():
             disable_web_page_preview=True,
         )
         sleep(1)
+
+
+'''
+Медиазона Thu, 31 Mar 2022 17:40:28 GMT
+www.rbc.ru Sun, 03 Apr 2022 01:08:45 +0300
+Meduza.io Fri, 01 Apr 2022 21:48:24 +0300
+СВТВ Либертарианское СМИ Thu, 17 Mar 2022 13:32:07 +0300
+'''

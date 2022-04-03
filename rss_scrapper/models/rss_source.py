@@ -1,4 +1,9 @@
 from django.db import models
+from django.utils import timezone
+
+
+def now():
+    return timezone.now().isoformat()
 
 
 class RSSSource(models.Model):
@@ -7,9 +12,9 @@ class RSSSource(models.Model):
         unique=True,
     )
 
-    last_updated_at = models.DateTimeField(
-        auto_now_add=True,
-        editable=False,
+    last_updated_at = models.CharField(
+        max_length=255,
+        default=now,
     )
 
     is_active = models.BooleanField(
