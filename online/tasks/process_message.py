@@ -59,7 +59,7 @@ def process_message(message_id: str, text: str, html: str, media_group_id: str, 
         online_attachment.url = url
         online_attachment.save()
 
-    # upload_online_message_to_ghost.apply_async(
-    #     kwargs={'message_id': online_message.id},
-    #     countdown=10,
-    # )
+    upload_online_message_to_ghost.apply_async(
+        kwargs={'message_id': online_message.id},
+        countdown=10,
+    )
