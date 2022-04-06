@@ -1,6 +1,6 @@
 <!--kg-card-begin: html-->
 <div id="{{ message.message_service_id }}" class="online__message">
-  <div class="online__message-time">{{ message.created_at | date:"%l, %j %F" }}</div>
+  <div class="online__message-time">{{ message.created_at | date:"%l, %j %F %H:i" }}</div>
   <div class="online__message-text">{{ message.html | safe }} </div>
   <div>
     <figure class="kg-card kg-gallery-card kg-width-wide">
