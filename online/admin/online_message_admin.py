@@ -5,4 +5,4 @@ from ..models import OnlineMessage
 
 @admin.register(OnlineMessage)
 class OnlineMessageAdmin(admin.ModelAdmin):
-    list_display = ['message_service_id', 'ghost_id', 'title']
+    list_display = ['title', 'ghost_id', 'message_service_id']

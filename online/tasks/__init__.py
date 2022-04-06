@@ -1,1 +1,2 @@
+from .upload_online_message_to_ghost import upload_online_message_to_ghost
 from .process_message import process_message

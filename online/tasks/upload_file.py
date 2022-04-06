@@ -44,4 +44,4 @@ def upload_file(filename):
     if code != 200:
         raise UploadError()
 
-    return key
+    return f'/{key}'

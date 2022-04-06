@@ -7,6 +7,7 @@ from django.db import models
 from online.models import OnlineMessage, OnlineAttachment
 from project.celery import app
 from .upload_file import upload_file
+from .upload_online_message_to_ghost import upload_online_message_to_ghost
 
 
 @app.task
@@ -26,30 +27,6 @@ def process_message(message_id: str, text: str, html: str, media_group_id: str, 
     except IndexError:
         title = textwrap.shorten(text, width=70, placeholder='...')
 
-    # if online_message.ghost_id:
-    #     post = get_post(post_id=online_message.ghost_id)
-    # else:
-    #     post = create_post(title=title)
-    #
-    # post_html = render_to_string(
-    #     'online/online_message_template.html', {
-    #         'html': html,
-    #     }
-    # )
-    #
-    # update_post(
-    #     post_id=post['id'],
-    #     post_updated_at=post['updated_at'],
-    #     data={
-    #         'title': title,
-    #         'html': post_html,
-    #         'status': 'published',
-    #         'tags': [{'name': '#Онлайн'}],
-    #         'authors': ['ruvalerydz@gmail.com'],
-    #     },
-    # )
-
-    # online_message.ghost_id = 'post['id']'
     if text:
         online_message.text = text
 
@@ -74,6 +51,15 @@ def process_message(message_id: str, text: str, html: str, media_group_id: str, 
         filename = bot.get_file(attachment['file_id']).download()
         url = upload_file(filename)
 
+        if attachment.get('thumb'):
+            filename = bot.get_file(attachment['file_id']).download()
+            attachment['thumb']['url'] = upload_file(filename)
+
         online_attachment.meta = attachment
         online_attachment.url = url
         online_attachment.save()
+
+    # upload_online_message_to_ghost.apply_async(
+    #     kwargs={'message_id': online_message.id},
+    #     countdown=10,
+    # )

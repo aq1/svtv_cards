@@ -1,6 +1,5 @@
 from telegram import (
     Bot,
-    MessageEntity,
 )
 
 from django.conf import settings

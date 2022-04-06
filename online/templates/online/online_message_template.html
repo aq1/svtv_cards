@@ -1,5 +1,25 @@
 <!--kg-card-begin: html-->
 <div>
-  {{ html | safe }}
+  <div>{{ message.html | safe }}</div>
+  <div>
+    <figure class="kg-card kg-gallery-card kg-width-wide">
+      <div class="kg-gallery-container">
+        {% for row in images %}
+          <div class="kg-gallery-row">
+            {% for image in row %}
+              <div class="kg-gallery-image" style="flex: {{ image.meta.ratio }} 1 0%;">
+                <img
+                    src="{{ image.url }}"
+                    loading="lazy"
+                    alt=""
+                    width="{{ image.meta.width }}"
+                    height="{{ image.meta.height }}">
+              </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+    </figure>
+  </div>
 </div>
 <!--kg-card-end: html-->
