@@ -2,7 +2,7 @@
 <div id="{{ message.message_service_id }}" class="online__message">
   <div class="online__message-time">{{ message.created_at | date:"l, j E H:i" }}</div>
   <div class="online__message-text">{{ message.html | safe }} </div>
-  <figure class="kg-card kg-gallery-card kg-width-wide">
+  <figure class="kg-card kg-gallery-card">
     <div class="kg-gallery-container">
       {% for row in attachments %}
         <div class="kg-gallery-row">
@@ -11,6 +11,7 @@
               <div class="kg-gallery-image kg-gallery-video" style="flex: {{ attachment.meta.thumb.ratio }} 1 0%;">
                 <img
                     src="{{ attachment.meta.thumb.url }}"
+                    data-video="{{ attachment.url }}"
                     loading="lazy"
                     alt=""
                     width="{{ attachment.meta.thumb.width }}"
