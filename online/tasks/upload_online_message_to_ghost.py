@@ -49,7 +49,7 @@ def upload_online_message_to_ghost(message_id):
             'title': message.title,
             'html': html,
             'status': 'published',
-            'tags': [{'name': '#Онлайн'}],
+            'tags': [{'name': 'Онлайн'}],
             'authors': ['ruvalerydz@gmail.com'],
         },
     )
