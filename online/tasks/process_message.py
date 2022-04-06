@@ -52,7 +52,7 @@ def process_message(message_id: str, text: str, html: str, media_group_id: str, 
         url = upload_file(filename)
 
         if attachment.get('thumb'):
-            filename = bot.get_file(attachment['file_id']).download()
+            filename = bot.get_file(attachment['thumb']['file_id']).download()
             attachment['thumb']['url'] = upload_file(filename)
 
         online_attachment.meta = attachment
