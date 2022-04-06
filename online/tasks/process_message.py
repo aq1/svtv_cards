@@ -4,10 +4,10 @@ import telegram
 from django.conf import settings
 from django.db import models
 
-from online.models import OnlineMessage, OnlineAttachment
 from project.celery import app
-from .upload_file import upload_file
-from .upload_online_message_to_ghost import upload_online_message_to_ghost
+from online.models import OnlineMessage, OnlineAttachment
+from online.tasks.upload_file import upload_file
+from online.tasks.upload_online_message_to_ghost import upload_online_message_to_ghost
 
 
 @app.task

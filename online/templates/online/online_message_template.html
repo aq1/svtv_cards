@@ -4,17 +4,28 @@
   <div>
     <figure class="kg-card kg-gallery-card kg-width-wide">
       <div class="kg-gallery-container">
-        {% for row in images %}
+        {% for row in attachments %}
           <div class="kg-gallery-row">
-            {% for image in row %}
-              <div class="kg-gallery-image" style="flex: {{ image.meta.ratio }} 1 0%;">
-                <img
-                    src="{{ image.url }}"
-                    loading="lazy"
-                    alt=""
-                    width="{{ image.meta.width }}"
-                    height="{{ image.meta.height }}">
-              </div>
+            {% for attachment in row %}
+              {% if attachment.meta.thumb %}
+                <div class="kg-gallery-attachment kg-gallery-video" style="flex: {{ attachment.meta.thumb.ratio }} 1 0%;">
+                  <img
+                      src="{{ attachment.meta.thumb.url }}"
+                      loading="lazy"
+                      alt=""
+                      width="{{ attachment.meta.thumb.width }}"
+                      height="{{ attachment.meta.thumn.height }}">
+                </div>
+              {% else %}
+                <div class="kg-gallery-attachment" style="flex: {{ attachment.meta.ratio }} 1 0%;">
+                  <img
+                      src="{{ attachment.url }}"
+                      loading="lazy"
+                      alt=""
+                      width="{{ attachment.meta.width }}"
+                      height="{{ attachment.meta.height }}">
+                </div>
+              {% endif %}
             {% endfor %}
           </div>
         {% endfor %}

@@ -8,6 +8,10 @@ from ..models import OnlineAttachment
 from ..models import OnlineMessage
 
 
+def set_ratio(meta):
+    meta['ration'] = str(round((meta['width'] / meta['height']), 3)).replace(',', '.')
+
+
 @app.task
 def upload_online_message_to_ghost(message_id):
     message = OnlineMessage.objects.filter(id=message_id).first()
@@ -18,22 +22,18 @@ def upload_online_message_to_ghost(message_id):
     attachments = OnlineAttachment.objects.filter(message_id=message_id)
     for each in attachments:
         each.meta = json.loads(each.meta.replace("'", '"'))
-        each.meta['ratio'] = str(round((each.meta['width'] / each.meta['height']), 3)).replace(',', '.')
+        set_ratio(each['meta'])
+        if 'thumb' in each.meta:
+            set_ratio(each['meta']['thumb'])
 
-    videos_list = list(filter(lambda a: 'thumb' in a.meta, attachments))
-    images_list = list(filter(lambda a: 'thumb' not in a.meta, attachments))
-    videos = []
-    images = []
-    for i in range(0, len(videos_list), 3):
-        videos.append(videos_list[i:i + 3])
-    for i in range(0, len(images_list), 3):
-        images.append(images_list[i:i + 3])
+    attachment_rows = []
+    for i in range(0, len(attachments), 3):
+        attachment_rows.append(attachments[i:i + 3])
 
     html = render_to_string(
         'online/online_message_template.html', {
             'message': message,
-            'videos': videos,
-            'images': images,
+            'attachments': attachments,
         },
     )
 
