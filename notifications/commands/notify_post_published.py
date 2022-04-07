@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from ..utils import notify
 
 PREFERABLE_URL_LENGTH = 200
@@ -26,16 +28,22 @@ IGNORE_TAGS = [
     'online',
 ]
 
+MENTION_USER_TAGS = [
+    'news',
+]
+
+
 def notify_post_published(post, _):
     title = post.get('title')
     url = post.get('url')
 
     try:
         tag = f'#{post["primary_tag"]["name"]}'
+        tag_slug = post['primary_tag']['slug']
     except (TypeError, KeyError):
         return
 
-    if post['primary_tag']['slug'] in IGNORE_TAGS:
+    if tag_slug in IGNORE_TAGS:
         return
 
     message = f'Новая публикация {tag}\n{title}\n{url}'
@@ -44,4 +52,14 @@ def notify_post_published(post, _):
     if warnings:
         message = f'{message}\n{warnings}'
 
-    notify.apply_async(kwargs={'message': message}, countdown=10)
+    username = ''
+    if tag_slug in MENTION_USER_TAGS:
+        username = settings.TELEGRAM_USER
+
+    notify.apply_async(
+        kwargs={
+            'message': message,
+            'username': username,
+        },
+        countdown=10,
+    )
