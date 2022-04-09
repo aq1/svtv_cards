@@ -14,12 +14,12 @@ from online.tasks.upload_online_message_to_ghost import upload_online_message_to
 def process_message(message_id: str, chat_id: str, text: str, html: str, media_group_id: str, attachment):
     online_message = OnlineMessage.objects.filter(
         models.Q(message_service_id=message_id) | models.Q(media_group_id=media_group_id),
+        chat_id=chat_id,
     ).first()
 
     if not online_message:
         online_message = OnlineMessage(
             message_service_id=message_id,
-            chat_id=chat_id,
             media_group_id=media_group_id or '',
         )
 
@@ -37,6 +37,7 @@ def process_message(message_id: str, chat_id: str, text: str, html: str, media_g
     if title:
         online_message.title = title
 
+    online_message.chat_id = chat_id
     online_message.save()
 
     if attachment:
