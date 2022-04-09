@@ -63,5 +63,5 @@ def process_message(message_id: str, chat_id: str, text: str, html: str, media_g
 
     upload_online_message_to_ghost.apply_async(
         kwargs={'message_id': online_message.id},
-        countdown=60,
+        countdown=10,
     )

@@ -1,7 +1,5 @@
 import json
 
-import telegram
-from django.conf import settings
 from django.template.loader import render_to_string
 
 from ghost.ghost_admin_request import create_post, get_post, update_post
@@ -20,8 +18,6 @@ def upload_online_message_to_ghost(message_id):
 
     if not message:
         return
-
-    bot = telegram.Bot(token=settings.CHANNEL_BOT_TOKEN)
 
     attachments = OnlineAttachment.objects.filter(message_id=message_id)
     for each in attachments:
