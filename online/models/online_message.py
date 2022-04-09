@@ -3,6 +3,10 @@ from django.db import models
 
 class OnlineMessage(models.Model):
 
+    chat_id = models.CharField(
+        max_length=255,
+    )
+
     message_service_id = models.CharField(
         max_length=255,
     )

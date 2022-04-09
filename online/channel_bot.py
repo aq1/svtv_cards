@@ -35,6 +35,7 @@ def handle_channel_message(update: Update, _: CallbackContext):
 
     process_message.delay(
         message_id=post.message_id,
+        chat_id=post.chat_id,
         text=text,
         html=post.text_html_urled or post.caption_html_urled or '',
         media_group_id=post.media_group_id,
