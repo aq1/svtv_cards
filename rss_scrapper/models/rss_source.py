@@ -6,7 +6,13 @@ def now():
     return timezone.now().isoformat()
 
 
-class RSSSource(models.Model):
+class RssFeed(models.Model):
+
+    name = models.CharField(
+        max_length=255,
+        default='',
+    )
+
     url = models.URLField(
         max_length=2048,
         unique=True,

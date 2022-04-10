@@ -1,5 +1,5 @@
-from .rss_source import RSSSource
+from .rss_source import RssFeed
 
 __all__ = [
-    'RSSSource',
+    'RssFeed',
 ]

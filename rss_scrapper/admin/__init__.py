@@ -1,5 +1,5 @@
-from .rss_source_admin import RSSSourceAdmin
+from .rss_source_admin import RssFeedAdmin
 
 __all__ = [
-    'RSSSourceAdmin',
+    'RssFeedAdmin',
 ]

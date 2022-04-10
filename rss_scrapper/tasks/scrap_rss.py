@@ -4,9 +4,8 @@ from time import sleep, mktime
 import feedparser
 import telegram
 from django.conf import settings
-from django.utils import timezone
 
-from ..models import RSSSource
+from ..models import RssFeed
 
 MESSAGE_CHUNK_SIZE = 10
 
@@ -14,9 +13,8 @@ MESSAGE_CHUNK_SIZE = 10
 def scrap_rss():
     entries = []
 
-    for source in RSSSource.objects.filter(is_active=True):
+    for source in RssFeed.objects.filter(is_active=True):
         feed_dict = feedparser.parse(source.url)
-        source_title = feed_dict['feed'].get('title', source.url)
         published_at = None
 
         for entry in reversed(feed_dict['entries']):
@@ -33,7 +31,7 @@ def scrap_rss():
             link = entry['link']
             title = entry['title']
             entries.append(
-                f'<a href="{link}">{title}</a> - <pre>{source_title}</pre>'
+                f'<a href="{link}">{title}</a> - {source.name}'
             )
 
         if published_at:

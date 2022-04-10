@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from ..models import RSSSource
+from ..models import RssFeed
 
 
-@admin.register(RSSSource)
-class RSSSourceAdmin(admin.ModelAdmin):
-    list_display = ['url', 'last_updated_at', 'is_active']
+@admin.register(RssFeed)
+class RssFeedAdmin(admin.ModelAdmin):
+    list_display = ['name', 'url', 'last_updated_at', 'is_active']
