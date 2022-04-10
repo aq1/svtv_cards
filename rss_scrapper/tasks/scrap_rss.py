@@ -17,7 +17,9 @@ def scrap_rss():
         feed_dict = feedparser.parse(source.url)
         published_at = None
 
-        for entry in reversed(feed_dict['entries']):
+        for entry in feed_dict['entries']:
+            if not entry.get('published_parsed'):
+                continue
             published_at = datetime.datetime.fromtimestamp(
                 mktime(entry['published_parsed']),
             ).replace(
@@ -52,10 +54,3 @@ def scrap_rss():
         )
         sleep(1)
 
-
-'''
-Медиазона Thu, 31 Mar 2022 17:40:28 GMT
-www.rbc.ru Sun, 03 Apr 2022 01:08:45 +0300
-Meduza.io Fri, 01 Apr 2022 21:48:24 +0300
-СВТВ Либертарианское СМИ Thu, 17 Mar 2022 13:32:07 +0300
-'''
