@@ -46,11 +46,13 @@ def scrap_rss():
     bot = telegram.Bot(token=settings.CHANNEL_BOT_TOKEN)
 
     for i in range(0, len(entries), MESSAGE_CHUNK_SIZE):
-        bot.send_message(
-            settings.RSS_FEED_CHANNEL_ID,
-            text='\n\n'.join(entries[i:i + MESSAGE_CHUNK_SIZE]),
-            parse_mode=telegram.ParseMode.HTML,
-            disable_web_page_preview=True,
-        )
+        try:
+            bot.send_message(
+                settings.RSS_FEED_CHANNEL_ID,
+                text='\n\n'.join(entries[i:i + MESSAGE_CHUNK_SIZE]),
+                parse_mode=telegram.ParseMode.HTML,
+                disable_web_page_preview=True,
+            )
+        except telegram.error.RetryAfter as e:
+            sleep(e.retry_after)
         sleep(1)
-
