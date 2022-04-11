@@ -52,7 +52,7 @@ def update_gas_info():
     total = intcomma(round(data['total_eur']), use_l10n=False)
     oil = round(data['oil_eur'] / (10 ** 9), 3)
     gas = round(data['gas_eur'] / (10 ** 9), 3)
-    coal = round(data['coal_eur'] / (10 ** 9), 3)
+    coal = round(data['coal_eur'] / (10 ** 9), 2)
 
     html = render_to_string(
         'currencies/gas_info.html',
