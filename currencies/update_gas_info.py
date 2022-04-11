@@ -49,9 +49,9 @@ def update_gas_info():
     data = r.json()
     date = datetime.strptime(data['date'].split(' ')[0], '%Y-%m-%d').strftime('%d.%m.%Y')
     total = intcomma(round(data['total_eur']), use_l10n=False)
-    oil = round(data['oil_eur'] / (10 ** 9), 3)
-    gas = round(data['gas_eur'] / (10 ** 9), 3)
-    coal = round(data['coal_eur'] / (10 ** 6))
+    oil = int(data['oil_eur'] / (10 ** 7))
+    gas = int(data['gas_eur'] / (10 ** 7))
+    coal = int(data['coal_eur'] / (10 ** 6))
 
     html = render_to_string(
         'currencies/gas_info.html',
