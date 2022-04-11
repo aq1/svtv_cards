@@ -14,7 +14,7 @@ def update_gas_info():
     r.raise_for_status()
 
     data = r.json()
-    date = datetime.strptime(data['date'].split(' ')[0], '%Y-%d-%m').strftime('%d.%m.%Y')
+    date = datetime.strptime(data['date'].split(' ')[0], '%Y-%m-%d').strftime('%d.%m.%Y')
     total = round(data['total_eur'])
     oil = round(data['oil_eur'] / (10 ** 9), 3)
     gas = round(data['gas_eur'] / (10 ** 9), 3)
