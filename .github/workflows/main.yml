@@ -27,7 +27,7 @@ jobs:
             cp "/apps/${app_name}/config/${app_name}_patreon.service" /etc/systemd/system/
             cp "/apps/${app_name}/config/${app_name}_beat.service" /etc/systemd/system/
             cp "/apps/${app_name}/config/${app_name}_monitor.service" /etc/systemd/system/
-            cp "/apps/${app_name}/cards/assets/fonts/*" /usr/share/fonts/
+            cp /apps/svtv_cards/cards/assets/fonts/* /usr/share/fonts/
 
             yarn --cwd /apps/${app_name}/test_constructor/ install
             yarn --cwd /apps/${app_name}/test_constructor/ run build
