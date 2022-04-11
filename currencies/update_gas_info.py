@@ -8,8 +8,8 @@ from xml.dom.minidom import Element, Text
 import requests
 from PIL import Image
 from cairosvg import svg2png
-from django.template.loader import render_to_string
 from django.contrib.humanize.templatetags.humanize import intcomma
+from django.template.loader import render_to_string
 
 from ghost.ghost_admin_request import get_page, upload_image, update_page
 
@@ -74,6 +74,10 @@ def update_gas_info():
             'html': html,
             'twitter_image': preview,
             'og_image': preview,
+            'og_title': total,
+            'og_description': (
+                'Европа заплатила Путину за ворованный российский газ, спонсируя путинскую войну.',
+            )
         }
     )
 
