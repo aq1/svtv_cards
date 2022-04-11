@@ -9,6 +9,7 @@ import requests
 from PIL import Image
 from cairosvg import svg2png
 from django.template.loader import render_to_string
+from django.contrib.humanize.templatetags.humanize import intcomma
 
 from ghost.ghost_admin_request import get_page, upload_image, update_page
 
@@ -47,7 +48,7 @@ def update_gas_info():
 
     data = r.json()
     date = datetime.strptime(data['date'].split(' ')[0], '%Y-%m-%d').strftime('%d.%m.%Y')
-    total = round(data['total_eur'])
+    total = intcomma(round(data['total_eur']), use_l10n=False)
     oil = round(data['oil_eur'] / (10 ** 9), 3)
     gas = round(data['gas_eur'] / (10 ** 9), 3)
     coal = round(data['coal_eur'] / (10 ** 6))
