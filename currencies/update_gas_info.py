@@ -1,12 +1,44 @@
+import io
+import os
 from datetime import datetime
+from pathlib import Path
+from xml.dom import minidom
+from xml.dom.minidom import Element, Text
 
 import requests
+from PIL import Image
+from cairosvg import svg2png
 from django.template.loader import render_to_string
 
-from ghost.ghost_admin_request import get_page, update_page
+from ghost.ghost_admin_request import get_page, upload_image, update_page
 
 URL = 'https://api.energyandcleanair.org/v1/russia_counter'
 PAGE_ID = '6251dc7fd0120d00014c4052'
+
+
+def replace_text(node: Element, date, total):
+    if isinstance(node, Text):
+        node.nodeValue = node.nodeValue.replace('{date}', str(date)).replace('{total}', str(total))
+
+    for child in node.childNodes:
+        replace_text(child, date, total)
+
+
+def generate_preview(date, total):
+    with open(Path(os.path.dirname(__file__)) / 'static' / 'gas.svg') as f:
+        doc = minidom.parseString(f.read())
+
+    replace_text(doc, date, total)
+    img_file = io.BytesIO()
+    svg2png(doc.toxml(), write_to=img_file)
+    img_file.seek(0)
+    Image.open(img_file).convert('RGB').save(img_file, format='jpeg')
+    image = Image.open(img_file)
+
+    return upload_image(
+        f'gas_info.jpg',
+        image,
+    ).json()['images'][0]['url']
 
 
 def update_gas_info():
@@ -31,12 +63,19 @@ def update_gas_info():
         },
     )
 
-    page = get_page(PAGE_ID)
+    preview = generate_preview(date, total)
 
+    page = get_page(PAGE_ID)
     update_page(
         page_id=PAGE_ID,
         page_updated_at=page['updated_at'],
         data={
             'html': html,
+            'twitter_image': preview,
+            'og_image': preview,
         }
     )
+
+
+if __name__ == '__main__':
+    update_gas_info()
