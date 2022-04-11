@@ -67,6 +67,7 @@ def update_gas_info():
     preview = generate_preview(date, total)
 
     page = get_page(PAGE_ID)
+    desc = 'Европа заплатила Путину за ворованный российский газ, спонсируя путинскую войну.'
     update_page(
         page_id=PAGE_ID,
         page_updated_at=page['updated_at'],
@@ -75,9 +76,9 @@ def update_gas_info():
             'twitter_image': preview,
             'og_image': preview,
             'og_title': total,
-            'og_description': (
-                'Европа заплатила Путину за ворованный российский газ, спонсируя путинскую войну.',
-            )
+            'og_description': desc,
+            'twitter_title': total,
+            'twitter_description': desc,
         }
     )
 
