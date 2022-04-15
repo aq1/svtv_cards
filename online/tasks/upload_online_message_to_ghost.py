@@ -8,10 +8,6 @@ from ..models import OnlineAttachment
 from ..models import OnlineMessage
 
 
-def set_ratio(meta):
-    meta['ratio'] = str(round((meta['width'] / meta['height']), 3)).replace(',', '.')
-
-
 @app.task
 def upload_online_message_to_ghost(message_id):
     message = OnlineMessage.objects.filter(id=message_id).first()
@@ -22,9 +18,6 @@ def upload_online_message_to_ghost(message_id):
     attachments = OnlineAttachment.objects.filter(message_id=message_id)
     for each in attachments:
         each.meta = json.loads(each.meta.replace("'", '"'))
-        set_ratio(each.meta)
-        if 'thumb' in each.meta:
-            set_ratio(each.meta['thumb'])
 
     attachment_rows = []
     for i in range(0, len(attachments), 3):
