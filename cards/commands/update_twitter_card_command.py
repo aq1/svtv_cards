@@ -103,4 +103,4 @@ def update_post_fields_command(post: dict, previous: dict) -> None:
     if primary_tag not in generators:
         return
 
-    update_post_fields(post)
+    update_post_fields.delay(post)
