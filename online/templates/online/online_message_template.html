@@ -11,7 +11,7 @@
                     src="{{ attachment.meta.thumb.url }}"
                     data-video="{{ attachment.url }}"
                     loading="lazy"
-                    alt=""
+                    alt="{{ message.title }}"
                     width="{{ attachment.meta.thumb.width }}"
                     height="{{ attachment.meta.thumn.height }}">
                 <div class="kg-gallery-video-icon">
@@ -25,7 +25,7 @@
                 <img
                     src="{{ attachment.url }}"
                     loading="lazy"
-                    alt=""
+                    alt="{{ message.title }}"
                     width="{{ attachment.meta.width }}"
                     height="{{ attachment.meta.height }}">
               </div>
