@@ -40,7 +40,7 @@ def upload_online_message_to_ghost(message_id):
         post_updated_at=post['updated_at'],
         data={
             'title': message.title,
-            'excerpt': message.message_service_id,
+            'custom_excerpt': message.message_service_id,
             'html': html,
             'status': 'published',
             'tags': [{'name': 'Онлайн'}],
