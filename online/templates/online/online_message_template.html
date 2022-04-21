@@ -1,6 +1,4 @@
 <!--kg-card-begin: html-->
-<div id="{{ message.message_service_id }}" class="online__message">
-  <div class="online__message-time">{{ message.created_at | date:"l, j E H:i" }}</div>
   <div class="online__message-text">{{ message.html | safe }} </div>
   <figure class="kg-card kg-gallery-card">
     <div class="kg-gallery-container">
@@ -37,5 +35,4 @@
       {% endfor %}
     </div>
   </figure>
-</div>
 <!--kg-card-end: html-->
