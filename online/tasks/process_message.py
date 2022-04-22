@@ -32,7 +32,7 @@ def process_message(message_id: str, chat_id: str, text: str, html: str, media_g
         online_message.text = text
 
     if html:
-        html = html.replace('\n', '<br>')
+        html = html.replace('\n', '\n<br>')
         online_message.html = html
 
     if title:
