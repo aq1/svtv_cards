@@ -31,7 +31,10 @@ def handle_channel_message(update: Update, _: CallbackContext):
 
     attachment = post.effective_attachment
     if isinstance(attachment, list):
-        attachment = attachment[-1].to_dict()
+        attachment = attachment[-1]
+
+    if attachment:
+        attachment = attachment.to_dict()
 
     process_message.delay(
         message_id=post.message_id,
