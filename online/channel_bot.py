@@ -31,7 +31,7 @@ def handle_channel_message(update: Update, _: CallbackContext):
 
     attachment = post.effective_attachment
     if isinstance(attachment, list):
-        attachment = attachment[-1]
+        attachment = attachment[-1].to_dict()
 
     process_message.delay(
         message_id=post.message_id,
@@ -39,7 +39,7 @@ def handle_channel_message(update: Update, _: CallbackContext):
         text=text,
         html=post.text_html_urled or post.caption_html_urled or '',
         media_group_id=post.media_group_id,
-        attachment=attachment.to_dict(),
+        attachment=attachment,
     )
 
 
