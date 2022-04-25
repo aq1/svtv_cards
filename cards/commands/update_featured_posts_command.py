@@ -8,6 +8,7 @@ TAGS_ALLOWED_TO_BE_FEATURED = {
     'opinion',
     'factchecking',
     'test',
+    'context',
 }
 
 

@@ -134,3 +134,5 @@ patreon/config.py
 patreon/patreon.db
 monitor/config.py
 monitor/database.db
+svg_test/node_modules/
+
