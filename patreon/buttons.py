@@ -16,7 +16,7 @@ auth_button = InlineKeyboardButton("Авторизоваться через Patr
 donate = KeyboardButton("💵 Отправить донат")
 buy_sub = KeyboardButton("💳 Оформить подписку")
 # login_in_patreon = KeyboardButton("🚪 Войти через Patreon")
-join_to_chat = KeyboardButton("🔐 Войти в чат")
+join_to_chat = KeyboardButton("🔐 Войти в чат через Patreon")
 
 main_menu_keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
 main_menu_keyboard.add(donate, buy_sub).add(join_to_chat)
@@ -48,9 +48,9 @@ def donate_bot():
 
 def donate_crypto():
     donate_crypto_menu = InlineKeyboardMarkup()
-    donate_with_comm = InlineKeyboardButton("Донат с комментарием", callback_data='donate_with_comm')
+    # donate_with_comm = InlineKeyboardButton("Донат с комментарием", callback_data='donate_with_comm')
     donate_without_comm = InlineKeyboardButton("Обычный донат", callback_data='donate_without_comm')
-    donate_crypto_menu.add(donate_without_comm).row(donate_with_comm)
+    donate_crypto_menu.add(donate_without_comm)
     return donate_crypto_menu
 
 
