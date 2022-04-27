@@ -57,7 +57,7 @@ async def send_donate(message: types.Message):
         f"\n\nВот несколько вариантов, как Вы можете помочь нам:", reply_markup=donate_bot())
 
 
-@dp.message_handler(text=['🔐 Войти в чат'])
+@dp.message_handler(text=['🔐 Войти в чат через Patreon'])
 async def join_chat(message: types.Message):
     # await message.reply(f"У нас есть чат для наших патронов! Вы можете авторизоваться через Patreon либо через этого бота.\n\nВход в чат возможен только с наличием подписки " \
     # f"«Читатель» и выше.", reply_markup=login_chat(user_id=message.from_user.id))

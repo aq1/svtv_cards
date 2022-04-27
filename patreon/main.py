@@ -52,7 +52,7 @@ class Main:
         await bot.send_message(user_id, f"Поздравляю, ты оплатил(-а) подписку <strong>\"{level}\"</strong> "
                                         f"на <strong>{period} "
                                         f"месяц{'а' if period == '3' else ('ев' if period != '1' else '')}'</strong>, "
-                                        f"теперь жми кнопку 🔐 Войти в чат...")
+                                        f"теперь жми кнопку 🔐 Войти в чат через Patreon...")
 
     async def send_comment(self, user_id, comment, amount, currency):
         await bot.send_message(chat_id, f"Донат-комментарий от <a href='tg://user?id={user_id}'>юзверя</a> "
