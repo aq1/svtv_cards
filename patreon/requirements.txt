@@ -1,0 +1,9 @@
+quart~=0.16.2
+patreon~=0.5.0
+aiogram~=2.16
+apscheduler~=3.6.3
+pytz~=2021.3
+MarkupSafe~=2.0.1
+hypercorn~=0.13.2
+pycoingecko~=2.2.0
+requests~=2.26.0

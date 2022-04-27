@@ -1,6 +1,5 @@
 import sqlite3
 
-
 class DB:
     def __init__(self):
         try:
@@ -28,9 +27,25 @@ class DB:
         except Exception as e:
             print(e)
 
+    def updateDB2(self, id_telegram, info):
+        try:
+            self.cursor.execute(f""" UPDATE users_bot
+                    SET sum = ?, level = ?, expires_in = ?
+                    WHERE id_patreon = {id_telegram}""", info)
+            self.conn.commit()
+        except Exception as e:
+            print(e)
+
     def deleteDB(self, id_telegram):
         try:
             self.cursor.execute(f"""delete from users where id_telegram = {id_telegram}""")
+            self.conn.commit()
+        except Exception as e:
+            print(e)
+
+    def deleteDB2(self, id_telegram):
+        try:
+            self.cursor.execute(f"""delete from users_bot where id_telegram = {id_telegram}""")
             self.conn.commit()
         except Exception as e:
             print(e)
@@ -99,8 +114,83 @@ class DB:
         except Exception as e:
             print(e)
 
+    def selectDB_users_bot(self, info):
+        try:
+            self.cursor.execute(f""" SELECT * FROM users_bot
+            WHERE id_telegram = ?""", info)
+            value = self.cursor.fetchall()
+            return value
+        except Exception as e:
+            print(e)
+
+    def selectDB_all_users_bot(self):
+        try:
+            self.cursor.execute(f""" SELECT * FROM users_bot""")
+            value = self.cursor.fetchall()
+            return value
+        except Exception as e:
+            print(e)
+
+    def insertDB_users_bot(self, info):
+        try:
+            self.cursor.execute(f"""INSERT INTO users_bot
+                    VALUES (?, ?, ?, ?)""", info
+                )
+            self.conn.commit()
+        except Exception as e:
+            print(e)
+
+    def deleteDB_users_bot(self, id_telegram):
+        try:
+            self.cursor.execute(f"""delete from users_bot where id_telegram = {id_telegram}""")
+            self.conn.commit()
+        except Exception as e:
+            print(e)
+
+    def selectDB_wallets(self, info):
+        try:
+            self.cursor.execute(f""" SELECT * FROM wallets
+            WHERE status = ? and type = ?""", info)
+            value = self.cursor.fetchall()
+            print(value)
+            return value
+        except Exception as e:
+            print(e)
+
+    def selectDB_check_wallets(self, info):
+        try:
+            self.cursor.execute(f""" SELECT * FROM wallets
+            WHERE user_id = ?""", info)
+            value = self.cursor.fetchall()
+            print(value)
+            return value
+        except Exception as e:
+            print(e)
+
+    def insertDB_wallets(self, info):
+        try:
+            self.cursor.execute(f"""INSERT INTO wallets
+                    VALUES (?, ?, ?, ?)""", info
+                )
+            self.conn.commit()
+        except Exception as e:
+            print(e)
+
+    def updateDB_wallets(self, info):
+        try:
+            self.cursor.execute(f""" UPDATE wallets
+                    SET status = ?, user_id = ?
+                    WHERE address = ?""", info)
+            self.conn.commit()
+        except Exception as e:
+            print(e)
+
     def setupDB(self):
         try:
+            self.cursor.execute("""CREATE TABLE IF NOT EXISTS users_bot
+                  (id_telegram integer unique, sum integer, level text, expires_in integer default 0);""")
+            self.cursor.execute("""CREATE TABLE IF NOT EXISTS wallets
+                  (type text, address text unique, status integer, user_id integer);""")
             self.cursor.execute("""CREATE TABLE IF NOT EXISTS users
                   (id_telegram integer unique, id_patreon integer unique, sum integer);""")
             self.cursor.execute("""CREATE TABLE IF NOT EXISTS whitelist
@@ -110,3 +200,8 @@ class DB:
             return True
         except Exception as e:
             print(e)
+
+# DB().insertDB_wallets(info=('BTC', 'YstastA521525ast55', 0, 0))
+# DB().insertDB_wallets(info=('BTC', '1EahjiPKXyAFRbTC9HYL67TMQjZZgfFw9g', 0, 0))
+# DB().insertDB_wallets(info=('BTC', '1EahjiPKaAAAAAAAAARbTC9HYL67TMQjZZgfFw9g', 0, 0))
+# DB().insertDB_users_bot(info=(399010380, 25, "Читатель", "25.05.2022"))
