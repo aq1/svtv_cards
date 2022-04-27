@@ -46,7 +46,7 @@ class Main:
     async def expired(self, user_id, wallet):
         await bot.send_message(user_id, f"Время ожидания платежа истекло, мы так и не получили его.\n\n"
                                         f"Если вы всё же отправляли средства на <code>{wallet}</code>, то обратитесь "
-                                        f"в службу поддержки...")
+                                        f"в службу поддержки @svtv_suggest_bot")
 
     async def success(self, user_id, level, period):
         await bot.send_message(user_id, f"Поздравляю, ты оплатил(-а) подписку <strong>\"{level}\"</strong> "
