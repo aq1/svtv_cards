@@ -36,7 +36,7 @@ async def check_transaction(wallet, user_id, amount, currency, level='', period=
     await sleep(0.5)
     currency = fix_currency(currency)
     start_time = time()
-    while time() < start_time + 30 * 60:
+    while time() < start_time + 60 * 60:
         await sleep(60)
         resp = get(f"https://api.blockchair.com/{currency}/dashboards/address/{wallet}")
         if resp:

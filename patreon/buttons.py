@@ -157,7 +157,7 @@ async def inline_handler(call: types.CallbackQuery, state: FSMContext):
             await bot.send_message(call.message.chat.id,
                                    f"<strong>{datetime.strftime(datetime.now(msk), '%d.%m.%Y %H:%M')}</strong>\n\n" \
                                    f"<a href='tg://user?id={call.from_user.id}'>{call.from_user.first_name}</a>" \
-                                   f", в течение 30 минут Вы должны отправить <code>{converted_amount}</code> {currency} на следующий BTC-адрес:\n\n<code>{DB_data[0][1]}</code>" \
+                                   f", в течение часа Вы должны отправить <code>{converted_amount}</code> {currency} на следующий BTC-адрес:\n\n<code>{DB_data[0][1]}</code>" \
                                    f"\n\nТранзакции поступают в сеть примерно раз в 10 минут. Как только мы увидим, что Ваш платёж дошёл — мы сразу же отправим Вам сообщение.",
                                    parse_mode='HTML')
             dp.loop.create_task(
@@ -299,7 +299,7 @@ async def inline_handler(call: types.CallbackQuery, state: FSMContext):
                                    f"<strong>{datetime.strftime(datetime.now(msk), '%d.%m.%Y %H:%M')}</strong>\n\n" \
                                    f"Оформление подписки {name_sub} на {dat_text}.\n\n"
                                    f"<a href='tg://user?id={call.from_user.id}'>{call.from_user.first_name}</a>" \
-                                   f", в течение 30 минут Вы должны отправить <code>{converted_amount}</code> {currency} на следующий BTC-адрес:\n\n<code>{DB_data[0][1]}</code>" \
+                                   f", в течение часа Вы должны отправить <code>{converted_amount}</code> {currency} на следующий BTC-адрес:\n\n<code>{DB_data[0][1]}</code>" \
                                    f"\n\nТранзакции поступают в сеть примерно раз в 10 минут. Как только мы увидим, что Ваш платёж дошёл — мы сразу же отправим Вам сообщение.",
                                    parse_mode='HTML')
             dp.loop.create_task(
