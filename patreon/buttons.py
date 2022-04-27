@@ -9,7 +9,6 @@ from config import bot, db as DB, dp, msk
 from crypto_helper import convert_from_usd, check_transaction
 from states import State_SVTV
 
-DB = DB()
 
 auth_button = InlineKeyboardButton("Авторизоваться через Patreon", url='telegra.ph')
 
