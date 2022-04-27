@@ -38,10 +38,11 @@ def login_chat(user_id):
 
 def donate_bot():
     donate_menu = InlineKeyboardMarkup()
-    yu_kassa = InlineKeyboardButton("🇷🇺 ЮKassa", url='telegra.ph')
-    smart_glocal = InlineKeyboardButton("Smart Gloсal", url='telegra.ph')
+    # yu_kassa = InlineKeyboardButton("🇷🇺 ЮKassa", url='telegra.ph')
+    # smart_glocal = InlineKeyboardButton("Smart Gloсal", url='telegra.ph')
+    temp = InlineKeyboardButton("Другие способы оплаты - скоро!")
     crypts = InlineKeyboardButton("Пожертвование в криптовалюте", callback_data='crypts')
-    donate_menu.add(yu_kassa).add(smart_glocal).add(crypts)
+    donate_menu.add(temp).add(crypts)
     return donate_menu
 
 
