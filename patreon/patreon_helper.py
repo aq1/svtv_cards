@@ -1,6 +1,6 @@
 import patreon
-from hypercorn import config, asyncio
 import quart
+from hypercorn import config, asyncio
 
 from config import db, bot, admins, cents, client_id, client_secret, redirect_uri, address
 from main import Main
@@ -93,7 +93,6 @@ async def not_main_route():
 
 
 async def activday(hand=False):
-
     patreon_tokens = db.selectDB_patreon_helper()
     if not patreon_tokens:
         for x in admins:

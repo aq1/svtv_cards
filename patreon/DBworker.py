@@ -1,5 +1,6 @@
 import sqlite3
 
+
 class DB:
     def __init__(self):
         try:
@@ -12,12 +13,12 @@ class DB:
         try:
             self.cursor.execute(f"""INSERT INTO users
                     VALUES ({id_telegram}, {id_patreon}, {sum})"""
-                )
+                                )
             self.conn.commit()
         except Exception as e:
             if str(e) == "UNIQUE constraint failed: users.id_patreon":
                 print("Юзверь уже есть в базе")
-    
+
     def updateDB(self, id_patreon, sum):
         try:
             self.cursor.execute(f""" UPDATE users
@@ -70,7 +71,7 @@ class DB:
         try:
             self.cursor.execute(f"""INSERT INTO whitelist
                     VALUES ({id_telegram})"""
-                )
+                                )
             self.conn.commit()
         except Exception as e:
             if str(e) == "UNIQUE constraint failed: whitelist.id_telegram":
@@ -78,7 +79,7 @@ class DB:
                 return value
             print(e)
 
-    def whitelistDB_remove(self, id_telegram):  
+    def whitelistDB_remove(self, id_telegram):
         try:
             self.cursor.execute(f"""DELETE FROM whitelist
             WHERE id_telegram = {id_telegram}""")
@@ -135,7 +136,7 @@ class DB:
         try:
             self.cursor.execute(f"""INSERT INTO users_bot
                     VALUES (?, ?, ?, ?)""", info
-                )
+                                )
             self.conn.commit()
         except Exception as e:
             print(e)
@@ -171,7 +172,7 @@ class DB:
         try:
             self.cursor.execute(f"""INSERT INTO wallets
                     VALUES (?, ?, ?, ?)""", info
-                )
+                                )
             self.conn.commit()
         except Exception as e:
             print(e)

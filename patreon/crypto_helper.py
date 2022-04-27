@@ -1,11 +1,8 @@
-import datetime
-from asyncio import sleep
 import datetime as dt
-
-import pytz
-from pycoingecko import CoinGeckoAPI
+from asyncio import sleep
 from time import time
 
+from pycoingecko import CoinGeckoAPI
 from requests import get
 
 from config import db, msk
@@ -53,7 +50,7 @@ async def check_transaction(wallet, user_id, amount, currency, level='', period=
                         continue
                     outputs = trans_resp.json()['data'][x]['outputs']
                     for y in outputs:
-                        if y['value'] / (10**8) == amount \
+                        if y['value'] / (10 ** 8) == amount \
                                 and y["recipient"] == wallet:
                             if level:
                                 try:
