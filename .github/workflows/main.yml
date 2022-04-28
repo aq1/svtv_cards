@@ -38,3 +38,4 @@ jobs:
             systemctl restart "${app_name}_celery"
             systemctl restart "${app_name}_bot"
             systemctl restart "${app_name}_monitor"
+            systemctl restart "${app_name}_patreon"
