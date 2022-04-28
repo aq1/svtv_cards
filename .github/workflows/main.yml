@@ -25,6 +25,7 @@ jobs:
             cp "/apps/${app_name}/config/${app_name}_celery.service" /etc/systemd/system/
             cp "/apps/${app_name}/config/${app_name}_bot.service" /etc/systemd/system/
             cp "/apps/${app_name}/config/${app_name}_patreon.service" /etc/systemd/system/
+            cp "/apps/${app_name}/config/${app_name}_patreon_server.service" /etc/systemd/system/
             cp "/apps/${app_name}/config/${app_name}_beat.service" /etc/systemd/system/
             cp "/apps/${app_name}/config/${app_name}_monitor.service" /etc/systemd/system/
             cp /apps/svtv_cards/cards/assets/fonts/* /usr/share/fonts/
@@ -39,3 +40,4 @@ jobs:
             systemctl restart "${app_name}_bot"
             systemctl restart "${app_name}_monitor"
             systemctl restart "${app_name}_patreon"
+            systemctl restart "${app_name}_patreon_server"
