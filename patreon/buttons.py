@@ -157,7 +157,7 @@ async def inline_handler(call: types.CallbackQuery, state: FSMContext):
             await bot.send_message(call.message.chat.id,
                                    f"<strong>{datetime.strftime(datetime.now(msk), '%d.%m.%Y %H:%M')}</strong>\n\n" \
                                    f"<a href='tg://user?id={call.from_user.id}'>{call.from_user.first_name}</a>" \
-                                   f", в течение часа Вы должны отправить <code>{converted_amount}</code> {currency} на следующий BTC-адрес:\n\n<code>{DB_data[0][1]}</code>" \
+                                   f", в течение двух часов Вы должны отправить <code>{converted_amount}</code> {currency} на следующий BTC-адрес:\n\n<code>{DB_data[0][1]}</code>" \
                                    f"\n\nТранзакции поступают в сеть примерно раз в 10 минут. Как только мы увидим, что Ваш платёж дошёл — мы сразу же отправим Вам сообщение.",
                                    parse_mode='HTML')
             dp.loop.create_task(
@@ -204,10 +204,13 @@ async def inline_handler(call: types.CallbackQuery, state: FSMContext):
             dat_text = '1 месяц'
         elif dat == '3':
             dat_text = '3 месяца'
+            summ *= 3
         elif dat == '6':
             dat_text = '6 месяцев'
+            summ *= 6
         elif dat == '12':
             dat_text = '12 месяцев'
+            summ *= 12
         converted_amount = convert_from_usd(summ, 'BTC')
         await bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
                                     text=f"Вы уверены, что хотите оформить подписку {name_sub} на {dat_text} за <strong>{summ}$ ({converted_amount} BTC)?</strong>",
@@ -299,7 +302,7 @@ async def inline_handler(call: types.CallbackQuery, state: FSMContext):
                                    f"<strong>{datetime.strftime(datetime.now(msk), '%d.%m.%Y %H:%M')}</strong>\n\n" \
                                    f"Оформление подписки {name_sub} на {dat_text}.\n\n"
                                    f"<a href='tg://user?id={call.from_user.id}'>{call.from_user.first_name}</a>" \
-                                   f", в течение часа Вы должны отправить <code>{converted_amount}</code> {currency} на следующий BTC-адрес:\n\n<code>{DB_data[0][1]}</code>" \
+                                   f", в течение двух часов Вы должны отправить <code>{converted_amount}</code> {currency} на следующий BTC-адрес:\n\n<code>{DB_data[0][1]}</code>" \
                                    f"\n\nТранзакции поступают в сеть примерно раз в 10 минут. Как только мы увидим, что Ваш платёж дошёл — мы сразу же отправим Вам сообщение.",
                                    parse_mode='HTML')
             dp.loop.create_task(
