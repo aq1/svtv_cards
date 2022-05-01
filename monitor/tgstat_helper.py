@@ -51,7 +51,7 @@ def fetch_posts_by_word(word: str, minus_words: str,
         raise Exception("Some error with api or query")
     resp = resp.json()
     if resp.get("status") != "ok":
-        raise Exception("Query status is not ok")
+        raise Exception(f"Query status is not ok {resp}")
     items = resp["response"]['items']
     channels = resp["response"]["channels"]
     answer = f"Найдено результатов по слову <i>{escape(word)}</i>: <b>{resp['response']['total_count']}</b>\n"
