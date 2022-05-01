@@ -10,7 +10,7 @@ from buttons import auth_button, main_menu_keyboard, donate_bot, accept_pay, sub
 from config import bot, chat_id, admins, db as DB, dp, cents, msk
 from crypto_helper import activday2, convert_from_usd
 from main import Main
-from patreon_helper import client_id, redirect_uri, activday
+from patreon_helper import client_id, redirect_uri, activday, run_server
 from states import State_SVTV
 
 main = Main()
@@ -353,4 +353,5 @@ async def on_startup(dp):
 
 if __name__ == '__main__':
     DB.setupDB()
+    dp.loop.create_task(run_server())
     executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
