@@ -19,4 +19,8 @@ class PostBackupForm(ModelForm):
 class PostBackupAdmin(SimpleHistoryAdmin):
     list_display = ['ghost_id', 'updated_at', 'title']
     ordering = ['-updated_at']
+    search_fields = (
+        'ghost_id',
+        'title',
+    )
     form = PostBackupForm
