@@ -51,7 +51,7 @@ def create_opinion_footer_layer(authors: list) -> Image.Image:
         authors_title[-1].append(a['name'])
 
     y_offset = 0
-    if len(authors_title) == 1:
+    if len(authors) != 1 and len(authors_title) == 1:
         y_offset += OPINION_NAME_FONT_SIZE // 2
     authors_title = '\n'.join([', '.join(a) for a in authors_title])
 
