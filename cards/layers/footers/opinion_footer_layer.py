@@ -48,6 +48,8 @@ def create_opinion_footer_layer(authors: list) -> Image.Image:
     for a in authors:
         if len(authors_title + a['name']) > 35:
             authors_title += '\n'
+        else:
+            authors_title += ', '
         authors_title += a['name']
 
     draw = ImageDraw.Draw(layer)
