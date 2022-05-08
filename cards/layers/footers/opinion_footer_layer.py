@@ -44,13 +44,13 @@ def create_opinion_footer_layer(authors: list) -> Image.Image:
         layer.alpha_composite(image, (LEFT_PADDING + offset, 0))
         offset += step
 
-    authors_title = ''
+    authors_title = [[]]
     for a in authors:
         if len(authors_title + a['name']) > 35:
-            authors_title += '\n'
-        else:
-            authors_title += ', '
-        authors_title += a['name']
+            authors_title.append([])
+        authors_title[-1].append(a['name'])
+
+    authors_title = '\n'.join([', '.join(a) for a in authors_title])
 
     draw = ImageDraw.Draw(layer)
     draw.text(
