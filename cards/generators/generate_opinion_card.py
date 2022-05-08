@@ -11,8 +11,7 @@ from ..utils import download_image
 
 
 def generate_opinion_card(post: dict):
-
-    # на вебхук приодит пост без информации об авторах
+    # на вебхук приходит пост без информации об авторах
     post: dict = get_post(
         post_id=post['id'],
         include=['authors'],
@@ -22,16 +21,10 @@ def generate_opinion_card(post: dict):
         cover=download_image(post.get('feature_image')),
     )
 
-    author: dict = post['primary_author'] or {}
-
     layers: list[Image.Image] = [
         create_opinion_header_layer(),
         create_opinion_title_layer(post.get('title', '')),
-        create_opinion_footer_layer(
-            name=author.get('name', ''),
-            bio=author.get('bio', ''),
-            profile_image=download_image(author.get('profile_image')),
-        )
+        create_opinion_footer_layer(post['authors']),
     ]
 
     return compile_layers(

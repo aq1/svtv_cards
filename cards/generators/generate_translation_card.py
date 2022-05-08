@@ -29,11 +29,7 @@ def generate_translation_card(post: dict):
             additional_text=post['feature_image_alt'],
         ),
         create_opinion_title_layer(post.get('title', '')),
-        create_opinion_footer_layer(
-            name=author.get('name', ''),
-            bio=author.get('bio', ''),
-            profile_image=download_image(author.get('profile_image')),
-        ),
+        create_opinion_footer_layer(post['authors']),
     ]
 
     return compile_layers(
