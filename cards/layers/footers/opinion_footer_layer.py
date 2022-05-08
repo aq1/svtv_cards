@@ -46,7 +46,7 @@ def create_opinion_footer_layer(authors: list) -> Image.Image:
 
     authors_title = [[]]
     for a in authors:
-        if len(', '.join(authors_title[-1]) + a['name']) > 35:
+        if len(', '.join(authors_title[-1]) + a['name']) > 40:
             authors_title.append([])
         authors_title[-1].append(a['name'])
 
