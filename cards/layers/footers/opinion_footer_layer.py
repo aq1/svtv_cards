@@ -50,11 +50,14 @@ def create_opinion_footer_layer(authors: list) -> Image.Image:
             authors_title.append([])
         authors_title[-1].append(a['name'])
 
+    y_offset = 0
+    if len(authors_title) == 1:
+        y_offset += OPINION_NAME_FONT_SIZE // 2
     authors_title = '\n'.join([', '.join(a) for a in authors_title])
 
     draw = ImageDraw.Draw(layer)
     draw.text(
-        (OPINION_NAME_COORDS[0] + offset - step, OPINION_NAME_COORDS[1]),
+        (OPINION_NAME_COORDS[0] + offset - step, OPINION_NAME_COORDS[1] + y_offset),
         authors_title,
         font=open_font('Roboto-Medium.ttf', OPINION_NAME_FONT_SIZE),
         fill=TITLE_FILL,
