@@ -67,4 +67,4 @@ def update_featured_posts_command(post: dict, _: dict) -> None:
     if primary_tag not in TAGS_ALLOWED_TO_BE_FEATURED:
         return
 
-    update_featured_posts()
+    update_featured_posts.delay()
