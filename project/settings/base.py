@@ -144,13 +144,6 @@ CELERY_EAGER_PROPAGATES = DEBUG
 
 SENTRY_URL = env('SENTRY_URL')
 
-if not DEBUG:
-    sentry_sdk.init(
-        dsn=SENTRY_URL,
-        integrations=[DjangoIntegration()],
-        traces_sample_rate=1.0,
-    )
-
 # Tweepy
 TWITTER_CONSUMER_KEY = env('TWITTER_CONSUMER_KEY')
 TWITTER_CONSUMER_SECRET = env('TWITTER_CONSUMER_SECRET')
