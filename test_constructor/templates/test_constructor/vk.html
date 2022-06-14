@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Photos</title>
+</head>
+<body>
+<div class="names">
+    <a class="name" href="?a=f"><div>F</div></a>
+    <a class="name" href="?a=n"><div>N</div></a>
+    <a class="name" href="?a=v"><div>V</div></a>
+</div>
+<div class="container">
+    {% for a in attachments %}
+        <a href="{{ a }}" class="item" target="_blank">
+            <img class="img" alt="" loading="lazy" src="{{ a }}">
+        </a>
+    {% endfor %}
+</div>
+</body>
+
+<style>
+    .names {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin: 0 auto;
+    }
+    .name {
+        padding: 5px 20px;
+        border: 1px solid lightcoral;
+    }
+    * {
+        box-sizing: border-box;
+    }
+
+    html, body, div, img {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+
+    body {
+        line-height: 1;
+    }
+
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 5px;
+        justify-content: start;
+    }
+
+    .item {
+        margin: 5px;
+    }
+
+    .img {
+
+        min-width: 200px;
+        min-height: 200px;
+        max-height: 500px;
+        max-width: 500px;
+        object-fit: cover;
+    }
+</style>
+</html>
