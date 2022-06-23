@@ -61,5 +61,5 @@ def notify_post_published(post, _):
             'message': message,
             'username': username,
         },
-        countdown=10,
+        countdown=60,
     )
