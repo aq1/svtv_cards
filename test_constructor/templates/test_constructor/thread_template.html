@@ -50,7 +50,7 @@
       {% endif %}
       {% if block.type == 'attaches' %}
         {# Attaches is interpreted as a video #}
-          <figure class="kg-card kg-video-card kg-card-hascaption">
+          <figure style="margin: 0" class="kg-card kg-video-card kg-card-hascaption">
               <div class="kg-video-container">
                   <video src="{{ block.data.file.url }}"
                          poster="" playsinline="" preload="metadata"
