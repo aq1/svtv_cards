@@ -12,7 +12,7 @@ class UploadError(Exception):
 
 
 @app.task
-def upload_file(filename):
+def upload_file(filename, _file, content_type):
     sts_client = boto3.client('sts')
     assumed_role_object = sts_client.assume_role(
         RoleArn=settings.AWS_ROLE_ARN,
@@ -26,15 +26,13 @@ def upload_file(filename):
         aws_session_token=credentials['SessionToken'],
     )
 
-    with open(filename, 'rb') as body:
-        key = '_s3/' + generate() + os.path.splitext(filename)[-1]
-        response = s3_client.put_object(
-            Body=body.read(),
-            Key=key,
-            Bucket=settings.AWS_BUCKET,
-        )
-
-    os.remove(filename)
+    key = '_s3/' + generate() + os.path.splitext(filename)[-1]
+    response = s3_client.put_object(
+        Body=_file.read(),
+        Key=key,
+        Bucket=settings.AWS_BUCKET,
+        ContentType=content_type,
+    )
 
     try:
         code = response['ResponseMetadata']['HTTPStatusCode']

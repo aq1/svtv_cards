@@ -4,6 +4,7 @@
     import List from '@editorjs/list';
     import Embed from '@editorjs/embed';
     import ImageTool from '@editorjs/image';
+    import AttachesTool from '@editorjs/attaches';
 
     import Card from '../components/Card.svelte';
     import Button from "../components/Button.svelte";
@@ -41,6 +42,7 @@
             minHeight: 0,
             data: card.data,
             placeholder: 'Щелкните чтобы добавить блоки',
+            // inlineToolbar: false,
             tools: {
                 embed: {
                     class: Embed,
@@ -66,7 +68,16 @@
                             byFile: `${API_URL}/upload-file/`,
                         }
                     }
-                }
+                },
+                attaches: {
+                    class: AttachesTool,
+                    config: {
+                        field: 'image',
+                        types: 'video/*',
+                        buttonText: 'Select Video',
+                        endpoint: `${API_URL}/upload-video/`,
+                    },
+                },
             },
             onChange: (api) => {
                 api.saver.save().then((data) => {
@@ -88,40 +99,41 @@
 </script>
 
 <Card>
-  <div class="wrapper">
-    <div class="row">
-      <div class="card-index">
-        <Button text="<b>{index + 1}</b> / {$thread.cards.length}" disabled={true}/>
-      </div>
-      <div class="input">
-        <Input type="text" bind:value={card.title} placeholder="Заголовок"/>
-      </div>
-      <div class="button">
-        <Button text="^" callback={() => thread.moveCard(index, -1)} disabled={index === 0}
-                tooltip="Переместить вверх"/>
+    <div class="wrapper">
+        <div class="row">
+            <div class="card-index">
+                <Button text="<b>{index + 1}</b> / {$thread.cards.length}" disabled={true}/>
+            </div>
+            <div class="input">
+                <Input type="text" bind:value={card.title} placeholder="Заголовок"/>
+            </div>
+            <div class="button">
+                <Button text="^" callback={() => thread.moveCard(index, -1)} disabled={index === 0}
+                        tooltip="Переместить вверх"/>
 
-      </div>
-      <div class="button">
-        <Button text="˅" callback={() => thread.moveCard(index, 1)} disabled={index === $thread.cards.length - 1}
-                tooltip="Переместить вниз"/>
-      </div>
-      <div class="button">
-        <Button text="-" callback={() => thread.removeCard(index)} className="danger" tooltip="Удалить"/>
-      </div>
+            </div>
+            <div class="button">
+                <Button text="˅" callback={() => thread.moveCard(index, 1)}
+                        disabled={index === $thread.cards.length - 1}
+                        tooltip="Переместить вниз"/>
+            </div>
+            <div class="button">
+                <Button text="-" callback={() => thread.removeCard(index)} className="danger" tooltip="Удалить"/>
+            </div>
+        </div>
+        {#if card.isActive}
+            <div {id} class="editor"></div>
+        {:else if !card.data.blocks}
+            <div class="placeholder" on:click={() => thread.setActiveCard(index)}>
+                Нажмите чтобы редактировать
+            </div>
+        {:else}
+            <div on:click={() => thread.setActiveCard(index)}>
+                <EditorContent data={card.data}/>
+            </div>
+        {/if}
+        <Button text="+ карточка" callback={() => {thread.addCard(index + 1)}}/>
     </div>
-    {#if card.isActive}
-      <div {id} class="editor"></div>
-    {:else if !card.data.blocks}
-      <div class="placeholder" on:click={() => thread.setActiveCard(index)}>
-        Нажмите чтобы редактировать
-      </div>
-    {:else}
-      <div on:click={() => thread.setActiveCard(index)}>
-        <EditorContent data={card.data}/>
-      </div>
-    {/if}
-    <Button text="+ карточка" callback={() => {thread.addCard(index + 1)}}/>
-  </div>
 </Card>
 
 
