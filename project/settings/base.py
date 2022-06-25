@@ -162,3 +162,9 @@ AWS_BUCKET = env('AWS_BUCKET')
 AWS_ROLE_ARN = env('AWS_ROLE_ARN')
 
 RSS_FEED_CHANNEL_ID = env('RSS_FEED_CHANNEL_ID')
+if not DEBUG:
+    sentry_sdk.init(
+        dsn=SENTRY_URL,
+        integrations=[DjangoIntegration()],
+        traces_sample_rate=1.0,
+    )
