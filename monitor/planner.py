@@ -65,11 +65,12 @@ async def spin_pattern():
             log(str(e), "spin_pattern")
             answer = str(e)
         next_flag = True
-        await bot.send_message(
-            chat_id,
-            answer,
-            disable_web_page_preview=True
-        )
+        if answer:
+            await bot.send_message(
+                chat_id,
+                answer,
+                disable_web_page_preview=True
+            )
     if next_flag:
         actual_pattern['actual_word_id'] = words[0][0]
     else:

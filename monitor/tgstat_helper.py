@@ -54,6 +54,8 @@ def fetch_posts_by_word(word: str, minus_words: str,
         raise Exception(f"Query status is not ok {resp}")
     items = resp["response"]['items']
     channels = resp["response"]["channels"]
+    if resp['response']['total_count'] == 0:
+        return ''
     answer = f"Найдено результатов по слову <i>{escape(word)}</i>: <b>{resp['response']['total_count']}</b>\n"
     for item in items:
         if [x for x in channels if -1000000000000 - x['tg_id'] in blacklist_ids and x['id'] == item['channel_id']]:
