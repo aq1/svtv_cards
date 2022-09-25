@@ -61,6 +61,11 @@ def fetch_posts_by_word(word: str, minus_words: str,
         if "/c/" in item["link"]:
             continue
         emoji = '•'
+
+        media_type = item.get('media', {}).get('media_type')
+        if media_type != 'video/mp4':
+            continue
+
         if item.get("media") and item["media"].get("media_type"):
             emoji = '• ' + emoji_media_types[item["media"]["media_type"]]
             if item['media'].get("mime_type") in emoji_media_types:
