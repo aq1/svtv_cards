@@ -60,7 +60,10 @@ async def spin_pattern():
             else:
                 black_list = literal_eval(res)
             answer = fetch_posts_by_word(
-                x[1], x[2], black_list, interval=240*len(words))
+                x[1],
+                x[2],
+                black_list,
+            )
         except Exception as e:
             log(str(e), "spin_pattern")
             answer = str(e)
