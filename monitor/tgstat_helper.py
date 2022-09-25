@@ -10,11 +10,12 @@ from config import tgstat_token as token
 endpoint = "https://api.tgstat.ru"
 usage_stat = endpoint + "/usage/stat?token={token}"
 posts_search = endpoint + "/posts/search" \
-                          "?token={token}&q={q}&startDate={start_date}" \
-                          "&endDate={end_date}&minusWords={minus_words}" \
-                          "&extended=1&hideForwards={hide_forwards}" \
-                          "&hideDeleted={hide_deleted}&peerType={peer_type}" \
-                          "&limit=50"
+           "?token={token}&q={q}&startDate={start_date}" \
+           "&endDate={end_date}&minusWords={minus_words}" \
+           "&extended=1&hideForwards={hide_forwards}" \
+           "&hideDeleted={hide_deleted}&peerType={peer_type}" \
+           "&limit=50"
+
 
 emoji_media_types = {
     'mediaDocument': '📄 ',
@@ -55,8 +56,7 @@ def fetch_posts_by_word(word: str, minus_words: str,
     channels = resp["response"]["channels"]
     if int(resp['response']['total_count']) == 0:
         return ''
-
-    answer = []
+    answer = f"Найдено результатов по слову <i>{escape(word)}</i>: <b>{resp['response']['total_count']}</b>\n"
     for item in items:
         if [x for x in channels if -1000000000000 - x['tg_id'] in blacklist_ids and x['id'] == item['channel_id']]:
             continue
@@ -75,17 +75,10 @@ def fetch_posts_by_word(word: str, minus_words: str,
         clean_text = ' '.join(
             x for x in re.split(r'(?:\n|(<[^<>]+>))', item['text']) if x and (x[0] != '<' or x[-1] != '>')
         )
-        answer.append(
-            f"\n{emoji} {escape(clean_text[:69])}"
-            f"{'...' if len(clean_text) > 69 else ''}"
-            f"\n<a href='https://{item['link']}'>link</a>"
-        )
-
-    if len(answer):
-        answer = [
-                     f"Найдено результатов по слову <i>{escape(word)}</i>: <b>{len(answer)}</b>\n"
-                 ] + answer
-    return ''.join(answer)
+        answer += f"\n{emoji} {escape(clean_text[:69])}" \
+                  f"{'...' if len(clean_text) > 69 else ''}" \
+                  f"\n<a href='https://{item['link']}'>link</a>"
+    return answer
 
 
 def check_status():
