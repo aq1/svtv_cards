@@ -72,7 +72,7 @@ def fetch_posts_by_word(word: str, minus_words: str,
         )
         answer += f"\n{emoji} {escape(clean_text[:69])}" \
                   f"{'...' if len(clean_text) > 69 else ''}" \
-                  f"\n{item.get('media', {}).get('media_type', 'no media type')}\n" \
+                  f"\n{item.get('media', {}).get('mime_type', 'no media type')}\n" \
                   f"\n<a href='https://{item['link']}'>link</a>"
     return answer
 
