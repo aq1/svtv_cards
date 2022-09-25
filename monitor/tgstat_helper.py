@@ -56,7 +56,7 @@ def fetch_posts_by_word(word: str, minus_words: str,
     channels = resp["response"]["channels"]
     if int(resp['response']['total_count']) == 0:
         return ''
-    answer = f"Найдено результатов по слову <i>{escape(word)}</i>: <b>{resp['response']['total_count']}</b>\n"
+    answer = f"Это вообще редактируется? <i>{escape(word)}</i>: <b>{resp['response']['total_count']}</b>\n"
     for item in items:
         if [x for x in channels if -1000000000000 - x['tg_id'] in blacklist_ids and x['id'] == item['channel_id']]:
             continue
