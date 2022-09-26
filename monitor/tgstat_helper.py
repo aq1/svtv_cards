@@ -33,7 +33,7 @@ emoji_media_types = {
 
 def fetch_posts_by_word(word: str, minus_words: str,
                         blacklist_ids: list, hide_forwards=True,
-                        hide_deleted=True, peer_type='channel', interval=12000):
+                        hide_deleted=True, peer_type='channel', interval=60 * 30):
     end_date = int(time.time())
     start_date = end_date - interval
     resp = requests.get(posts_search.format(
