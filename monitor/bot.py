@@ -57,7 +57,7 @@ def words(id_pattern, id_words_start, id_words_end, start, number_menu):
             t = []
             for x in selected_number:
                 button_text = x[1]
-                if x[2]:
+                if x[2].strip():
                     button_text = f'🔹{x[2]}'
                 name_word = InlineKeyboardButton(
                     button_text,
