@@ -134,5 +134,5 @@ patreon/config.py
 patreon/patreon.db
 monitor/config.py
 monitor/database.db
+monitor/blacklist.json
 svg_test/node_modules/
-
