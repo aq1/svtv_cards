@@ -83,9 +83,13 @@ def words(id_pattern, id_words_start, id_words_end, start, number_menu):
             opt = InlineKeyboardButton('✅ Выбрать паттерн', callback_data=f"opt-{id_pattern}")
             t = []
             for x in selected_number:
-                name_word = x[1]
-                name_word = InlineKeyboardButton(f"{x[1]}",
-                callback_data=f"word-{id_pattern}-{x[0]}-{id_words_start}-{id_words_end}-{start}-{number_menu}")
+                button_text = x[1]
+                if x[2].strip():
+                    button_text = f'🔹{x[2]}'
+                name_word = InlineKeyboardButton(
+                    button_text,
+                    callback_data=f"word-{id_pattern}-{x[0]}-{id_words_start}-{id_words_end}-{start}-{number_menu}",
+                )
                 t.append(name_word)
             words_menu.add(change_name)
             words_menu.add(t[0], t[1], t[2], t[3], t[4], t[5], t[6], t[7], t[8], t[9])
